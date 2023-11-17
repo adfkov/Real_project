@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+body {}
+.header {background-color: beige; height: 150px;}
+/* 검색 창 */
+.searchText {width: 300px;	} 
