@@ -4,3 +4,6 @@ body {}
 .header {background-color: beige; height: 150px;}
 /* 검색 창 */
 .searchText {width: 300px;	} 
+
+.contents { width: 100%; margin:0; padding:0;}
+.sign-up-box { width: 800px;}

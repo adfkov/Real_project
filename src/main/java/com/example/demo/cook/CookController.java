@@ -11,4 +11,6 @@ public class CookController {
 	public String cookLayout() {
 		return "template/easycook";
 	}
+	
+	
 }

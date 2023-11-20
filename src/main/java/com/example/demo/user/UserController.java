@@ -14,7 +14,7 @@ public class UserController {
 		model.addAttribute("viewName", "user/login");
 		return "template/easycook";
 	}
-	
+	// http://localhost:7080/user/sign-up-view
 	@GetMapping("/sign-up-view")
 	public String signUpView(Model model) {
 		model.addAttribute("viewName", "user/signUp");
