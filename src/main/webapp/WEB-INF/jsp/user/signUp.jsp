@@ -57,6 +57,11 @@
 				<div id="nickNameCheckOk" class="small text-success d-none">사용 가능한 닉네임 입니다.</div>
 			</div>
 			
+			<!--  프로필 이미지 -->
+			<div class="ml-3 mb-3">
+				
+			</div>
+			
 			<!--  관심 요리 분야 -->
 			<label for="interest">관심 요리 분야</label>
 			<select name="interest" id="interest" class="form-control">
