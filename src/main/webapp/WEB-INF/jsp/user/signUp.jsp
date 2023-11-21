@@ -59,7 +59,7 @@
 			
 			<!--  프로필 이미지 -->
 			<div class="ml-3 mb-3">
-				
+				<input type="text" name="profileImageUrl" id="profileImageUrl">
 			</div>
 			
 			<!--  관심 요리 분야 -->
@@ -131,9 +131,9 @@
 				url:"/user/is_duplicated_id"
 				, data:{"loginId":loginId}
 				, success: function(data) {
-					if(data.isDuplicated) {
+					if(data.isDuplicated) { // false
 						$('#idCheckDuplicated').removeClass('d-none');
-					} else {
+					} else { // 중복 아님
 						$('#idCheckOk').removeClass('d-none');
 					}
 				}
@@ -180,7 +180,7 @@
 				url:"/user/is_duplicated_nickName"
 					, data:{"nickName":nickName}
 					, success: function(data) {
-						if(data.isDuplicated) {
+						if(data.isDuplicated) { // false
 							$('#nickNameCheckDuplicated').removeClass('d-none');
 						} else {
 							$('#nickNameCheckOk').removeClass('d-none');
@@ -205,12 +205,12 @@
 			let confirmPassword = $('#confirmPassword').val();
 			let name = $('#name').val().trim();
 			let email = $('#email').val().trim();
-			
+			let profileImageUrl = $("#profileImageUrl").val().trim();
 			let nickName = $('#nickName').val().trim();
 			let interest = $('#interest option:selected').val();
 			
 			//$("#셀렉트박스ID option:selected").val();
-			alert(interest);
+			//alert(typeof profileImageUrl);
 			
 			if(loginId == '') {
 				alert("아이디");
@@ -256,7 +256,7 @@
 		// form 태그
 			// 2) AJAX - 응답값이 JSON
 			let url = $(this).attr('action');
-			alert(url);
+			//alert(url);
 			
 			let params = $(this).serialize(); // 폼 태그에 있는 name 속성- 값으로 파라미터 구성 
 			console.log(params);

@@ -8,4 +8,9 @@ import com.example.demo.user.Entity.UserEntity;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer>{
 	
+	public UserEntity findAllByLoginId(String loginId);
+	
+	public UserEntity findAllByNickName(String nickName);
+	
+	public UserEntity findAllByLoginIdAndPassword(String loginId, String password);
 }

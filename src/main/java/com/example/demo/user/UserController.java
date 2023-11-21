@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	// http://localhost:7080/user/login-view
-	@GetMapping("/login-view")
+	// http://localhost:7080/user/sign-in-view
+	@GetMapping("/sign-in-view")
 	public String signInView(Model model) {
-		model.addAttribute("viewName", "user/login");
+		model.addAttribute("viewName", "user/signIn");
 		return "template/easycook";
 	}
 	// http://localhost:7080/user/sign-up-view

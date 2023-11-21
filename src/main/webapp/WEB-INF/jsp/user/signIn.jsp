@@ -30,9 +30,37 @@
 	</div>
 </div>
 
-<!-- <script>
+ <script>
 	$(document).ready(function() {
+		$('#loginBtn').on('click', function(e) {
+			e.preventDefault();	
 		
+			let loginId = $('#loginId').val().trim();
+			let password = $('#password').val();
+			
+			if(loginId == '') {
+				alert("아이디를 입력하세요.");
+				return false;
+			}
+			if(!password) {
+				alert("비밀번호를 입력하세요.");
+				return false;
+			}
+				
+			let url = $('#loginForm').attr('action');
+			let params = $('#loginForm').serialize();
+			$.post(url, params)
+			.done(function(data){
+				if(data.code == 200) {
+					alert(data.nickName +"님 환영합니다!"); // 닉네임 가져오는 것 구현하자(완료)
+					location.href="/user/sign-up-view";
+				} else {
+					alert(data.errorMessage);
+				}
+			
+			});// done 끝
+			
+		}); 
 		
 	}); // document 끝
-</script> -->
+</script> 
