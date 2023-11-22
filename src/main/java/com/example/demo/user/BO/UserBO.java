@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.user.Entity.UserEntity;
 import com.example.demo.user.repository.UserRepository;
@@ -19,7 +20,8 @@ public class UserBO {
 	private UserRepository userRepository;
 	// 회원가입 정보 db 에 insert
 	public Integer addUser(String loginId,String password,String name,String email,
-			String nickName,String profileImageUrl,String interest) {
+			String nickName,String grade,String profileImageUrl,
+			String birth,String userGender,String interest) {
 		UserEntity userEntity = userRepository.save(
 				UserEntity.builder()
 				.loginId(loginId)
@@ -27,11 +29,15 @@ public class UserBO {
 				.name(name)
 				.email(email)
 				.nickName(nickName)
-				.profileImageUrl(profileImageUrl)
+				.grade(grade)
+				.profileImageUrl(profileImageUrl)	
+				.birth(birth)
+				.userGender(userGender)
 				.interest(interest)
 				.build());
 		return userEntity == null? null : userEntity.getId();
 	}
+	
 	// 로그인 아이디 중복
 	public UserEntity getDuplicatedLoginId(String loginId) {
 		return userRepository.findAllByLoginId(loginId);

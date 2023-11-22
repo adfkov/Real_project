@@ -7,3 +7,27 @@ body {}
 
 .contents { width: 100%; margin:0; padding:0;}
 .sign-up-box { width: 800px;}
+
+/* nav
+a 태그 색상 변경
+하이퍼링크 속성
+
+link : 아직 방문하지 않은 링크의 색상
+vlink : 방문한 적 있는 링크의 색상
+alink : 마우스로 클릭할 시 나타나는 링크 색상
+href : 해당 태그를 클릭할 시 이동시킬 페이지의 주소
+title : 마우스를 대고 있을 때 나오는 링크의 설명 (팝업창으로 뜨는 간략한 메시지 박스)
+target : 이동시킬 페이지의 형태 (새 창, 현재 창, 부모 창, 가장 상위 창 etc)
+ 
+
+- 색 변경 (HTML)
+
+<body link="black" vlink="black" alink="navy">
+	<a href="https://www.naver.com/">Naver</a>
+</body>
+ 
+ */
+.nav-out {background-color: bisque;}
+.navo {height: 60px;}
+.nav-a , .nav-a:hover { text-decoration : none;}
+

@@ -11,7 +11,7 @@
 <!-- datepicker -->
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
+
 
 <!-- 내가 만든 외부 스타일시트 -->
 <link rel="stylesheet" type="text/css" href="/static/css/easycook.css">

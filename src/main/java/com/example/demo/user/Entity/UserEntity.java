@@ -36,8 +36,13 @@ public class UserEntity {
 	private String email;
 	@Column(name="nickName")
 	private String nickName;
+	private String grade;
 	@Column(name="profileImageUrl")
 	private String profileImageUrl;
+	private String birth;
+	@Column(name="userGender")
+	private String userGender;
+	
 	private String interest;
 	@UpdateTimestamp
 	@Column(name="createdAt", updatable = false)

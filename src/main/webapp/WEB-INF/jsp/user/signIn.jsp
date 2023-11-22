@@ -53,7 +53,7 @@
 			.done(function(data){
 				if(data.code == 200) {
 					alert(data.nickName +"님 환영합니다!"); // 닉네임 가져오는 것 구현하자(완료)
-					location.href="/user/sign-up-view";
+					location.href="/cook/easycook";
 				} else {
 					alert(data.errorMessage);
 				}

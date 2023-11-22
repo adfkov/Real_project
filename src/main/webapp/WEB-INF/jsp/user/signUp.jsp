@@ -28,8 +28,8 @@
 			</div>
 
 			
-			<div class="m-3 d-flex">
-			<span class="sign-up-subject mr-4">비밀번호 확인</span>
+			<div class="m-3">
+			<span class="sign-up-subject">비밀번호 확인</span>
 				<input type="password" name="confirmPassword" id="confirmPassword" class="form-control col-6" placeholder="비밀번호를 입력하세요">
 			</div>
 
@@ -38,12 +38,7 @@
 				<input type="text" name="name" id="name" class="form-control col-6" placeholder="이름을 입력하세요">
 			</div>
 
-			<!--  생년월일 -->
-			<span class="sign-up-subject">생년월일</span>
-			<div class="m-3">
-				<input type="text" name="birth" id="datepicker" class="form-control col-6" placeholder="생일">
-			</div> 
-
+			
 			<span class="sign-up-subject">이메일</span>
 			<div class="m-3">
 				<input type="text" name="email" id="email" class="form-control col-6" placeholder="이메일을 입력하세요">
@@ -62,19 +57,37 @@
 				<div id="nickNameCheckDuplicated" class="small text-danger d-none">이미 사용중인 닉네임입니다.</div>
 				<div id="nickNameCheckOk" class="small text-success d-none">사용 가능한 닉네임 입니다.</div>
 			</div>
-			
-			<div class="grade d-none" name="grade" id="grade">
-				새싹
+		
+			<!--  회원 등급 -->
+			<span class="sign-up-subject">회원 등급</span>
+			<div class="grade ml-3 mb-3">
+				<input type="text" name="grade" id="grade" class="form-control" placeholder="새싹" readonly>
 			</div>
 			
 			<!--  프로필 이미지 -->
+			<span class="sign-up-subject">프로필 이미지</span>
 			<div class="ml-3 mb-3">
-				<input type="text" name="profileImageUrl" id="profileImageUrl">
+				<input type="text" name="profileImageUrl" id="profileImageUrl" class="form-control">
+			</div>
+			
+		<!--  생년월일 -->
+			<span class="sign-up-subject">생년월일</span>
+			<div class="ml-3 mb-3">
+				<input type="text" name="birth" id="birth" class="form-control col-6" placeholder="생일">
+			</div> 
+
+			<!--  성별 -->
+		<span class="sign-up-subject">성별</span>
+			<div class="ml-3 mb-3">
+				<select name="userGender" id="userGender" class="form-control col-3">
+					<option value="male">남성</option>
+					<option value="female">여성</option>
+				</select>
 			</div>
 			
 			<!--  관심 요리 분야 -->
 			<label for="interest">관심 요리 분야</label>
-			<select name="interest" id="interest" class="form-control">
+			<select name="interest" id="interest" class="form-control ml-3 mb-3">
 				<option value="select">관심 요리 분야(선택)</option>
 				<option value="main">메인반찬</option>
 				<option value="soup">국/탕/찌개</option>
@@ -90,7 +103,7 @@
 			</select>
 
 			<br>
-			<div class="d-flex justify-content-center m-3">
+			<div class="d-flex justify-content-center ml-3 mb-3">
 				<button type="submit" id="signUpBtn" class="btn btn-info">가입하기</button>
 			</div>
 		</form>
@@ -219,10 +232,15 @@
 			let confirmPassword = $('#confirmPassword').val();
 			let name = $('#name').val().trim();
 			let email = $('#email').val().trim();
+			let grade = $('#grade').attr('placeholder');
 			let profileImageUrl = $("#profileImageUrl").val().trim();
-			let grade = $('#grade').val().trim();
+			let birth = $('#birth').val().trim();
+			let userGender = $('#userGender').val().trim();
 			let nickName = $('#nickName').val().trim();
 			let interest = $('#interest option:selected').val();
+			
+			alert(grade);
+			alert(typeof userGender);
 			
 			//$("#셀렉트박스ID option:selected").val();
 			//alert(typeof profileImageUrl);
@@ -270,28 +288,35 @@
 			
 		// form 태그
 			// 2) AJAX - 응답값이 JSON
-			let url = $(this).attr('action');
-			//alert(url);
+	
 			
-			let params = $(this).serialize(); // 폼 태그에 있는 name 속성- 값으로 파라미터 구성 
-			console.log(params);
-			// 
-			$.post(url, params) // request 정보 , request body , 요청 후 응답까지 받아온다.
-			.done(function(data) { // response
-				// code: 200, result: 성공
-				if(data.code == 200) { // 성공
-					alert("가입을 환영합니다. 로그인을 해주세요.");
-					location.href = "/user/sign-in-view"; // 화면 넘기기
-				} else {
-					// 로직 실패
-					alert(data.errorMessage);
+			
+			$.ajax({
+				type:"POST"
+				,url:"/user/sign-up"
+				,data:{"loginId": loginId, "password":password ,"name":name ,"email":email ,"grade":grade ,
+					"profileImageUrl": profileImageUrl,"birth":birth ,"userGender": userGender, 
+					"nickName": nickName,"interest":interest}
+				
+				,success : function(data) {
+					alert(data);
+					if(data.code == 200) {
+						alert("가입을 환영합니다. 로그인을 해주세요.");
+						location.href = "/user/sign-in-view"; // 화면 넘기기
+					} else {
+						// 로직 실패
+						alert(data.errorMessage);
+					}
 				}
-			});
+			
+				}); // ajax 끝
+			
+			}); // signupform 끝
 			
 			
 	});
 		
 		
-	});
+
 	
 </script>

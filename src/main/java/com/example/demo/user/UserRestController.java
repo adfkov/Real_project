@@ -27,11 +27,11 @@ public class UserRestController {
 			@RequestParam("loginId") String loginId) {
 		// db 조회
 		UserEntity user = userBO.getDuplicatedLoginId(loginId);
-		String duplicatedId = user.getLoginId();
+//		String duplicatedId = user.getLoginId();
 		// 
 		Map<String, Object> result = new HashMap<>();
 		
-		if(duplicatedId == null) 
+		if(user == null) 
 		{
 			// 중복 아님
 			result.put("isDuplicated", false);
@@ -51,11 +51,11 @@ public class UserRestController {
 			@RequestParam("nickName") String nickName) {
 		// db 조회
 		UserEntity user = userBO.getDuplicatedNickname(nickName);
-		String duplicatedNickName = user.getNickName();
+		//String duplicatedNickName = user.getNickName();
 		// 리턴
 		Map<String, Object> result = new HashMap<>();
 		
-		if(duplicatedNickName == null) { // 중복 아님
+		if(user == null) { // 중복 아님
 			result.put("isDuplicated", false);
 		} else { // 중복
 			result.put("isDuplicated", true);
@@ -81,12 +81,15 @@ public class UserRestController {
 			@RequestParam("name") String name,
 			@RequestParam("email") String email,
 			@RequestParam("nickName") String nickName,
+			@RequestParam("grade") String grade,
 			@RequestParam("profileImageUrl") String profileImageUrl,
+			@RequestParam("birth") String birth,
+			@RequestParam("userGender") String userGender,
 			@RequestParam("interest") String interest) {
 		
 		Map<String, Object> result = new HashMap<>();
 		// db insert
-		Integer id = userBO.addUser(loginId, password, name, email, nickName, profileImageUrl, interest);
+		Integer id = userBO.addUser(loginId, password, name, email, nickName,grade, profileImageUrl,birth,userGender, interest);
 		// map
 		
 		if(id == null) {

@@ -20,4 +20,11 @@ public class UserController {
 		model.addAttribute("viewName", "user/signUp");
 		return "template/easycook";
 	}
+	
+	@GetMapping("/user/profile-modify")
+	public String profileModify(Model model) {
+		model.addAttribute("viewName", "user/profileModify");
+		return "template/easycook";
+	}
+
 }
