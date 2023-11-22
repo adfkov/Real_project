@@ -38,6 +38,12 @@
 				<input type="text" name="name" id="name" class="form-control col-6" placeholder="이름을 입력하세요">
 			</div>
 
+			<!--  생년월일 -->
+			<span class="sign-up-subject">생년월일</span>
+			<div class="m-3">
+				<input type="text" name="birth" id="datepicker" class="form-control col-6" placeholder="생일">
+			</div> 
+
 			<span class="sign-up-subject">이메일</span>
 			<div class="m-3">
 				<input type="text" name="email" id="email" class="form-control col-6" placeholder="이메일을 입력하세요">
@@ -55,6 +61,10 @@
 				<div id="nickNameCheckLength" class="small text-danger d-none">닉네임을 2글자 이상 입력해주세요.</div>
 				<div id="nickNameCheckDuplicated" class="small text-danger d-none">이미 사용중인 닉네임입니다.</div>
 				<div id="nickNameCheckOk" class="small text-success d-none">사용 가능한 닉네임 입니다.</div>
+			</div>
+			
+			<div class="grade d-none" name="grade" id="grade">
+				새싹
 			</div>
 			
 			<!--  프로필 이미지 -->
@@ -89,6 +99,10 @@
 
 <script>
 	$(document).ready(function() {
+		
+	
+		$( "#datepicker" ).datepicker();
+		   
 		
 		$('#loginId').mousedown(function()  {
 			
@@ -206,6 +220,7 @@
 			let name = $('#name').val().trim();
 			let email = $('#email').val().trim();
 			let profileImageUrl = $("#profileImageUrl").val().trim();
+			let grade = $('#grade').val().trim();
 			let nickName = $('#nickName').val().trim();
 			let interest = $('#interest option:selected').val();
 			
