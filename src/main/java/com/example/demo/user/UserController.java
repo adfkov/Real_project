@@ -1,5 +1,7 @@
 package com.example.demo.user;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,16 @@ public class UserController {
 	public String profileModify(Model model) {
 		model.addAttribute("viewName", "user/profileModify");
 		return "template/easycook";
+	}
+	
+	// 로그아웃
+	@RequestMapping("/sign-out")
+	public String signOut(HttpSession session) {
+		session.removeAttribute("userId");
+		session.removeAttribute("userNickName");
+		session.removeAttribute("userLoginId");
+		
+		return "redirect:/user/sign-in-view";
 	}
 
 }

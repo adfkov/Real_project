@@ -3,6 +3,9 @@ package com.example.demo.user;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -106,7 +109,8 @@ public class UserRestController {
 	@PostMapping("/sign-in")
 	public Map<String, Object> signIn(
 			@RequestParam("loginId") String loginId
-			,@RequestParam("password") String password) {
+			,@RequestParam("password") String password
+			, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();
 		
 		// db insert
@@ -116,6 +120,11 @@ public class UserRestController {
 			result.put("code", 500);
 			
 		} else { // 로그인 성공
+			HttpSession session = request.getSession();
+			session.setAttribute("userId", user.getId());
+			session.setAttribute("userNickName", user.getNickName());
+			session.setAttribute("userLoginId", user.getLoginId());
+			
 			result.put("code", 200);
 			result.put("nickName", user.getNickName());
 		}
@@ -123,6 +132,7 @@ public class UserRestController {
 		return result;
 	}
 	
+
 	
 	
 	

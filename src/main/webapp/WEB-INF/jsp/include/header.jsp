@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="header d-flex justify-content-center align-items-center">
 	<div class="logo  mr-5">
-		<a href="https://naver.com"><img src="/static/img/Easycook-logo.png" alt="logo" width=200 height=150></a>
+		<a href="/cook/easycook"><img src="/static/img/Easycook-logo.png" alt="logo" width=200 height=150></a>
 	</div>
 	
 	<div class="search d-flex mr-5">
@@ -17,14 +18,28 @@
 			<a id="btnTopWrite" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-original-title="레시피등록"><img src="https://recipe1.ezmember.co.kr/img/ico_user.png" alt="레시피등록">
 			</a>
 			<div class="write_layer" style="left: -230px; display:block;">
-			 <a href="#" class="layer2">
+			<!--  레시피 작성하기 -->
+			 <a href="/cook/writeRecipe" class="layer2">
 			 	<img src="https://recipe1.ezmember.co.kr/img/tmn_write.png">
 			 	<span>글 작성하기</span>
 			 </a>
 			</div>
 		</li>
 	</ul>
+	
+	<div class="login-info d-flex align-items-center mr-5">
+		<c:if test="${userId ne null}">
+		<span class="text-danger">${userNickName}님 안녕하세요</span>
+		<a href="/user/sign-out" class="ml-2 text-danger font-weight-bold">로그아웃</a>
+		</c:if>
+	</div>
 </div>
+
+<script>
+	$(document).ready(function() { 
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>
 
 <!-- 
 <ul class="gnb_right">

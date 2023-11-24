@@ -14,5 +14,11 @@ public class CookController {
 		return "template/easycook";
 	}
 	
+	@GetMapping("/writeRecipe")
+	public String writeRecipePage(Model model) {
+		model.addAttribute("viewName", "recipe/writeRecipe");
+		
+		return "template/easycook";
+	}
 	
 }
