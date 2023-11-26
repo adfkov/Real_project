@@ -19,10 +19,18 @@
 			</a>
 			<div class="write_layer" style="left: -230px; display:block;">
 			<!--  레시피 작성하기 -->
-			 <a href="/cook/writeRecipe" class="layer2">
+			<c:if test="${userId eq null}"> 
+			 <a href="/user/sign-in-view" class="layer2" id="writeRecipeBtn">
 			 	<img src="https://recipe1.ezmember.co.kr/img/tmn_write.png">
 			 	<span>글 작성하기</span>
 			 </a>
+			 </c:if>
+			 <c:if test="${userId ne null}">
+			  <a href="/cook/writeRecipe" class="layer2" id="writeRecipeBtn">
+			 	<img src="https://recipe1.ezmember.co.kr/img/tmn_write.png">
+			 	<span>글 작성하기</span>
+			 </a>
+			 </c:if>
 			</div>
 		</li>
 	</ul>
@@ -38,6 +46,10 @@
 <script>
 	$(document).ready(function() { 
 		$('[data-toggle="tooltip"]').tooltip();
+		
+		$('#writeRecipeBtn').on('click', function() {
+				
+		});
 	});
 </script>
 

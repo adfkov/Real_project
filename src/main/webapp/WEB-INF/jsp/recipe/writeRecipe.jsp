@@ -1,23 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<form name="recipeAll" id="recipeAll" class="form-horizontal" method="post">
+<form name="recipeAll" id="recipeAll" class="form-horizontal" method="post" action="/post/add-recipe"> 
 <div class="container recipe_regi">
-	<div class="regi-title">
+	<div class="regi-title" data-user-id="${userId}">
 		레시피 등록
 	</div>
 	
-	<div class="cont-box pad_1_60">
+	<div class="cont-box">
 		
 		<div class="cont-line d-flex align-items-center mt-3">
 			<p class="cont_tit4">레시피 제목</p>
-			<input type="text" name="cok_title" id="cok_title" class="form-control" placeholder="예) 쫄깃쫄깃한 떡꼬치 만들기" style="width:610px;">
+			<input type="text" name="cok-title" id="title" class="form-control" placeholder="예) 쫄깃쫄깃한 떡꼬치 만들기" style="width:610px;">
 		</div>
 		
 		<div class="cont-line">
 			<p class="cont_tit4">요리 소개</p>
-			<textarea name="cok-intro" id="cok-intro" class="form-control step_cont" 
-			placeholder="이 레시피를 만들게 된 배경을 적어주세요! ex) 여자친구와 소풍 갈 때 먹으려고 만들어봤어요."  style="width:610px; height:100px; resize:none;"></textarea>
+			<textarea name="cok-intro" id="intro" class="form-control step_cont"placeholder="이 레시피를 만들게 된 배경을 적어주세요! ex) 여자친구와 소풍 갈 때 먹으려고 만들어봤어요."  style="width:610px; height:100px; resize:none;"></textarea>
 		</div>
 		
 		<div class="cont-line">
@@ -42,7 +41,7 @@
 				<option value="59">차/음료/술</option>
 				<option value="62">기타</option>
 			</select>
-			<select name="cok_sq_category_2" id="cok_sq_category_2" class="form-control category mt-3 ml-2" text="재료별">
+			<select name="cok_sq_category_2" id="cok_sq_category_2" class="form-control category mt-3 ml-2">
 				<option value="">재료별</option><option value="70">소고기</option>
 				<option value="71">돼지고기</option>
 				<option value="72">닭고기</option>
@@ -65,7 +64,7 @@
 		<div class="cont-line">
 			<p class="cont_tit4">요리정보</p>
 			<span class="s" style="margin-top:22px;">인원</span>
-			<select name="cok_portion" id="cok_portion" text="인원" class="form-control" style="width:100px; height: 40px; margin-top:15px; margin-left: 5px;">
+			<select name="cok_portion" id="cok_portion"  class="form-control" style="width:100px; height: 40px; margin-top:15px; margin-left: 5px;">
 				<option value="">인원</option><option value="1">1인분</option>
 				<option value="2">2인분</option>
 				<option value="3">3인분</option>
@@ -75,7 +74,7 @@
 			</select>
 			
 			<span class="s" style="margin-top:22px; margin-left: 10px;">난이도</span>
-			<select name="cok_degree" id="cok_degree" text="난이도" class="form-control" style="width:100px; height: 40px; margin-top:15px; margin-left: 5px;">
+			<select name="cok_degree" id="cok_degree" class="form-control" style="width:100px; height: 40px; margin-top:15px; margin-left: 5px;">
 				<option value="">난이도</option><option value="1">아무나</option>
 				<option value="2">초급</option>
 				<option value="3">중급</option>
@@ -94,11 +93,69 @@
 		</div>
 	</div>
 	
+	<div class="cont-box">
+		<div class="cont-line">
+			<p class="cont_tit4">요리순서</p>
+			<textarea name="cookStepText" id="cookStepText" class="form-control step_cont" 
+			placeholder="요리 순서를 적어주세요!"  style="width:610px; height:100px; resize:none;"></textarea>
+		</div>
+	</div>
+	
 		<div class="cont-line">
 			<p class="cont_tit4">요리 팁</p>
 			<textarea name="cok-tip" id="cok-tip" class="form-control step_cont" 
 			placeholder="예) 불 조절을 적절하게 하면 육질이 부드러워요"  style="width:610px; height:100px; resize:none;"></textarea>
 		</div>
+	
+	
+	<div class="regi_btn">
+		<button type="submit" class="btn btn-info" id="submitBtn">저장</button>
 	</div>
-
-</form>
+</div>
+ </form>
+<script>
+	$(document).ready(function() {
+		let userId =$('.regi-title').data("user-id");
+		let subject = $('input[name=cok-title]').val().trim();
+		let intro = $('#intro').val();
+	
+		
+		let foodTypeId = $('#cok_sq_category_1').val().trim();
+		let ingredientId = $('#cok_sq_category_2').val().trim();
+		let portion = $('#cok_portion').val().trim();
+		let degree = $('#cok_degree').val().trim();
+		let ingredient = $('#cok-ingredient').val().trim();
+		let cookStepText = $('#cookStepText').val().trim();
+		let cookTip = $('#cok-tip').val().trim();
+		
+	//	console.log(userId);
+		
+		$('#submitBtn').on('click', function(e) {
+			e.preventDefault();
+			if(subject == "") {
+				alert("제목을 입력하세요.");
+			}
+			alert(intro);
+			$.ajax({
+				type:"POST"
+				, url:"/post/add-recipe"
+				, data: {"userId": userId,"subject": subject,"intro":intro ,"foodTypeId": foodTypeId
+					,"ingredientId":ingredientId ,"portion":portion ,"degree":degree ,
+					"ingredient":ingredient ,"cookStepText":cookStepText,"cookTip":cookTip}
+				, success : function(data) {
+					if(data.code == 200) {
+					alert("레시피가 저장됐습니다.");
+				//	location.href = "/user/user-recipe-view";
+				} else {
+					alert("레시피 저장 실패");
+					}
+				}	
+				, error : function(request, status, error) {
+					alert("아예 실패");	
+				}
+				
+			});
+		});
+	});
+	
+</script>

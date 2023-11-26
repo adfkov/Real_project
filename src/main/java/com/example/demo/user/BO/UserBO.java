@@ -1,13 +1,7 @@
 package com.example.demo.user.BO;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.user.Entity.UserEntity;
 import com.example.demo.user.repository.UserRepository;

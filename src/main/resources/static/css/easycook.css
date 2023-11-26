@@ -50,7 +50,7 @@ target : 이동시킬 페이지의 형태 (새 창, 현재 창, 부모 창, 가�
     margin-top: -1px;
 }
 .cont-line input {
-    display: inline-block;
+  
 }
 .cont-line {
 	display: flex;
@@ -80,4 +80,9 @@ button, input, select, textarea {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+}
+
+.regi_btn {
+	  display: flex;
+  justify-content: center;
 }
