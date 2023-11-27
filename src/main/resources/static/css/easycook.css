@@ -86,3 +86,60 @@ button, input, select, textarea {
 	  display: flex;
   justify-content: center;
 }
+
+li {
+	list-style: none;
+}
+
+.nav-etc {
+	background-image: url(https://recipe1.ezmember.co.kr/img/bg_wave.png?v.2);
+	height: 90px;
+}
+
+section {
+	display: block;
+}
+
+.nav-logo {
+	font-size: 20px;
+	font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container-etc {
+	margin: 0 auto;
+	margin-top: 50px;
+	width: 500px;	
+}
+.panel-body {
+	padding: 0;
+}
+.etc-wrap {
+	
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.etc_wrap p {
+    padding: 2px 20px 0;
+}
+
+.panel-body button {
+	border: 1px solid #ccc;
+	float:right;
+}
+
+#updEmail {
+	margin-top:20px;
+}
+
+.btn-group-vertical>.btn-group:after, .btn-group-vertical>.btn-group:before, .btn-toolbar:after, .btn-toolbar:before, .clearfix:after, .clearfix:before, .container-fluid:after, .container-fluid:before, .container:after, .container:before, .dl-horizontal dd:after, .dl-horizontal dd:before, .form-horizontal .form-group:after, .form-horizontal .form-group:before, .modal-footer:after, .modal-footer:before, .nav:after, .nav:before, .navbar-collapse:after, .navbar-collapse:before, .navbar-header:after, .navbar-header:before, .navbar:after, .navbar:before, .pager:after, .pager:before, .panel-body:after, .panel-body:before, .row:after, .row:before {
+    display: table; 
+    content: " ";
+}

@@ -115,7 +115,7 @@ public class UserRestController {
 			, Model model) {
 		Map<String, Object> result = new HashMap<>();
 		
-		// db insert
+		// db select
 		UserEntity user = userBO.getUserEntityByLoginIdPassword(loginId, password);
 		
 		if(user == null) { // 로그인 실패
@@ -133,6 +133,45 @@ public class UserRestController {
 		
 		return result;
 	}
+	
+	@PostMapping("/get-user-info")
+	public Map<String, Object> getUserInfo(HttpSession session) {
+		Map<String, Object> result = new HashMap<>();
+		
+		int userId = (int) session.getAttribute("userId");
+		// db select
+		UserEntity user = userBO.getUserEntityById(userId);
+		if(user != null) {
+			result.put("code", 200);
+			result.put("userEmail", user.getEmail());
+			result.put("userNickName", user.getNickName());
+		
+			return result;
+		} else {
+			result.put("code", 500);
+			return result;
+			
+		}
+		
+		
+	}
+	
+	@PostMapping("/update-user-info")
+	public Map<String, Object> updateUserInfo(
+			@RequestParam("beforeEmail") String beforeEmail
+			,@RequestParam("afterEmail") String afterEmail) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		// db update
+		userBO.updateUserEmail(beforeEmail, afterEmail);
+		
+		
+		result.put("code", 200);
+		
+		return result;
+	}
+	
 	
 
 	

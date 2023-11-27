@@ -115,22 +115,23 @@
  </form>
 <script>
 	$(document).ready(function() {
-		let userId =$('.regi-title').data("user-id");
-		let subject = $('input[name=cok-title]').val().trim();
-		let intro = $('#intro').val();
 	
-		
-		let foodTypeId = $('#cok_sq_category_1').val().trim();
-		let ingredientId = $('#cok_sq_category_2').val().trim();
-		let portion = $('#cok_portion').val().trim();
-		let degree = $('#cok_degree').val().trim();
-		let ingredient = $('#cok-ingredient').val().trim();
-		let cookStepText = $('#cookStepText').val().trim();
-		let cookTip = $('#cok-tip').val().trim();
 		
 	//	console.log(userId);
 		
 		$('#submitBtn').on('click', function(e) {
+			let userId =$('.regi-title').data("user-id");
+			let subject = $('input[name=cok-title]').val().trim();
+			let intro = $('#intro').val();
+		
+			
+			let foodTypeId = $('#cok_sq_category_1').val().trim();
+			let ingredientId = $('#cok_sq_category_2').val().trim();
+			let portion = $('#cok_portion').val().trim();
+			let degree = $('#cok_degree').val().trim();
+			let ingredient = $('#cok-ingredient').val().trim();
+			let cookStepText = $('#cookStepText').val().trim();
+			let cookTip = $('#cok-tip').val().trim();
 			e.preventDefault();
 			if(subject == "") {
 				alert("제목을 입력하세요.");

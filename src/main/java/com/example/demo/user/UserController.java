@@ -23,7 +23,7 @@ public class UserController {
 		return "template/easycook";
 	}
 	
-	@GetMapping("/user/profile-modify")
+	@GetMapping("/profile-modify")
 	public String profileModify(Model model) {
 		model.addAttribute("viewName", "user/profileModify");
 		return "template/easycook";
@@ -39,7 +39,7 @@ public class UserController {
 		return "redirect:/user/sign-in-view";
 	}
 	
-	
+
 	}
 
 

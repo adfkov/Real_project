@@ -46,4 +46,21 @@ public class UserBO {
 	public UserEntity getUserEntityByLoginIdPassword(String loginId, String password) {
 		return userRepository.findAllByLoginIdAndPassword(loginId, password);
 	}
+	
+	public UserEntity getUserEntityById(int id) {
+		return userRepository.findAllById(id);
+	}
+	
+	public UserEntity getUserEntityByEmail(String beforeEmail) {
+		return userRepository.findAllByEmail(beforeEmail);
+
+	}
+	
+	public void updateUserEmail(String beforeEmail, String afterEmail) {
+		UserEntity user = userRepository.findAllByEmail(beforeEmail);
+		user.setEmail(afterEmail);
+		userRepository.save(user);
+		
+	}
+	
 }

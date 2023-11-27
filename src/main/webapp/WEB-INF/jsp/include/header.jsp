@@ -15,22 +15,25 @@
 	<ul class="profile d-flex ml-5 mt-5">
 		<!-- 프로필 사진 구현되면 이미지 작게 띄워야 함 -->
 		<li>
-			<a id="btnTopWrite" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-original-title="레시피등록"><img src="https://recipe1.ezmember.co.kr/img/ico_user.png" alt="레시피등록">
-			</a>
+			<c:if test="${userId eq null}"> 
+			 <a href="/user/sign-in-view" class="layer2" id="userViewBtn" data-toggle="tooltip" data-placement="top" data-original-title="로그인/회원가입">
+			<img src="https://recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인/회원가입">
+			 </a>
+			 </c:if>
+			 
+			 <c:if test="${userId ne null}"> 
+			 <a href="/user/profile-modify" class="layer2" id="userViewBtn" data-toggle="tooltip" data-placement="top" data-original-title="마이페이지">
+			<img src="https://recipe1.ezmember.co.kr/img/ico_user.png" alt="마이페이지">
+			 </a>
+			 </c:if>
 			<div class="write_layer" style="left: -230px; display:block;">
 			<!--  레시피 작성하기 -->
-			<c:if test="${userId eq null}"> 
-			 <a href="/user/sign-in-view" class="layer2" id="writeRecipeBtn">
+			
+			 
+			  <a href="/cook/writeRecipe" class="layer2" id="writeRecipeBtn" data-toggle="tooltip" data-placement="top" data-original-title="레시피등록">
 			 	<img src="https://recipe1.ezmember.co.kr/img/tmn_write.png">
-			 	<span>글 작성하기</span>
 			 </a>
-			 </c:if>
-			 <c:if test="${userId ne null}">
-			  <a href="/cook/writeRecipe" class="layer2" id="writeRecipeBtn">
-			 	<img src="https://recipe1.ezmember.co.kr/img/tmn_write.png">
-			 	<span>글 작성하기</span>
-			 </a>
-			 </c:if>
+			 
 			</div>
 		</li>
 	</ul>
