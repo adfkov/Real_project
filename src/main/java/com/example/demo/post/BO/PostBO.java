@@ -39,3 +39,4 @@ public class PostBO {
 		return postEntity == null? null : postEntity.getId();
 	}
 }
+	

@@ -22,14 +22,14 @@
 			 </c:if>
 			 
 			 <c:if test="${userId ne null}"> 
-			 <a href="/user/profile-modify" class="layer2" id="userViewBtn" data-toggle="tooltip" data-placement="top" data-original-title="마이페이지">
+			 <a href="/user/profile-modify" class="layer2" id="myPageViewBtn" data-toggle="tooltip" data-placement="top" data-original-title="마이페이지">
 			<img src="https://recipe1.ezmember.co.kr/img/ico_user.png" id="myPage" alt="마이페이지"> </a>
 			 
 			 <div class="mem-layer">
 			 	<p class="mem-layer-slit"></p>
 			 	<p class="mem-layer-m d-none">
  		   			<a href="/user/go-my-home">MY홈</a>
-                    <a href="">스크랩한 레시피</a>
+                    <a href="/user/go-scrap">스크랩한 레시피</a>
                     <a href="https://www.10000recipe.com/profile/note.html">레시피 노트</a>
                     <a href="https://www.10000recipe.com/profile/alim.html">알림</a>
                     <a href="https://www.10000recipe.com/profile/message.html">메시지</a>
@@ -69,6 +69,11 @@
 		
 		$('#writeRecipeBtn').on('click', function() {
 				
+		});
+		
+		$('#myPageViewBtn').on('click', function() {
+			$('.mem-layer-m').removeClass('d-none');
+			
 		});
 	});
 </script>
