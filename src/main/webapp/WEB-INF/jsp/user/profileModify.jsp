@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="nav-etc d-flex justify-content-center align-items-center">
 	<span class="nav-logo text-white font-weight-bold">회원 정보 수정</span>
@@ -24,6 +24,16 @@
 				<strong id="userNickName" class="ml-5">젲제</strong>
 				<button id="btnUpNickName" type="button" class="btn btn-default mr-4">닉네임 수정</button>
 			</p>
+			<div id="upNick" class="d-none" style="margin-top:20px;">
+				<div id="nickFrms" class="form-group has-feedback">
+					 <input type="text" class="form-control" id="user_nm" placeholder="낙네임">
+					 	
+				</div>
+				<p style="text-align:center;">
+					<button type="button" class="btn btn-primary" id="nmChangeBtn "style="width:150px;">변경</button>
+				</p>
+				
+			</div>
 		</div>
 	</div>
 	
@@ -70,6 +80,15 @@
 					alert("형편없이 이메일 변경 실패");
 				}
 			})
+		});
+		
+		// 닉네임 수정 버튼 클릭 시
+		$('#btnUpNickName').on('click', function() {
+			if($('#upNick').hasClass('d-none')) { // 안 보일 때
+				$('#upNick').removeClass('d-none');
+			} else {
+				$('#upNick').addClass('d-none');
+			}
 		});
 		
 	});
