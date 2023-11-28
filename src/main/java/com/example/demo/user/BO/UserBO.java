@@ -62,5 +62,14 @@ public class UserBO {
 		userRepository.save(user);
 		
 	}
-	
+	public void updateUserNickName(String beforeNickName,String afterNickName) {
+		UserEntity user = userRepository.findAllByNickName(beforeNickName);
+		user.setNickName(afterNickName);
+		userRepository.save(user);	
+		}
+	public void updateUserInterest(String beforeInterest, String afterInterest) {
+		UserEntity user = userRepository.findAllByInterest(beforeInterest);
+		user.setInterest(afterInterest);
+		userRepository.save(user);	
+	}
 }

@@ -145,7 +145,7 @@ public class UserRestController {
 			result.put("code", 200);
 			result.put("userEmail", user.getEmail());
 			result.put("userNickName", user.getNickName());
-		
+			result.put("userInterest", user.getInterest());
 			return result;
 		} else {
 			result.put("code", 500);
@@ -156,7 +156,7 @@ public class UserRestController {
 		
 	}
 	
-	@PostMapping("/update-user-info")
+	@PostMapping("/update-user-email")
 	public Map<String, Object> updateUserInfo(
 			@RequestParam("beforeEmail") String beforeEmail
 			,@RequestParam("afterEmail") String afterEmail) {
@@ -172,10 +172,31 @@ public class UserRestController {
 		return result;
 	}
 	
+	@PostMapping("/update-user-nickName")
+	public Map<String, Object> updateUserNickName(
+			@RequestParam("beforeNickName") String beforeNickName
+			,@RequestParam("afterNickName") String afterNickName) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		// db update
+		userBO.updateUserNickName(beforeNickName,afterNickName);
 	
-
+		result.put("code", 200);
+		return result;
+	}
 	
+	@PostMapping("/update-user-interest")
+	public Map<String, Object> updateUserInterest(
+			@RequestParam("beforeInterest") String beforeInterest
+			,@RequestParam("afterInterest") String afterInterest) {
+		Map<String, Object> result = new HashMap<>();
+		
+		// db update
+		userBO.updateUserInterest(beforeInterest,afterInterest);
 	
-	
+		result.put("code", 200);
+		return result;
+	}
 	
 }

@@ -143,3 +143,12 @@ p {
     display: table; 
     content: " ";
 }
+
+#userViewBtn	{
+	display: block;
+	width:44px; 
+	height:44px;
+	}
+#myPage {
+	margin-left: 1px;
+}

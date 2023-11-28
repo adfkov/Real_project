@@ -114,8 +114,8 @@
 	$(document).ready(function() {
 		
 	
-		$( "#datepicker" ).datepicker();
-		   
+	/* 	$( "#datepicker" ).datepicker();
+	 */	   
 		
 		$('#loginId').mousedown(function()  {
 			
@@ -237,10 +237,9 @@
 			let birth = $('#birth').val().trim();
 			let userGender = $('#userGender').val().trim();
 			let nickName = $('#nickName').val().trim();
-			let interest = $('#interest option:selected').val();
+			let interest = $('#interest option:selected').text();
 			
-			alert(grade);
-			alert(typeof userGender);
+			alert(interest);
 			
 			//$("#셀렉트박스ID option:selected").val();
 			//alert(typeof profileImageUrl);

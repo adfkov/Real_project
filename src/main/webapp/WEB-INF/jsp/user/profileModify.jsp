@@ -24,16 +24,50 @@
 				<strong id="userNickName" class="ml-5">젲제</strong>
 				<button id="btnUpNickName" type="button" class="btn btn-default mr-4">닉네임 수정</button>
 			</p>
+			
 			<div id="upNick" class="d-none" style="margin-top:20px;">
-				<div id="nickFrms" class="form-group has-feedback">
-					 <input type="text" class="form-control" id="user_nm" placeholder="낙네임">
-					 	
+				<div class="d-flex justify-content-between">
+					<div id="nickFrms" class="form-group has-feedback">
+						 <input type="text" class="form-control" id="user_nm" placeholder="닉네임">
+						 	
+					</div>
+					<p style="text-align:center;">
+						<button type="button" class="btn btn-primary" id="nmChangeBtn" style="width:150px;">변경</button>
+					</p>
 				</div>
+			</div>
+			
+			<p style="line-height: 38px;">
+				<strong id="userInterest" class="ml-5">게살버거</strong>
+				<button id="btnInterest" type="button" class="btn btn-default mr-4">관심분야 수정</button>
+			</p>
+			
+			<div id="upInterest" class="d-none" style="margin-top:20px;">
+				<div class="d-flex justify-content-between">
+				<div id="interestFrms" class="form-group has-feedback">
+					<select name="interest" id="user_interest" class="w-100 form-control">
+						<option value="select">관심 요리 분야(선택)</option>
+						<option value="main">메인반찬</option>
+						<option value="soup">국/탕/찌개</option>
+						<option value="dessert">디저트</option>
+						<option value="noodle">면/만두</option>
+						<option value="rice">밥/죽/떡</option>
+						<option value="sauce">양념/소스/잼</option>
+						<option value="west">양식</option>
+						<option value="salad">샐러드</option>
+						<option value="bread">스프/빵</option>
+						<option value="tea">차/음료/술</option>
+						<option value="others">기타</option>
+					</select>	
+			
+				</div>	
 				<p style="text-align:center;">
-					<button type="button" class="btn btn-primary" id="nmChangeBtn "style="width:150px;">변경</button>
+						<button type="button" class="btn btn-primary" id="interestChangeBtn" style="width:150px;">변경</button>
 				</p>
+				</div>
 				
 			</div>
+			
 		</div>
 	</div>
 	
@@ -48,6 +82,7 @@
 			, success : function(data) {
 				$('#userEmail').text(data.userEmail);
 				$('#userNickName').text(data.userNickName);
+				$('#userInterest').text(data.userInterest);
 			}
 			, error : function(request, status, error) {
 				alert("형편없이 실패");
@@ -71,7 +106,7 @@
 			alert(afterEmail);
 			$.ajax({
 				type:"post"
-				, url : "/user/update-user-info"
+				, url : "/user/update-user-email"
 				, data: {"beforeEmail": beforeEmail, "afterEmail": afterEmail}
 				, success : function(data) {
 					alert("변경 성공!");
@@ -79,7 +114,7 @@
 				, error : function(request, status, error) {
 					alert("형편없이 이메일 변경 실패");
 				}
-			})
+			});
 		});
 		
 		// 닉네임 수정 버튼 클릭 시
@@ -91,5 +126,49 @@
 			}
 		});
 		
+		// 닉네임 변경 버튼 클릭 시
+		$('#nmChangeBtn').on('click', function() {
+	
+			let beforeNickName = $('#userNickName').text();
+			let afterNickName = $('#user_nm').val().trim();
+			$.ajax({
+				type:"post"
+				, url : "/user/update-user-nickName"
+				, data: {"beforeNickName":beforeNickName, "afterNickName":afterNickName}
+				, success : function(data) {
+					alert("닉네임 변경 성공!");
+				}
+				, error : function(request, status, error) {
+					alert("형편없이 닉네임 변경 실패");
+				}
+			});
+		});
+		
+		// 관심 분야 수정 버튼 클릭 시
+		 $('#btnInterest').on('click', function() {
+			 if($('#upInterest').hasClass('d-none')) {
+				 $('#upInterest').removeClass('d-none'); 
+			 } else {
+				 $('#upInterest').addClass('d-none');
+			 }
+		 });
+		
+		// 관심 분야 변경 버튼 클릭 시
+		$('#interestChangeBtn').on('click', function() {
+			let beforeInterest = $('#userInterest').text();
+			let afterInterest = $('#user_interest option:selected').text();
+			
+			$.ajax({
+				type:"post"
+				, url : "/user/update-user-interest"
+				, data: {"beforeInterest":beforeInterest, "afterInterest":afterInterest}
+				, success : function(data) {
+					alert("관심분야 변경 성공!");
+				}
+				, error : function(request, status, error) {
+					alert("형편없이 관심분야 변경 실패");
+				}
+			});
+		});
 	});
 </script>

@@ -23,6 +23,7 @@ public class UserController {
 		return "template/easycook";
 	}
 	
+	// http://localhost:7080/user/profile-modify
 	@GetMapping("/profile-modify")
 	public String profileModify(Model model) {
 		model.addAttribute("viewName", "user/profileModify");
@@ -30,6 +31,7 @@ public class UserController {
 	}
 	
 	// 로그아웃
+	// http://localhost:7080/user/sign-out
 	@RequestMapping("/sign-out")
 	public String signOut(HttpSession session) {
 		session.removeAttribute("userId");
@@ -39,6 +41,12 @@ public class UserController {
 		return "redirect:/user/sign-in-view";
 	}
 	
+	// MY 홈 들어가기 
+	@RequestMapping("/go-my-home")
+	public String goMyHome(Model model) {
+		model.addAttribute("viewName", "user/userHome");
+		return "template/easycook";
+	}
 
 	}
 
