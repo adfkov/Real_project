@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.post.BO.PostBO;
 
@@ -26,6 +27,7 @@ public class PostRestController {
 			,@RequestParam("ingredientId") String ingredientId
 			,@RequestParam("portion") String portion
 			,@RequestParam("degree") String degree
+			,@RequestParam("file") MultipartFile file
 			,@RequestParam("ingredient") String ingredient
 			,@RequestParam("cookStepText") String cookStepText
 			,@RequestParam("cookTip") String cookTip) {
@@ -40,6 +42,7 @@ public class PostRestController {
 				,ingredientId
 				,portion
 				,degree
+				, file
 				,ingredient
 				,cookStepText
 				,cookTip);

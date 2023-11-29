@@ -66,8 +66,17 @@
 			
 			<!--  프로필 이미지 -->
 			<span class="sign-up-subject">프로필 이미지</span>
-			<div class="ml-3 mb-3">
-				<input type="text" name="profileImageUrl" id="profileImageUrl" class="form-control">
+			<div class="ml-3 mb-3" id="profileImage">
+				<!--< img src="#" alt="profile" id="profile" width="200" height="200"> -->
+			</div>
+			
+			<div class="file-upload d-flex">
+			<%-- file 태그를 숨겨두고 이미지를 클릭하면 file 태그를 클릭한 효과 --%>
+			<input type="file" id="file" accept=".jpg, .png, .gif, .jpeg" class="d-none" onchange="setThumbnail(event);">
+				<a href="#" id="fileUploadBtn"><img width="35" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"></a>
+			
+			<%-- 업로드된 임시 파일명 노출 --%>
+			<div id="fileName" class="ml-2"></div>
 			</div>
 			
 		<!--  생년월일 -->
@@ -116,7 +125,29 @@
 	
 	/* 	$( "#datepicker" ).datepicker();
 	 */	   
-		
+		$('#fileUploadBtn').on('click', function(e) {
+			e.preventDefault();
+			$('#file').click();
+		});
+	 	
+	
+	 
+	 	$('#file').on('change', function(e) {
+	 		// 확장자
+	 		let ext = fileName.split(".").pop().toLowerCase();
+	 		
+	 		if(ext != 'jpg' && ext != 'gif'&& ext != 'png'&& ext != 'jpeg') {
+	 			alert("이미지 파일만 올려주세요!");
+	 			$('#file').val("");
+	 			$('#fileName').text("");
+	 			return;
+	 		} else {
+	 			setThumbnail(event);
+	 			/* $('#fileName').text(fileName);
+	 			$('#profile').attr('src', $('#file').files[0]); */
+	 		}
+	 	});
+	 
 		$('#loginId').mousedown(function()  {
 			
 		
@@ -232,14 +263,20 @@
 			let confirmPassword = $('#confirmPassword').val();
 			let name = $('#name').val().trim();
 			let email = $('#email').val().trim();
-			let grade = $('#grade').attr('placeholder');
-			let profileImageUrl = $("#profileImageUrl").val().trim();
+			let grade = $('#grade').attr('placeholder');/* 
+			let profileImageUrl = $("#profileImageUrl").val().trim(); */
 			let birth = $('#birth').val().trim();
 			let userGender = $('#userGender').val().trim();
 			let nickName = $('#nickName').val().trim();
 			let interest = $('#interest option:selected').text();
 			
-			alert(interest);
+			/* "loginId", loginId, "password",password ,"name",name ,"email",email ,"grade",grade ,
+			"fileName", fileName,"birth",birth ,"userGender", userGender, 
+			"nickName", nickName,"interest",interest */
+			let fileName = $('#file').val();
+		
+	
+	
 			
 			//$("#셀렉트박스ID option:selected").val();
 			//alert(typeof profileImageUrl);
@@ -281,22 +318,32 @@
 				return false;
 			}
 			
+			let formData = new FormData();
+			formData.append("loginId", loginId);
+			formData.append("password",password );
+			formData.append("name",name);
+			formData.append("email",email);
+			formData.append("grade",grade);
+			formData.append("file", $('#file')[0].files[0]);
+			formData.append("birth",birth);
+			formData.append("userGender", userGender);
+			formData.append("nickName", nickName);
+			formData.append("interest",interest);
 			// 서버로 보내는 방법 2가지
 			// 1) submit을 자바스크립트로 동작 시킴
 			//$(this)[0].submit(); // 화면 이동이 반드시 된다. ( jsp, redirect)
 			
 		// form 태그
 			// 2) AJAX - 응답값이 JSON
-	
 			
-			
+		
 			$.ajax({
 				type:"POST"
 				,url:"/user/sign-up"
-				,data:{"loginId": loginId, "password":password ,"name":name ,"email":email ,"grade":grade ,
-					"profileImageUrl": profileImageUrl,"birth":birth ,"userGender": userGender, 
-					"nickName": nickName,"interest":interest}
-				
+				,data: formData
+				, enctype: "multipart/form-data"
+				, processData : false
+				, contentType : false
 				,success : function(data) {
 					alert(data);
 					if(data.code == 200) {
@@ -306,6 +353,9 @@
 						// 로직 실패
 						alert(data.errorMessage);
 					}
+				}
+				, error: function(request, status, error) {
+					alert("회원가입 실패");
 				}
 			
 				}); // ajax 끝

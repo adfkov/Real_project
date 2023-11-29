@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.user.BO.UserBO;
 import com.example.demo.user.Entity.UserEntity;
@@ -86,14 +87,14 @@ public class UserRestController {
 			@RequestParam("email") String email,
 			@RequestParam("nickName") String nickName,
 			@RequestParam("grade") String grade,
-			@RequestParam("profileImageUrl") String profileImageUrl,
+			@RequestParam(value="file" , required = false) MultipartFile file,
 			@RequestParam("birth") String birth,
 			@RequestParam("userGender") String userGender,
 			@RequestParam("interest") String interest) {
 		
 		Map<String, Object> result = new HashMap<>();
 		// db insert
-		Integer id = userBO.addUser(loginId, password, name, email, nickName,grade, profileImageUrl,birth,userGender, interest);
+		Integer id = userBO.addUser(loginId, password, name, email, nickName,grade, file,birth,userGender, interest);
 		// map
 		
 		if(id == null) {

@@ -87,6 +87,20 @@
 	
 	<div class="cont-box">
 		<div class="cont-line">
+			<p class="cont_tit4">요리 메인 이미지</p>
+			<div class="file-upload d-flex">
+			<%-- file 태그를 숨겨두고 이미지를 클릭하면 file 태그를 클릭한 효과 --%>
+			<input type="file" id="file" accept=".jpg, .png, .gif, .jpeg" class="d-none">
+				<a href="#" id="fileUploadBtn"><img width="35" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"></a>
+			
+			<%-- 업로드된 임시 파일명 노출 --%>
+			<div id="fileName" class="ml-2"></div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="cont-box">
+		<div class="cont-line">
 			<p class="cont_tit4">재료</p>
 			<textarea name="cok-ingredient" id="cok-ingredient" class="form-control step_cont" 
 			placeholder="재료를 적어주세요!"  style="width:610px; height:100px; resize:none;"></textarea>
@@ -115,8 +129,27 @@
  </form>
 <script>
 	$(document).ready(function() {
-	
+		// 파일 이미지 클릭
+		$('#fileUploadBtn').on('click', function(e) {
+			e.preventDefault();
+			$('#file').click();
+		});
 		
+		$('#file').on('change', function(e) {
+	 		// 확장자
+	 		let ext = fileName.split(".").pop().toLowerCase();
+	 		
+	 		if(ext != 'jpg' && ext != 'gif'&& ext != 'png'&& ext != 'jpeg') {
+	 			alert("이미지 파일만 올려주세요!");
+	 			$('#file').val("");
+	 			$('#fileName').text("");
+	 			return;
+	 		} else {
+	 		
+	 			/* $('#fileName').text(fileName);
+	 			$('#profile').attr('src', $('#file').files[0]); */
+	 		}
+	 	});
 	//	console.log(userId);
 		
 		$('#submitBtn').on('click', function(e) {
@@ -127,8 +160,13 @@
 			
 			let foodTypeId = $('#cok_sq_category_1').val().trim();
 			let ingredientId = $('#cok_sq_category_2').val().trim();
+			
 			let portion = $('#cok_portion').val().trim();
 			let degree = $('#cok_degree').val().trim();
+			
+			let mainImageUrl = $('')
+			let fileName = $('#file').val();
+		
 			let ingredient = $('#cok-ingredient').val().trim();
 			let cookStepText = $('#cookStepText').val().trim();
 			let cookTip = $('#cok-tip').val().trim();
@@ -137,16 +175,33 @@
 				alert("제목을 입력하세요.");
 			}
 			alert(intro);
+			
+			let formData = new FormData();
+			formData.append("userId", userId);
+			formData.append("subject",subject );
+			formData.append("intro",intro);
+			formData.append("foodTypeId",foodTypeId);
+			formData.append("ingredientId",ingredientId);
+			formData.append("portion",portion);
+			formData.append("degree", degree);
+			formData.append("file", $('#file')[0].files[0]);
+			formData.append("ingredient", ingredient);
+			formData.append("cookStepText",cookStepText);
+			formData.append("cookTip",cookTip);
+			
+		
+			
 			$.ajax({
 				type:"POST"
 				, url:"/post/add-recipe"
-				, data: {"userId": userId,"subject": subject,"intro":intro ,"foodTypeId": foodTypeId
-					,"ingredientId":ingredientId ,"portion":portion ,"degree":degree ,
-					"ingredient":ingredient ,"cookStepText":cookStepText,"cookTip":cookTip}
+				, data: formData
+				, enctype: "multipart/form-data"
+				, processData : false
+				, contentType : false
 				, success : function(data) {
 					if(data.code == 200) {
 					alert("레시피가 저장됐습니다.");
-				//	location.href = "/user/user-recipe-view";
+					location.href = "/user/user-recipe-view";
 				} else {
 					alert("레시피 저장 실패");
 					}

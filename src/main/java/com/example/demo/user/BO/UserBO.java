@@ -2,7 +2,9 @@ package com.example.demo.user.BO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.FileManagerService;
 import com.example.demo.user.Entity.UserEntity;
 import com.example.demo.user.repository.UserRepository;
 
@@ -12,10 +14,17 @@ import com.example.demo.user.repository.UserRepository;
 public class UserBO {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private FileManagerService fileManager;
 	// 회원가입 정보 db 에 insert
 	public Integer addUser(String loginId,String password,String name,String email,
-			String nickName,String grade,String profileImageUrl,
+			String nickName,String grade, MultipartFile file,
 			String birth,String userGender,String interest) {
+		
+		String profileImageUrl = null;
+		if(file != null) {
+			profileImageUrl = fileManager.saveFile(loginId, file);
+		} 
 		UserEntity userEntity = userRepository.save(
 				UserEntity.builder()
 				.loginId(loginId)

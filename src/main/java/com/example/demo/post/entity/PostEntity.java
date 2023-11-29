@@ -36,6 +36,8 @@ public class PostEntity {
 	private String ingredientId;
 	private String portion;
 	private String degree;
+	@Column(name="mainImageUrl")
+	private String mainImageUrl;
 	private String ingredient;
 	@Column(name="cookStepText")
 	private String cookStepText;

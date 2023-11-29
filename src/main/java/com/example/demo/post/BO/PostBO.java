@@ -2,15 +2,22 @@ package com.example.demo.post.BO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.FileManagerService;
 import com.example.demo.post.entity.PostEntity;
 import com.example.demo.post.repository.PostRepository;
+import com.example.demo.user.BO.UserBO;
+import com.example.demo.user.Entity.UserEntity;
 
 @Service
 public class PostBO {
 	@Autowired
+	private UserBO userBO;
+	@Autowired
 	private PostRepository postRepository;
-	
+	@Autowired
+	private FileManagerService fileManager;
 	
 	public Integer addRecipe(int userId
 			,String subject
@@ -19,9 +26,18 @@ public class PostBO {
 			,String ingredientId
 			,String portion
 			,String degree
+			,MultipartFile file
 			,String ingredient
 			,String cookStepText
 			,String cookTip) {
+		
+		UserEntity user = userBO.getUserEntityById(userId);
+		
+		String mainImageUrl = null;
+		
+		if(file != null) {
+			mainImageUrl = fileManager.saveFile(user.getLoginId(), file);
+		}
 		
 		PostEntity postEntity = postRepository.save(
 				PostEntity.builder()
@@ -31,7 +47,8 @@ public class PostBO {
 				.foodTypeId(foodTypeId)
 				.ingredientId(ingredientId)
 				.portion(portion)
-				.degree(degree)	
+				.degree(degree)
+				.mainImageUrl(mainImageUrl)
 				.ingredient(ingredient)
 				.cookStepText(cookStepText)
 				.cookTip(cookTip)

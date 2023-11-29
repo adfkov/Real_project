@@ -45,8 +45,6 @@
 		<li>
 			<div class="write_layer" style="left: -230px; display:block;">
 			<!--  레시피 작성하기 -->
-			
-			 
 			  <a href="/cook/writeRecipe" class="layer2" id="writeRecipeBtn" data-toggle="tooltip" data-placement="top" data-original-title="레시피등록">
 			 	<img src="https://recipe1.ezmember.co.kr/img/tmn_write.png">
 			 </a>

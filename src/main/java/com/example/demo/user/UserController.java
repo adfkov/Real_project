@@ -47,6 +47,12 @@ public class UserController {
 		model.addAttribute("viewName", "user/userHome");
 		return "template/easycook";
 	}
+	
+	@RequestMapping("/user-recipe-view")
+	public String userRecipeView(Model model) {
+		model.addAttribute("viewName", "user/userRecipeView");
+		return "template/easycook";
+	}
 
 	}
 
