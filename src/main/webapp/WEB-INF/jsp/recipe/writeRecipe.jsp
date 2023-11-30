@@ -201,7 +201,7 @@
 				, success : function(data) {
 					if(data.code == 200) {
 					alert("레시피가 저장됐습니다.");
-					location.href = "/user/user-recipe-view";
+					location.href = "/cook/get-user-post";
 				} else {
 					alert("레시피 저장 실패");
 					}

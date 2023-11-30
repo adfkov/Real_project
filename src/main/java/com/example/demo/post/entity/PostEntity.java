@@ -14,6 +14,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
@@ -21,6 +22,7 @@ import lombok.ToString;
 @Data
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name="post")
 public class PostEntity {
 	@Id

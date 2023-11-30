@@ -1,5 +1,7 @@
 package com.example.demo.post.BO;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,6 +56,15 @@ public class PostBO {
 				.cookTip(cookTip)
 				.build());
 		return postEntity == null? null : postEntity.getId();
+	}
+	
+	public List<PostEntity> getUserPost(Integer userId) {
+		return postRepository.findAllByUserId(userId);
+		
+	}
+	
+	public PostEntity getPostpage(int userId,int postId) {
+		return postRepository.findAllByUserIdAndId(userId, postId);
 	}
 }
 	
