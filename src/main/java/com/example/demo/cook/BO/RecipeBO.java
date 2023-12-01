@@ -36,4 +36,16 @@ public class RecipeBO {
 		
 		return recipeViewList;
 	}
+	
+	public RecipeView getRecipeView(Integer userId, int postId) {
+		RecipeView recipeView = new RecipeView();
+		
+		UserEntity user = userBO.getUserEntityById(userId);
+		recipeView.setUser(user);
+		
+		PostEntity post = postBO.getPostpageByUserIdAndPostId(userId, postId);
+		recipeView.setPost(post);
+		
+		return recipeView;
+	}
 }

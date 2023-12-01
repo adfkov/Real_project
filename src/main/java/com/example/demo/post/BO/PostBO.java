@@ -63,7 +63,7 @@ public class PostBO {
 		
 	}
 	
-	public PostEntity getPostpage(int userId,int postId) {
+	public PostEntity getPostpageByUserIdAndPostId(int userId,int postId) {
 		return postRepository.findAllByUserIdAndId(userId, postId);
 	}
 }

@@ -1,3 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    이것이 포스트다
+   <div class="postSubject">
+   	<span>${recipeView.post.id}</span>
+   </div>

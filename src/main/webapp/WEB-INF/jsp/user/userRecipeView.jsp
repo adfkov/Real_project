@@ -18,7 +18,8 @@
 	<ul class="cont-list">
 		<c:forEach items="${recipeViewList}" var="recipe">
 		<li>
-		<a href="/post/${recipe.post.id}" id="postLink" data-user-id="${recipe.user.id}">
+		<a href="" id="postLink" data-user-id="${recipe.user.id}"
+		data-post-id="${recipe.post.id}">
 			<img src="${recipe.post.mainImageUrl}" width=200px height=130px>
 	
 			<div class="caption">
@@ -50,12 +51,14 @@
 		*/
 		$('#postLink').on('click', function() {
 			let userId = $('#postLink').data('user-id');
+			let postId = $('#postLink').data('post-id');
+			alert(typeof userId);
 			$.ajax({
 				type:"GET"
-				,url:"/post/{postId}"
+				,url:"/cook/go-to-page/"+ postId
 				,data:{"userId": userId}
 				, sucess:function(data){
-					alert(data.code);
+					alert(data.recipeView);
 				}
 				, error : function(request, status, error) {
 					alert("보내기 실패");

@@ -51,6 +51,23 @@ public class CookController {
 		return "template/easycook";
 	}
 	
-	
+	@GetMapping("/go-to-page/{postId}")
+	public String goToPostpage(
+			@PathVariable int postId
+			,@RequestParam("userId") int userId
+			, Model model) {
+		Map<String, Object> result = new HashMap<>();
 
+		RecipeView recipeView = recipeBO.getRecipeView(userId, postId);
+		model.addAttribute("recipeView", recipeView);
+		model.addAttribute("viewName", "recipe/postPage");
+		
+		result.put("viewName", "recipe/postPage");
+		// db select 
+//		PostEntity post = postBO.getPostpageByUserIdAndPostId(userId, postId);
+//		model.addAttribute("post", post);
+//		model.addAttribute("viewName", "recipe/postPage");
+//	
+		return "template/easycook";
+	}
 }
