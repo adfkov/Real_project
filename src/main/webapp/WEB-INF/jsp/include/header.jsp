@@ -75,16 +75,3 @@
 		});
 	});
 </script>
-
-<!-- 
-<ul class="gnb_right">
-                                        
-                <li>
-<a id="btnTopWrite" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="레시피등록"><img src="https://recipe1.ezmember.co.kr/img/tmn_write.png"></a>
-<div class="write_layer document_common_layer" style="left: -230px; display: none;">
-        <a href="https://www.10000recipe.com/inbox/insert.html" class="w_layer2"><img src="https://recipe1.ezmember.co.kr/img/btn_write1.gif"><span>직접 등록하기</span></a><a id="btnBlogForm" href="javascript:void(0)" class="w_layer3" data-toggle="modal" data-target="#divModalBlogForm"><img src="https://recipe1.ezmember.co.kr/img/btn_write2.gif"><span>블로그 가져오기</span></a>
-    </div>
-</li>
-<li style="margin-left:50px;" class="st2">
-    <a href="https://shop.10000recipe.com" target="_blank" data-toggle="tooltip" title="" data-original-title="만개스토어"><img src="https://recipe1.ezmember.co.kr/img/tmn_store2.png"></a>
-</li> -->

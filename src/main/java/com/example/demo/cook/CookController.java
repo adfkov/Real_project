@@ -1,8 +1,6 @@
 package com.example.demo.cook;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.cook.BO.RecipeBO;
 import com.example.demo.cook.domain.RecipeView;
 import com.example.demo.post.BO.PostBO;
-import com.example.demo.post.entity.PostEntity;
 @Controller
 @RequestMapping("/cook")
 public class CookController {
@@ -46,28 +43,33 @@ public class CookController {
 		List<RecipeView> recipeViewList = recipeBO.generateRecipeViewList(userId);
 		
 		model.addAttribute("recipeViewList", recipeViewList);
-		model.addAttribute("viewName", "/user/userRecipeView");
+		model.addAttribute("viewName", "user/userRecipeView");
 		
 		return "template/easycook";
 	}
 	
-	@GetMapping("/go-to-page/{postId}")
+	// post 눌렀을 때
+	@GetMapping("/go-to-post/{userId}/{postId}")
 	public String goToPostpage(
-			@PathVariable int postId
-			,@RequestParam("userId") int userId
+			@PathVariable int userId
+			,@PathVariable int postId
 			, Model model) {
-		Map<String, Object> result = new HashMap<>();
-
-		RecipeView recipeView = recipeBO.getRecipeView(userId, postId);
-		model.addAttribute("recipeView", recipeView);
+		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(userId,postId);
+		model.addAttribute("recipeView" , recipeView);
 		model.addAttribute("viewName", "recipe/postPage");
-		
-		result.put("viewName", "recipe/postPage");
-		// db select 
-//		PostEntity post = postBO.getPostpageByUserIdAndPostId(userId, postId);
-//		model.addAttribute("post", post);
-//		model.addAttribute("viewName", "recipe/postPage");
-//	
 		return "template/easycook";
 	}
+	
+	@GetMapping("/go-to-userView/{userId}")
+	public String goToUserView(
+			@PathVariable int userId
+			,Model model) {
+		List<RecipeView> recipeView = recipeBO.generateRecipeViewList(userId);
+		model.addAttribute("recipeViewList", recipeView);
+		model.addAttribute("viewName", "user/userRecipeView");
+		
+		return "template/easycook";
+	}
+	
 }
+

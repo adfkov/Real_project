@@ -9,6 +9,8 @@ import lombok.Data;
 
 @Data
 public class RecipeView {
+	private List<PostEntity> postList;
+	
 	private PostEntity post;
 	
 	private UserEntity user;

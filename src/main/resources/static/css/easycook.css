@@ -160,6 +160,36 @@ p {
 	height: 200px;
 	
 }
-.caption {
-
+.wrap {
+	width: 700px;
+	margin: 0 auto;
+}
+.postSubject {
+	padding: 60px 0 20px;
+	position: relative;
+}
+.subject {
+	font-size: 35px;
+	font-weight: bold;
+}
+#user_profile {
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+	padding: 0;
+}
+.user_profile_link {
+	width: 200px;
+	height: 200px;
+	position: relative;
+	top: -80px;
+}
+.user_nickName {
+	margin-top: 10px;
+}
+.nick_and_button {
+	padding-left: 80px;
+}
+.followBtn {
+	margin-left: 60px;
 }

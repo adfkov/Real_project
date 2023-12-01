@@ -37,15 +37,29 @@ public class RecipeBO {
 		return recipeViewList;
 	}
 	
-	public RecipeView getRecipeView(Integer userId, int postId) {
+	public RecipeView getRecipeViewByUserIdAndPostId(Integer userId, int postId) {
 		RecipeView recipeView = new RecipeView();
 		
 		UserEntity user = userBO.getUserEntityById(userId);
 		recipeView.setUser(user);
 		
+		List<PostEntity> postList = new ArrayList<>();
 		PostEntity post = postBO.getPostpageByUserIdAndPostId(userId, postId);
-		recipeView.setPost(post);
+		postList.add(post);
+		recipeView.setPostList(postList);
 		
 		return recipeView;
 	}
+	
+//	public RecipeView getRecipeViewByUserId(int userId) {
+//		RecipeView recipeView = new RecipeView();
+//		
+//		UserEntity user = userBO.getUserEntityById(userId);
+//		recipeView.setUser(user);
+//		
+//		List<PostEntity> postList = postBO.getUserPost(userId);
+//		recipeView.setPostList(postList);
+//		
+//		return recipeView;
+//	}
 }

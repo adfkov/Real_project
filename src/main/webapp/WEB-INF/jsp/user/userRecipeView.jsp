@@ -18,19 +18,21 @@
 	<ul class="cont-list">
 		<c:forEach items="${recipeViewList}" var="recipe">
 		<li>
-		<a href="" id="postLink" data-user-id="${recipe.user.id}"
+		<a href="/cook/go-to-post/${recipe.user.id}/${recipe.post.id}" id="postLink" data-user-id="${recipe.user.id}"
 		data-post-id="${recipe.post.id}">
 			<img src="${recipe.post.mainImageUrl}" width=200px height=130px>
 	
-			<div class="caption">
+		<div class="caption">
 				<h4>${recipe.post.subject}</h4>
 				<p class="jq_elips">${recipe.user.nickName}</p>
 			</div>
-			
+		
 				</a>
 		</li>
 		</c:forEach>
 	</ul>
+	
+	
 </div>
 
 <script>
@@ -54,11 +56,13 @@
 			let postId = $('#postLink').data('post-id');
 			alert(typeof userId);
 			$.ajax({
-				type:"GET"
-				,url:"/cook/go-to-page/"+ postId
+				
+				url:"/cook/go-to-post/"+ userId + postId
 				,data:{"userId": userId}
 				, sucess:function(data){
-					alert(data.recipeView);
+					if(data.code == 200) {
+					location.href="/user/sign-in-view"
+					}
 				}
 				, error : function(request, status, error) {
 					alert("보내기 실패");
