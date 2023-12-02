@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.example.demo.like.mapper.LikeMapper">
+ 	<insert id="followUserById" parameterType="map">
+ 		INSERT INTO `follow`
+ 		(
+ 			`followingUserId`
+			,`followedUserId`
+			,`createdAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{followingUserId}
+ 			,#{followedUserId}
+ 			, NOW()
+ 		
+ 		)
+ 	</insert>
+ 	
+ 	<select id="isFollowingCheck" parameterType="map" resultType="int">
+ 		SELECT 
+ 			COUNT(*) 
+ 		FROM
+ 			`follow`
+ 		WHERE
+ 			`followingUserId` = #{followingUserId}
+ 		AND 
+ 			`followedUserId` = #{followedUserId}
+ 	</select>
+ 	
+ 	<delete id="deleteFollowById" parameterType="map">
+ 		DELETE
+ 		FROM
+ 			`follow`
+ 		WHERE
+ 			`followingUserId` = #{followingUserId}
+ 		AND 
+ 			`followedUserId` = #{followedUserId}
+ 	</delete>
+ 	
+ 	<select id="selectFollowerCount" parameterType="int">
+ 		SELECT
+ 			COUNT(*)
+ 		FROM 
+ 			`follow`
+ 	</select>
+ </mapper>

@@ -2,6 +2,7 @@ package com.example.demo.cook;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.cook.BO.RecipeBO;
 import com.example.demo.cook.domain.RecipeView;
@@ -53,8 +53,14 @@ public class CookController {
 	public String goToPostpage(
 			@PathVariable int userId
 			,@PathVariable int postId
-			, Model model) {
+			, Model model
+			, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		Integer serverUserId = (Integer)session.getAttribute("userId");
+		
 		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(userId,postId);
+		model.addAttribute("serverUserId", serverUserId);
 		model.addAttribute("recipeView" , recipeView);
 		model.addAttribute("viewName", "recipe/postPage");
 		return "template/easycook";
