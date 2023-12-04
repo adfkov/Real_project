@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.cook.BO.RecipeBO;
 import com.example.demo.cook.domain.RecipeView;
 import com.example.demo.post.BO.PostBO;
+import com.example.demo.postLike.BO.PostLikeBO;
+import com.example.demo.view.BO.ViewBO;
 @Controller
 @RequestMapping("/cook")
 public class CookController {
@@ -22,6 +24,11 @@ public class CookController {
 	private RecipeBO recipeBO;
 	@Autowired
 	private PostBO postBO;
+	@Autowired
+	private PostLikeBO postLikeBO;
+	@Autowired
+	private ViewBO viewBO;
+	
 	// http://localhost:7080/cook/easycook
 	@GetMapping("/easycook")
 	public String cookLayout(Model model) {
@@ -60,6 +67,16 @@ public class CookController {
 		Integer serverUserId = (Integer)session.getAttribute("userId");
 		
 		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(userId,postId);
+		// 글 좋아요
+		int postLikeCount = postLikeBO.getPostLikeCountByUserIdPostId(userId, postId);
+		recipeView.setPostLikeCount(postLikeCount);
+		// 유저가 좋아요를 눌렀는 지 여부
+		boolean ifPostLike = postLikeBO.getIfPostLikeByUserIdPostId(userId, postId);
+		recipeView.setIfPostLike(ifPostLike);
+		
+		// 조회수 업데이트
+		viewBO.addViewByUserIdPostId(userId, postId, serverUserId);
+		
 		model.addAttribute("serverUserId", serverUserId);
 		model.addAttribute("recipeView" , recipeView);
 		model.addAttribute("viewName", "recipe/postPage");

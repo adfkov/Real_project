@@ -43,10 +43,8 @@ public class RecipeBO {
 		UserEntity user = userBO.getUserEntityById(userId);
 		recipeView.setUser(user);
 		
-		List<PostEntity> postList = new ArrayList<>();
 		PostEntity post = postBO.getPostpageByUserIdAndPostId(userId, postId);
-		postList.add(post);
-		recipeView.setPostList(postList);
+		recipeView.setPost(post);
 		
 		return recipeView;
 	}

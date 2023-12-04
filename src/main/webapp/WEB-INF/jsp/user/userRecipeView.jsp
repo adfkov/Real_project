@@ -24,7 +24,10 @@
 	
 		<div class="caption">
 				<h4>${recipe.post.subject}</h4>
-				<p class="jq_elips">${recipe.user.nickName}</p>
+				<p class="jq_elips d-flex justify-content-between">
+				<a>${recipe.user.nickName}</a>
+				<span></span>
+				</p>
 			</div>
 		
 				</a>
@@ -45,6 +48,7 @@
 	
 			let userId = $('#postLink').data('user-id');
 			let postId = $('#postLink').data('post-id');
+			alert(postId);
 		$('#postLink').on('click', function() {
 			alert(typeof userId);
 			$.ajax({
