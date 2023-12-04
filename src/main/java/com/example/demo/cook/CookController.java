@@ -49,6 +49,7 @@ public class CookController {
 		
 		List<RecipeView> recipeViewList = recipeBO.generateRecipeViewList(userId);
 		
+		model.addAttribute("userId" , userId);
 		model.addAttribute("recipeViewList", recipeViewList);
 		model.addAttribute("viewName", "user/userRecipeView");
 		
@@ -67,15 +68,10 @@ public class CookController {
 		Integer serverUserId = (Integer)session.getAttribute("userId");
 		
 		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(userId,postId);
-		// 글 좋아요
-		int postLikeCount = postLikeBO.getPostLikeCountByUserIdPostId(userId, postId);
-		recipeView.setPostLikeCount(postLikeCount);
-		// 유저가 좋아요를 눌렀는 지 여부
-		boolean ifPostLike = postLikeBO.getIfPostLikeByUserIdPostId(userId, postId);
-		recipeView.setIfPostLike(ifPostLike);
-		
-		// 조회수 업데이트
-		viewBO.addViewByUserIdPostId(userId, postId, serverUserId);
+
+		viewBO.addViewByUserIdPostId(userId, postId,serverUserId);
+		int view = viewBO.getViewByUserIdPostId(userId, postId);
+		recipeView.setView(view);
 		
 		model.addAttribute("serverUserId", serverUserId);
 		model.addAttribute("recipeView" , recipeView);

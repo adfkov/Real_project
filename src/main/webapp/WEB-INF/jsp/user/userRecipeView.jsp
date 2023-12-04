@@ -19,9 +19,10 @@
 		<c:forEach items="${recipeViewList}" var="recipe">
 		<li>
 		<a href="/cook/go-to-post/${recipe.user.id}/${recipe.post.id}" id="postLink" data-user-id="${recipe.user.id}"
-		data-post-id="${recipe.post.id}">
+		data-post-id="${recipe.post.id}" data-server-id="${userId}">
+		
 			<img src="${recipe.post.mainImageUrl}" width=200px height=130px>
-	
+		
 		<div class="caption">
 				<h4>${recipe.post.subject}</h4>
 				<p class="jq_elips d-flex justify-content-between">
@@ -29,8 +30,8 @@
 				<span></span>
 				</p>
 			</div>
+		</a>
 		
-				</a>
 		</li>
 		</c:forEach>
 	</ul>
@@ -44,28 +45,30 @@
 	</c:if>
 </div> <!--  container -->
 <script>
+
+
 	$(document).ready(function() {
 	
+			// cook controller
 			let userId = $('#postLink').data('user-id');
 			let postId = $('#postLink').data('post-id');
-			alert(postId);
-		$('#postLink').on('click', function() {
-			alert(typeof userId);
+			let serverUserId = $('#postLink').data('server-id'); 
+			
 			$.ajax({
-				
-				url:"/cook/go-to-post/"+ userId + postId
-				,data:{"userId": userId}
+				type:"POST"
+				, url: "/view/view-post"
+				, data : {"postUserId": userId, "postId": postId, "userId": serverUserId}
 				, sucess:function(data){
 					if(data.code == 200) {
-					location.href="/user/sign-in-view"
+						alert("!!");
+						goToPage();
 					}
 				}
 				, error : function(request, status, error) {
 					alert("보내기 실패");
 				}
 			});
-		}); <!-- postLink 끝-->
-		
+
 		
 		$.ajax({
 			type:"POST"

@@ -1,5 +1,7 @@
 package com.example.demo.cook.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 
 import com.example.demo.post.entity.PostEntity;
@@ -25,4 +27,5 @@ public class RecipeView {
 	
 //	private int likeCount;
 	
+	private List<UserEntity> postLiker;
 }

@@ -59,16 +59,20 @@
    		좋아요
    	</a>
    	</c:if>
+   	
+	<span class="likeCount">${recipeView.postLikeCount}개</span>
+   
   <c:if test="${recipeView.ifPostLike eq true}">
    	<a href="javascript:void(0)" class="likeCancelTab btn btn-danger" data-user-id="${recipeView.user.id}"
    	data-post-id="${recipeView.post.id}">
    		좋아요 취소
    	</a>
   </c:if> 	
-
-   	<span class="likeCount">${recipeView.postLikeCount}개</span>
+   	<a href="javascript:void(0)" class="wholikesPostTab btn btn-warning">
+   		추천한 유저
+   	</a>
    	
-   <div class="view">${view}</div>
+   <div class="view">조회수 : ${recipeView.view}</div>
    </div>
 </div>   
 
@@ -166,7 +170,7 @@
 		
 			$.ajax({
 				type:"POST"
-				,url:"/like/get-follower-count"
+				,url:"/like/follow-user"
 				,data:{"followingUserId":followingUserId,"followedUserId": followedUserId}
 				,success: function(data){
 					if(data.code == 200) {
@@ -190,6 +194,7 @@
 				, data: {}
 				, success : function(data) {
 					if(data.code== 200) {
+						alert(data.recipeView.ifPostLike)
 						location.reload();
 					}
 				}
@@ -215,6 +220,14 @@
 					alert("좋아요 취소 실패");
 				}
 			});
+		}); <!-- 좋아요 취소 끝 -->
+		
+		$('.wholikesPostTab').on('click', function(){
+			$.ajax({
+				type:"POST"
+				, url: "/cook"
+			});
+			
 		});
 	});
 </script>

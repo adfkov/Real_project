@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.example.demo.view.mapper.ViewMapper">
+ 	<insert id="insertViewByUserIdPostId" parameterType="map">
+ 		INSERT INTO
+ 			`view`
+ 		(
+	 		`postUserId`
+			,`postId`
+			,`userId`
+			,`createdAt`
+			,`updatedAt`
+ 		) VALUES
+ 		(
+ 			#{userId}
+ 			,#{postId}
+ 			,#{serverUserId}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 		
+ 	</insert>
+ 	
+ 	<select id="selectViewByUserIdPostId" parameterType="int">
+ 		SELECT COUNT(*)
+ 		FROM `view`
+ 		WHERE
+ 			`postUserId` = #{userId}
+ 			AND `postId` = #{postId}
+ 	</select>
+ </mapper>

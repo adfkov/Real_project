@@ -1,5 +1,7 @@
 package com.example.demo.postLike.BO;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,13 @@ public class PostLikeBO {
 		}
 	}
 	
+	// 좋아요 취소
 	public void deleteLikeByUserIdPostId(int postUserId, int postId, int userId) {
 		postLikeMapper.deletePostLikeByUserIdPostId(postUserId, postId, userId);
 	}
+	
+	// 좋아요한 사람들 불러오기
+//	public List<Integer> getPostLikersByPostUserIdPostId(int postUserId, int postId) {
+//		return selectPostLikersByPostUserIdPostId(postUserId, postId);
+//	}
 }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.cook.BO.RecipeBO;
+import com.example.demo.cook.domain.RecipeView;
 import com.example.demo.postLike.BO.PostLikeBO;
 
 @RequestMapping("/post-like")
@@ -18,6 +20,8 @@ import com.example.demo.postLike.BO.PostLikeBO;
 public class PostLikeRestController {
 	@Autowired
 	private PostLikeBO postLikeBO;
+	@Autowired
+	private RecipeBO recipeBO;
 	
 	@PostMapping("/like/{postUserId}/{postId}/{userId}")
 	public Map<String, Object> postLikeByPostId(
@@ -29,7 +33,12 @@ public class PostLikeRestController {
 		// DB INSERT
 		postLikeBO.postLikeByUserIdPostId(postUserId, postId, userId);
 		
+		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
+		recipeView.setIfPostLike(true);
+		
+		
 		result.put("code", 200);
+		result.put("recipeView", recipeView);
 		
 		return result;
 		
@@ -42,12 +51,18 @@ public class PostLikeRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		int userPostLike = postLikeBO.getPostLikeCountByUserIdPostId(postUserId, postId);
+		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
+		
 		
 		if(userPostLike == 1) {
+		
+			recipeView.setIfPostLike(true);
+			
 			result.put("code", 200);
-			result.put("isLike", true);
+			result.put("recipeView", recipeView);
 		} else {
-			result.put("isLike", false);
+			recipeView.setIfPostLike(false);
+			result.put("recipeView", recipeView);
 		}
 		
 		return result;
@@ -62,6 +77,10 @@ public class PostLikeRestController {
 		Map<String, Object> result = new HashMap<>();
 		postLikeBO.deleteLikeByUserIdPostId(postUserId, postId, userId);
 		
+		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
+		recipeView.setIfPostLike(false);
+		
+		result.put("recipeView", recipeView);
 		result.put("code", 200);
 		return result;
 	}

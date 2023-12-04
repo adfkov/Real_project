@@ -48,4 +48,14 @@
  			userId = #{userId}
  	</delete>
  	
+ 	<select id="selectPostLikersByPostUserIdPostId" parameterType="map" resultType="list">
+ 		SELECT 
+ 			`userId`
+ 		FROM 
+ 			`postLike`
+ 		WHERE
+ 			postUserId = #{postUserId}
+ 		AND
+ 			postId = #{postId}
+ 	</select>
  </mapper>
