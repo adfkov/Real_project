@@ -25,15 +25,21 @@
  	<select id="selectPostLikeCountByUserIdPostId" parameterType="map" resultType="int">
  		SELECT COUNT(*)
  		FROM `postLike`
+ 		WHERE
+ 			postUserId = #{postUserId}
+ 		AND
+ 			postId = #{postId}	
  	</select>
  	
  	<select id="selectIfPostLikeByUserIdPostId" parameterType="map" resultType="int">
  		SELECT COUNT(*)
  		FROM `postLike`
  		WHERE
- 			userId = #{postUserId}
+ 			postUserId = #{postUserId}
  		AND
  			postId = #{postId}
+ 		AND 
+ 			userId = #{userId}
  	</select>
  	
  	<delete id="deletePostLikeByUserIdPostId" parameterType="map">

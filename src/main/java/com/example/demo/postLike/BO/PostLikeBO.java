@@ -20,8 +20,8 @@ public class PostLikeBO {
 		return postLikeMapper.selectPostLikeCountByUserIdPostId(postUserId, postId);
 	}
 	
-	public boolean getIfPostLikeByUserIdPostId(int postUserId,int postId) {
-		if(postLikeMapper.selectIfPostLikeByUserIdPostId(postUserId, postId) == 1) {
+	public boolean getIfPostLikeByUserIdPostId(int postUserId,int postId, int userId) {
+		if(postLikeMapper.selectIfPostLikeByUserIdPostId(postUserId, postId, userId) >= 1) {
 			return true;
 		} else {
 			return false;

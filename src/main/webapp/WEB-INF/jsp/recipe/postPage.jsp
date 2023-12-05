@@ -34,10 +34,10 @@
 		<button type="button" class="followBtn btn btn-info ml-3" data-fu-id="${serverUserId}">팔로우</button>
 		<button type="button" class="followingBtn btn btn-default ml-3 d-none">팔로잉</button>
 	</c:if>
-	<c:if test="${recipeUserId eq serverUserId}">
+	<%-- <c:if test="${recipeUserId eq serverUserId}">
 		<button type="button" class="followBtn btn btn-info ml-3 d-none" data-fu-id="${recipeUserId}">팔로우</button>
 		<button type="button" class="followingBtn btn btn-default ml-3 d-none">팔로잉</button>
-	</c:if>
+	</c:if> --%>
 
 	<!-- Modal  id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"-->
 
@@ -52,28 +52,31 @@
    </div>
    
    <div class="like-scrap-comment">
-  
-  <c:if test="${recipeView.ifPostLike eq false}">
-   	<a href="javascript:void(0)" class="likeTab btn btn-info" data-user-id="${recipeView.user.id}"
+   	<a href="javascript:void(0)" class="likeTab btn btn-info d-none" data-user-id="${recipeView.user.id}"
    	data-post-id="${recipeView.post.id}">
    		좋아요
    	</a>
-   	</c:if>
+ 
    	
-	<span class="likeCount">${recipeView.postLikeCount}개</span>
+	<span class="likeCount">${recipeView.postLikeCount}</span>개
    
-  <c:if test="${recipeView.ifPostLike eq true}">
-   	<a href="javascript:void(0)" class="likeCancelTab btn btn-danger" data-user-id="${recipeView.user.id}"
+   	<a href="javascript:void(0)" class="likeCancelTab btn btn-danger d-none" data-user-id="${recipeView.user.id}"
    	data-post-id="${recipeView.post.id}">
    		좋아요 취소
-   	</a>
-  </c:if> 	
+   	</a>	
    	<a href="javascript:void(0)" class="wholikesPostTab btn btn-warning">
    		추천한 유저
    	</a>
    	
    <div class="view">조회수 : ${recipeView.view}</div>
    </div>
+   
+  <div class="input-group d-flex">
+          <div>
+          <textarea id="cmt_tx_content1" name="frm[cmt_tx_content]" class="form-control" placeholder="무엇이 궁금하신가요? 댓글을 남겨주세요." style="height:100px; width: 500px; resize:none;"></textarea>
+          </div>
+          <span class="input-group-btn"><button class="btn btn-default" type="button" id="commentBtn" style="height:100px; width:100px;">등록</button></span>
+  </div>
 </div>   
 
 <script>
@@ -85,17 +88,34 @@
 		let followingUserId = $('.followBtn').data('fu-id');
 		let postUserId = $('.likeTab').data('user-id'); // 글을 쓴 유저
 		let postId = $('.likeTab').data('post-id'); // 글의 아이디
-	 	/* $.ajax({
+		alert(followingUserId);
+	 	 $.ajax({
 			type:"POST"
-			, url: "like/is-like"
-			, data: {"postUserId": postUserId, "postId": postId}
+			, url: "/post-like/like/is-like"
+			, data: {"postUserId": postUserId, "postId": postId, "userId": followingUserId}
 			, success : function(data) {
-				alert(data.isLike);
+				if(data.recipeView.ifPostLike == false) {
+					$('.likeTab').removeClass('d-none');
+				} else {
+					$('.likeCancelTab').removeClass('d-none');	
+				}
 			}
 			, error : function(request, status, error) {
-				alert("좋아요 개수 실패");
+				alert("좋아요 여부 실패");
 			}
-		});  */
+		});  
+		// 좋아요 개수
+	 	 $.ajax({
+				type:"POST"
+				, url: "/post-like/get-likeCount"
+				, data: {"postUserId": postUserId, "postId": postId}
+				, success : function(data) {
+					$('.likeCount').text(data.recipeView.postLikeCount);
+				}
+				, error : function(request, status, error) {
+					alert("좋아요 개수 실패");
+				}
+			});   
 		<!------------------- 구분선 ------------------->
 		$.ajax({
 			type:"POST"
@@ -125,7 +145,7 @@
 			$.ajax({
 				type:"DELETE"
 				, url:"/like/unfollow"
-				, data : {"followingUserId":followingUserId, "followedUserId":followedUserId}
+				, data : {"followingUserId":followingUserId, "followedUserId":followedUserId, "postId": postId}
 				, success : function(data) {
 					location.reload();
 				}
@@ -171,7 +191,7 @@
 			$.ajax({
 				type:"POST"
 				,url:"/like/follow-user"
-				,data:{"followingUserId":followingUserId,"followedUserId": followedUserId}
+				,data:{"followingUserId":followingUserId,"followedUserId": followedUserId , "postId": postId}
 				,success: function(data){
 					if(data.code == 200) {
 					location.reload();
@@ -194,7 +214,6 @@
 				, data: {}
 				, success : function(data) {
 					if(data.code== 200) {
-						alert(data.recipeView.ifPostLike)
 						location.reload();
 					}
 				}
@@ -229,5 +248,26 @@
 			});
 			
 		});
+		
+		// 댓글
+		$('.input-group-btn').on('click', function(){
+			let userId = $('.followBtn').data('fu-id')
+			let postUserId = $('.likeTab').data('user-id');
+			let postId = $('.likeTab').data('post-id');
+			let comment = $('#cmt_tx_content1').val();
+			$.ajax({
+				type:"POST"
+				, url: "/comment/add-comment"
+				, data: {"postUserId": postUserId, "postId": postId, "userId": userId, "commentText": comment}
+				, success: function(data) {
+					alert("댓글 달기 성공");
+				}
+				, error : function(request, status, error) {
+					alert("댓글 달기 실패");
+				}
+			});
+			
+		});
+		
 	});
 </script>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.cook.BO.RecipeBO;
 import com.example.demo.cook.domain.RecipeView;
 import com.example.demo.postLike.BO.PostLikeBO;
+import com.example.demo.view.BO.ViewBO;
 
 @RequestMapping("/post-like")
 @RestController
@@ -22,6 +23,8 @@ public class PostLikeRestController {
 	private PostLikeBO postLikeBO;
 	@Autowired
 	private RecipeBO recipeBO;
+	@Autowired
+	private ViewBO viewBO;
 	
 	@PostMapping("/like/{postUserId}/{postId}/{userId}")
 	public Map<String, Object> postLikeByPostId(
@@ -36,6 +39,7 @@ public class PostLikeRestController {
 		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
 		recipeView.setIfPostLike(true);
 		
+		viewBO.minusViewByUserIdPostId(postUserId, postId, userId);
 		
 		result.put("code", 200);
 		result.put("recipeView", recipeView);
@@ -47,14 +51,15 @@ public class PostLikeRestController {
 	@PostMapping("/like/is-like")
 	public Map<String, Object> getIfUserLike(
 			@RequestParam("postUserId") int postUserId,
-			@RequestParam("postId") int postId) {
+			@RequestParam("postId") int postId,
+			@RequestParam("userId") int userId) {
 		Map<String, Object> result = new HashMap<>();
 		
-		int userPostLike = postLikeBO.getPostLikeCountByUserIdPostId(postUserId, postId);
+		boolean userPostLike = postLikeBO.getIfPostLikeByUserIdPostId(postUserId, postId, userId);
 		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
 		
 		
-		if(userPostLike == 1) {
+		if(userPostLike) {
 		
 			recipeView.setIfPostLike(true);
 			
@@ -62,8 +67,25 @@ public class PostLikeRestController {
 			result.put("recipeView", recipeView);
 		} else {
 			recipeView.setIfPostLike(false);
+			result.put("code", 200);
 			result.put("recipeView", recipeView);
 		}
+		
+		return result;
+	}
+	
+	@PostMapping("/get-likeCount")
+	public Map<String, Object> getIfUserLike(
+			@RequestParam("postUserId") int postUserId,
+			@RequestParam("postId") int postId) {
+		Map<String, Object> result = new HashMap<>();
+		
+		int userPostLikeCount = postLikeBO.getPostLikeCountByUserIdPostId(postUserId, postId);
+		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
+		
+		recipeView.setPostLikeCount(userPostLikeCount);
+		result.put("recipeView", recipeView);
+		result.put("code", 200);
 		
 		return result;
 	}
@@ -79,6 +101,7 @@ public class PostLikeRestController {
 		
 		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
 		recipeView.setIfPostLike(false);
+		viewBO.minusViewByUserIdPostId(postUserId, postId, userId);
 		
 		result.put("recipeView", recipeView);
 		result.put("code", 200);

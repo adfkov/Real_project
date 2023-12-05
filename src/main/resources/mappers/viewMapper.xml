@@ -30,4 +30,16 @@
  			`postUserId` = #{userId}
  			AND `postId` = #{postId}
  	</select>
+ 	
+ 	<delete id="deleteViewByUserIdPostId" parameterType="map">
+ 		DELETE
+ 		FROM `view`
+ 		WHERE
+ 			`postUserId` = #{postUserId}
+ 		AND	`postId` = #{postId}
+ 		AND `userId` = #{userId}
+ 		ORDER BY `createdAt` DESC
+ 		LIMIT 1
+ 			
+ 	</delete>
  </mapper>

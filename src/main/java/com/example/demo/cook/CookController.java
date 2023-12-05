@@ -69,8 +69,12 @@ public class CookController {
 		
 		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(userId,postId);
 
+	
+		
 		viewBO.addViewByUserIdPostId(userId, postId,serverUserId);
 		int view = viewBO.getViewByUserIdPostId(userId, postId);
+		
+		
 		recipeView.setView(view);
 		
 		model.addAttribute("serverUserId", serverUserId);

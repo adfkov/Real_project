@@ -13,4 +13,10 @@ public interface ViewMapper {
 	public int selectViewByUserIdPostId(
 			@Param("userId") int userId
 			,@Param("postId") int postId);
+	
+	public void deleteViewByUserIdPostId(
+			@Param("postUserId") int postUserId
+			, @Param("postId") int postid
+			, @Param("userId") int userId);
+	
 }

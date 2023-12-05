@@ -37,6 +37,21 @@ public class ViewRestController {
 		return result;
 	}
 	
+	@PostMapping("/delete-view")
+	public Map<String, Object> deleteView(
+			@RequestParam("postUserId") int postUserId,
+			@RequestParam("postId") int postId,
+			@RequestParam("userId") int userId) {
+		Map<String ,Object> result = new HashMap<>();
+		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
+		
+		viewBO.minusViewByUserIdPostId(postUserId, postId, userId);
+		
+		result.put("code", 200);
+		return result;
+		
+	}
+	
 	
 	// 조회수 업데이트
 			

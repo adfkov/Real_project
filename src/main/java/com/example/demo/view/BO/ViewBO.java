@@ -17,4 +17,8 @@ public class ViewBO {
 	public int getViewByUserIdPostId(int userId, int postId) {
 		return viewMapper.selectViewByUserIdPostId(userId, postId);
 	}
+	
+	public void minusViewByUserIdPostId(int postUserId, int postId, int userId) {
+		viewMapper.deleteViewByUserIdPostId(postUserId, postId, userId);
+	}
 }

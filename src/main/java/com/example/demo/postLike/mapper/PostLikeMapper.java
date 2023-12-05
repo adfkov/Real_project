@@ -18,7 +18,8 @@ public interface PostLikeMapper {
 	
 	public int selectIfPostLikeByUserIdPostId(
 			@Param("postUserId") int postUserId,
-			@Param("postId") int postId);
+			@Param("postId") int postId,
+			@Param("userId") int userId);
 	
 	public void deletePostLikeByUserIdPostId(
 			@Param("postUserId") int postUserId
