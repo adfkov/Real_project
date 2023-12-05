@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 
+import com.example.demo.comment.domain.CommentView;
 import com.example.demo.post.entity.PostEntity;
 import com.example.demo.user.Entity.UserEntity;
 
@@ -23,7 +24,8 @@ public class RecipeView {
 	
 	@Column(columnDefinition = "integer default 0", nullable = false)
 	private int view;
-//	private List<CommentView> commentList
+
+	private List<CommentView> commentList;
 	
 //	private int likeCount;
 	
