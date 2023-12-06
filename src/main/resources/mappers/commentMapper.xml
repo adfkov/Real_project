@@ -21,8 +21,9 @@
 			, NOW()
 			, NOW()
 		)
-		
-		
 	</insert>
- 	
+	
+ 	<select id="selectCommentListByPostUserIdPostId" parameterType="map" resultType="list">
+ 		
+ 	</select>
  </mapper>

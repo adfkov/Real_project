@@ -30,4 +30,5 @@ public class RecipeView {
 //	private int likeCount;
 	
 	private List<UserEntity> postLiker;
+	private List<CommentView> commentViewList;
 }
