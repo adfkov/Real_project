@@ -1,5 +1,6 @@
 package com.example.demo.comment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.comment.BO.CommentBO;
+import com.example.demo.comment.domain.Comment;
 import com.example.demo.comment.domain.CommentView;
 import com.example.demo.cook.BO.RecipeBO;
 import com.example.demo.cook.domain.RecipeView;
+import com.example.demo.user.BO.UserBO;
+import com.example.demo.user.Entity.UserEntity;
 
 @RestController
 @RequestMapping("/comment")
@@ -22,6 +26,8 @@ public class CommentRestController {
 	private CommentBO commentBO;
 	@Autowired
 	private RecipeBO recipeBO;
+	@Autowired
+	private UserBO userBO;
 	
 	@PostMapping("/add-comment")
 	public Map<String, Object> addComment(
@@ -41,14 +47,29 @@ public class CommentRestController {
 	@PostMapping("/get-comment")
 	public Map<String, Object> getComment(
 			@RequestParam("postUserId") int postUserId
-			,@RequestParam("postId") int postId) {
+			,@RequestParam("postId") int postId
+			,@RequestParam("userId") int userId) {
 		Map<String, Object> result = new HashMap<>();
 		
-		List<CommentView> commentViewList =  commentBO.getCommentListByPostUserIdPostId(postUserId, postId);
+		List<Comment> commentList =  commentBO.getCommentListByPostUserIdPostId(postUserId, postId);
+		List<CommentView> commentViewList = new ArrayList<>();
+		if(commentList == null) {
+			result.put("code", 200);
+			return result;
+		}
 		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
-		recipeView.setCommentList(commentViewList);
+		
+		
+		for(Comment comment : commentList) {
+			CommentView commentView = new CommentView();
+			UserEntity user = userBO.getUserEntityById(comment.getUserId());
+			commentView.setComment(comment);
+			commentView.setUser(user);
+		}
+		recipeView.setCommentViewList(commentViewList);
 		
 		result.put("code", 200);
+		result.put("recipeView", recipeView);
 		return result;
 	}
 	

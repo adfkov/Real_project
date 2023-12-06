@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.comment.domain.CommentView;
+import com.example.demo.comment.domain.Comment;
 import com.example.demo.comment.mapper.CommentMapper;
 
 @Service
@@ -17,7 +17,7 @@ public class CommentBO {
 		commentMapper.insertCommentByPostUserIdPostId(postUserId, postId, userId, commentText);
 	}
 	
-	public List<CommentView> getCommentListByPostUserIdPostId(int postUserId, int postId) {
+	public List<Comment> getCommentListByPostUserIdPostId(int postUserId, int postId) {
 		return commentMapper.selectCommentListByPostUserIdPostId(postUserId, postId);
 	}
 

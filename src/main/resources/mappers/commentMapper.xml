@@ -23,7 +23,12 @@
 		)
 	</insert>
 	
- 	<select id="selectCommentListByPostUserIdPostId" parameterType="map" resultType="list">
- 		
+ 	<select id="selectCommentListByPostUserIdPostId" parameterType="map" resultType="com.example.demo.comment.domain.Comment">
+ 		SELECT * FROM
+ 			`comment`
+ 		WHERE
+ 			`postUserId` = #{postUserId}
+ 		AND
+ 			`postId` = #{postId} 	
  	</select>
  </mapper>

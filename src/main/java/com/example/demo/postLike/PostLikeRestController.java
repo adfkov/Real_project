@@ -26,11 +26,11 @@ public class PostLikeRestController {
 	@Autowired
 	private ViewBO viewBO;
 	
-	@PostMapping("/like/{postUserId}/{postId}/{userId}")
+	@PostMapping("/like/{postUserId}/{postId}")
 	public Map<String, Object> postLikeByPostId(
 			@PathVariable int postUserId,
 			@PathVariable int postId,
-			@PathVariable int userId
+			@RequestParam("userId") int userId
 		) {
 		Map<String, Object> result = new HashMap<>();
 		// DB INSERT
@@ -48,31 +48,7 @@ public class PostLikeRestController {
 		
 	}
 	
-	@PostMapping("/like/is-like")
-	public Map<String, Object> getIfUserLike(
-			@RequestParam("postUserId") int postUserId,
-			@RequestParam("postId") int postId,
-			@RequestParam("userId") int userId) {
-		Map<String, Object> result = new HashMap<>();
-		
-		boolean userPostLike = postLikeBO.getIfPostLikeByUserIdPostId(postUserId, postId, userId);
-		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
-		
-		
-		if(userPostLike) {
-		
-			recipeView.setIfPostLike(true);
-			
-			result.put("code", 200);
-			result.put("recipeView", recipeView);
-		} else {
-			recipeView.setIfPostLike(false);
-			result.put("code", 200);
-			result.put("recipeView", recipeView);
-		}
-		
-		return result;
-	}
+
 	
 	@PostMapping("/get-likeCount")
 	public Map<String, Object> getIfUserLike(
@@ -80,10 +56,7 @@ public class PostLikeRestController {
 			@RequestParam("postId") int postId) {
 		Map<String, Object> result = new HashMap<>();
 		
-		int userPostLikeCount = postLikeBO.getPostLikeCountByUserIdPostId(postUserId, postId);
-		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
 		
-		recipeView.setPostLikeCount(userPostLikeCount);
 		result.put("recipeView", recipeView);
 		result.put("code", 200);
 		

@@ -50,6 +50,7 @@ public class LikeRestController {
 		// db select
 		boolean isFollowing = likeBO.isFollowingCheck(followingUserId, followedUserId);
 		
+		
 		result.put("isFollowing", isFollowing);
 		
 		return result;

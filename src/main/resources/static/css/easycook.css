@@ -259,3 +259,7 @@ p {
     		display: table;
    			border-collapse: separate;
 		}*/
+		
+		.reply_commentList {
+			height: 100px;
+		}

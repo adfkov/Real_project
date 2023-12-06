@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.comment.domain.CommentView;
+import com.example.demo.comment.domain.Comment;
 
 @Repository
 public interface CommentMapper {
@@ -16,7 +16,7 @@ public interface CommentMapper {
 			@Param("userId") int userId
 			,@Param("commentText") String commentText);
 	
-	public List<CommentView> selectCommentListByPostUserIdPostId(
+	public List<Comment> selectCommentListByPostUserIdPostId(
 			@Param("postUserId") int postUserId, 
 			@Param("postId") int postId);	
 }
