@@ -46,4 +46,12 @@
  		FROM 
  			`follow`
  	</select>
+ 	
+ 	<select id="selectFollowersList" parameterType="int" resultType="com.example.demo.like.domain.Follower">
+ 		SELECT *
+ 		FROM
+ 			`follow`
+ 		WHERE
+ 			`followedUserId` = #{postUserId}
+ 	</select>
  </mapper>

@@ -1,9 +1,7 @@
 package com.example.demo.cook;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.cook.BO.RecipeBO;
 import com.example.demo.cook.domain.RecipeView;
 import com.example.demo.like.BO.LikeBO;
-import com.example.demo.like.domain.Follower;
 import com.example.demo.like.domain.FollowerList;
 import com.example.demo.post.BO.PostBO;
 import com.example.demo.postLike.BO.PostLikeBO;
@@ -69,57 +66,48 @@ public class CookController {
 
 	// post 눌렀을 때
 	@GetMapping("/go-to-post/{userId}/{postId}")
-	public String goToPostpage(@PathVariable int userId, @PathVariable int postId, Model model,
-			HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String goToPostpage(@PathVariable int userId, 
+			@PathVariable int postId, 
+			Model model,
+			HttpSession session) {
 
+		List<RecipeView> recipeViewList = recipeBO.generateRecipeViewList(userId);
 		Integer serverUserId = (Integer) session.getAttribute("userId");
-
-		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(userId, postId);
-
-		boolean userPostLike = postLikeBO.getIfPostLikeByUserIdPostId(userId, postId, serverUserId);
-		if (userPostLike == true) {
-			recipeView.setIfPostLike(true);
-
-		} else {
-			recipeView.setIfPostLike(false);
+		RecipeView postRecipeView = null;
+		
+		for(RecipeView recipeView : recipeViewList) {
+			if(recipeView.getPost().getId() == postId) {
+				postRecipeView = recipeView;
+			}
 		}
-
-		int userPostLikeCount = postLikeBO.getPostLikeCountByUserIdPostId(userId, postId);
-		recipeView.setPostLikeCount(userPostLikeCount);
-
-		boolean isFollowing = likeBO.isFollowingCheck(serverUserId, userId);
-
+		if(serverUserId != null) {
+			viewBO.addViewByUserIdPostId(userId, postId, serverUserId);
+			int view = viewBO.getViewByUserIdPostId(userId, postId);
+			postRecipeView.setView(view);
+			
+			FollowerList followerList = postRecipeView.getFollowerList();
+			List<UserEntity> userList = followerList.getFollowers();
+			for(UserEntity user: userList) {
+				if(user.getId() == serverUserId) {
+					postRecipeView.setFollowing(true);
+				}
+			}
+		}
 		
-		  FollowerList followerList = new FollowerList();
-		  if(isFollowing == true) {
-		  Follower follower = new Follower(); UserEntity user =
-		  userBO.getUserEntityById(serverUserId); follower.setUser(user);
-		  
-		  List<Follower> followingUserList = new ArrayList<>();
-		  followerList.setFollowedUserId(userId); followingUserList.add(follower);
-		  followerList.setFollowingUserList(followingUserList);
-		  
-		  }
-		  recipeView.setFollowerList(followerList);
-		 
-
-		viewBO.addViewByUserIdPostId(userId, postId, serverUserId);
-		int view = viewBO.getViewByUserIdPostId(userId, postId);
-
-		recipeView.setView(view);
 		
-		model.addAttribute("isFollowing", isFollowing);
+		model.addAttribute("recipeView", postRecipeView);
+		
+		
 		model.addAttribute("serverUserId", serverUserId);
-		model.addAttribute("recipeView", recipeView);
 		model.addAttribute("viewName", "recipe/postPage");
 		return "template/easycook";
 	}
 
 	@GetMapping("/go-to-userView/{userId}")
 	public String goToUserView(@PathVariable int userId, Model model) {
-		List<RecipeView> recipeView = recipeBO.generateRecipeViewList(userId);
-		model.addAttribute("recipeViewList", recipeView);
+		List<RecipeView> recipeViewList = recipeBO.generateRecipeViewList(userId);
+		
+		model.addAttribute("recipeViewList", recipeViewList);
 		model.addAttribute("viewName", "user/userRecipeView");
 
 		return "template/easycook";

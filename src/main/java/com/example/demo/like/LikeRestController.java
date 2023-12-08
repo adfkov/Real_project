@@ -1,6 +1,7 @@
 package com.example.demo.like;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,7 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.cook.BO.RecipeBO;
+import com.example.demo.cook.domain.RecipeView;
 import com.example.demo.like.BO.LikeBO;
+import com.example.demo.like.domain.Follower;
+import com.example.demo.like.domain.FollowerList;
+import com.example.demo.user.BO.UserBO;
 import com.example.demo.view.BO.ViewBO;
 
 @RestController
@@ -22,18 +28,20 @@ public class LikeRestController {
 	private LikeBO likeBO;
 	@Autowired
 	private ViewBO viewBO;
+	@Autowired
+	private RecipeBO recipeBO;
+	@Autowired
+	private UserBO userBO;
 	// 팔로우 기능
 	@PostMapping("/follow-user")
 	public Map<String, Object> followUser(
 			@RequestParam("followingUserId") int followingUserId
-			,@RequestParam("followedUserId") int followedUserId,
-			@RequestParam("postId") int postId
-			){
-		Map<String, Object> result = new HashMap<>();
+			,@RequestParam("followedUserId") int followedUserId) {
+												
+			Map<String, Object> result = new HashMap<>();
 		
 		// db insert
 		likeBO.followUserById(followingUserId, followedUserId);
-		viewBO.minusViewByUserIdPostId(followedUserId, postId, followingUserId);
 		
 		result.put("followingUserId", followingUserId);
 		result.put("code", 200);

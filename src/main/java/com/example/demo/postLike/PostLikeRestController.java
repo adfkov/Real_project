@@ -3,6 +3,8 @@ package com.example.demo.postLike;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,54 +32,51 @@ public class PostLikeRestController {
 	public Map<String, Object> postLikeByPostId(
 			@PathVariable int postUserId,
 			@PathVariable int postId,
-			@RequestParam("userId") int userId
+			HttpSession session
 		) {
 		Map<String, Object> result = new HashMap<>();
-		// DB INSERT
-		postLikeBO.postLikeByUserIdPostId(postUserId, postId, userId);
 		
-		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
-		recipeView.setIfPostLike(true);
-		
-		viewBO.minusViewByUserIdPostId(postUserId, postId, userId);
-		
-		result.put("code", 200);
-		result.put("recipeView", recipeView);
-		
-		return result;
-		
-	}
-	
 
-	
-	@PostMapping("/get-likeCount")
-	public Map<String, Object> getIfUserLike(
-			@RequestParam("postUserId") int postUserId,
-			@RequestParam("postId") int postId) {
-		Map<String, Object> result = new HashMap<>();
+		Integer serverUserId = (Integer) session.getAttribute("userId");
+		if(serverUserId == null) {
+			result.put("code", 500);
+			result.put("errorMessage", "로그인 안 됐습니다.");
+			
+			return result;
+		}
+		// DB INSERT
+		
+		postLikeBO.tellLikeToggle(postUserId, postId, serverUserId);
 		
 		
-		result.put("recipeView", recipeView);
+		viewBO.minusViewByUserIdPostId(postUserId, postId, serverUserId);
+		
 		result.put("code", 200);
 		
+		
 		return result;
+		
 	}
 	
-	@DeleteMapping("/like-cancel")
-	public Map<String, Object> likeCancel(
-			@RequestParam("postUserId") int postUserId,
-			@RequestParam("postId") int postId,
-			@RequestParam("userId") int userId
-			) {
-		Map<String, Object> result = new HashMap<>();
-		postLikeBO.deleteLikeByUserIdPostId(postUserId, postId, userId);
-		
-		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
-		recipeView.setIfPostLike(false);
-		viewBO.minusViewByUserIdPostId(postUserId, postId, userId);
-		
-		result.put("recipeView", recipeView);
-		result.put("code", 200);
-		return result;
-	}
+//	
+//	@DeleteMapping("/like-cancel")
+//	public Map<String, Object> likeCancel(
+//			@RequestParam("postUserId") int postUserId,
+//			@RequestParam("postId") int postId,
+//			@RequestParam("userId") int userId
+//			) {
+//		Map<String, Object> result = new HashMap<>();
+//		postLikeBO.deleteLikeByUserIdPostId(postUserId, postId, userId);
+//		
+//		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
+//		recipeView.setIfPostLike(false);
+//		viewBO.minusViewByUserIdPostId(postUserId, postId, userId);
+//		
+//		int userPostLikeCount = postLikeBO.getPostLikeCountByUserIdPostId(userId, postId);
+//		recipeView.setPostLikeCount(userPostLikeCount);
+//		
+//		result.put("recipeView", recipeView);
+//		result.put("code", 200);
+//		return result;
+//	}
 }

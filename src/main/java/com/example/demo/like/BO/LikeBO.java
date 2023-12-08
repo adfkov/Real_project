@@ -1,8 +1,11 @@
 package com.example.demo.like.BO;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.like.domain.Follower;
 import com.example.demo.like.mapper.LikeMapper;
 
 @Service
@@ -29,5 +32,9 @@ public class LikeBO {
 	
 	public int getFollowerCount(int userId) {
 		return likeMapper.selectFollowerCount(userId);
+	}
+	
+	public List<Follower> getFollowersList(int postUserId) {
+		return likeMapper.selectFollowersList(postUserId);
 	}
 }

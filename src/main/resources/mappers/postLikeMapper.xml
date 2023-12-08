@@ -23,13 +23,19 @@
  	</insert>
  	
  	<select id="selectPostLikeCountByUserIdPostId" parameterType="map" resultType="int">
- 		SELECT COUNT(*)
- 		FROM `postLike`
+ 		SELECT
+ 			 COUNT(*)
+ 		FROM 
+ 			`postLike`
  		WHERE
  			postUserId = #{postUserId}
  		AND
- 			postId = #{postId}	
+ 			postId = #{postId}
+ 		<if test="userId != null"> <!--  mapper의 param -->
+	 				AND `userId` = #{userId}
+	 			</if>	
  	</select>
+ 	
  	
  	<select id="selectIfPostLikeByUserIdPostId" parameterType="map" resultType="int">
  		SELECT COUNT(*)
@@ -54,9 +60,9 @@
  			userId = #{userId}
  	</delete>
  	
- 	<select id="selectPostLikersByPostUserIdPostId" parameterType="map" resultType="list">
+ 	<select id="selectPostLikerByUserIdPostId" parameterType="map" resultType="com.example.demo.postLike.domain.PostLiker">
  		SELECT 
- 			`userId`
+ 			*
  		FROM 
  			`postLike`
  		WHERE

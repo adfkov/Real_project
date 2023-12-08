@@ -2,7 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-<div class="wrap"  data-fu-id="${serverUserId}">    
+<div class="wrap">
+	<c:if test="${serverUserId ne null}">
+		<span class="server_id">${serverUserId}</span>
+	</c:if>  
    <div class="postSubject d-flex justify-content-center" id="postSubject">
    	<img src="${recipeView.post.mainImageUrl}" id="postImg" width="500px" height="500px" data-post-id="${recipeView.post.id}">
    </div>
@@ -23,6 +26,8 @@
     <a class="user_profile_link" href="/cook/go-to-userView/${recipeView.user.id}">
 		<div class="d-flex justify-content-center">
 		<img id="user_profile" src="${recipeView.user.profileImageUrl}" alt="${recipeView.post.id}">
+	    <span class="user_id d-none">${recipeView.user.id}</span>
+	    <span class="post_id d-none">${recipeView.post.id}</span>
 	    </div>
 	    <div class="nick_and_button d-flex justify-content-center">
 	    <span class="user_nickName">${recipeView.user.nickName}</span>
@@ -31,11 +36,11 @@
 	<c:set var="recipeUserId" value="${recipeView.user.id}"/>
 	
 	 <c:if test="${recipeUserId ne serverUserId}">
-	 	<c:if test="${isFollowing ne false}">
+	 	<c:if test="${Following ne false}">
 			<button type="button" class="followBtn btn btn-info ml-3">팔로우</button>
 		</c:if>
-		<c:if test="${isFollowing eq false}">
-			<button type="button" class="followingBtn btn btn-default ml-3 d-none">팔로잉</button>
+		<c:if test="${Following eq false}">
+			<button type="button" class="followingBtn btn btn-default ml-3">팔로잉</button>
 		</c:if>
 	</c:if>
 	<%-- <c:if test="${recipeUserId eq serverUserId}">
@@ -55,33 +60,43 @@
    	<div class="intro">${recipeView.post.intro}</div>
    </div>
    <div class="like-scrap-comment">
-    <c:if test="${recipeView.ifPostLike eq false}">
    	<a href="javascript:void(0)" class="likeTab btn btn-info" data-user-id="${recipeView.user.id}"
    	data-post-id="${recipeView.post.id}">
    		좋아요
    	</a>
- 	</c:if>
    	
 	<span class="likeCount">${recipeView.postLikeCount}</span>개
-	   <c:if test="${recipeView.ifPostLike eq true}">
 	   	<a href="javascript:void(0)" class="likeCancelTab btn btn-danger" data-user-id="${recipeView.user.id}"
 	   	data-post-id="${recipeView.post.id}">
 	   		좋아요 취소
 	   	</a>	
-	   	</c:if>
    	<a href="javascript:void(0)" class="wholikesPostTab btn btn-warning">
    		추천한 유저
    	</a>
    	
    <div class="view">조회수 : ${recipeView.view}</div>
    </div>
+   <div class="postLiker_List">
+   	 <c:forEach items="${recipeView.postLiker}" var="liker">
+		   <div class="liker_list">
+		   		<div class="comment_left">${liker.userId}</div>
+		   </div>
+	  </c:forEach> 
+   </div>
    <div class="reply_commentList">
+   		댓글:
    	 <c:forEach items="${recipeView.commentViewList}" var="commentView">
 		   <div class="reply_list">
 		   		<div class="comment_left">${commentView.comment.commentText}</div>
 		   		<div class="comment_right"></div>
 		   </div>
 	  </c:forEach> 
+   </div>
+   
+   <div class="ingredient">
+		   <div class="ingredient_list">
+		   		<div class="comment_left">재료: ${recipeView.post.ingredient}</div>
+		   </div>
    </div>
    
    <!--  댓글 쓰기 -->
@@ -96,48 +111,23 @@
 <script>
 
 	$(document).ready(function() {
-		
+		let userId = $('.server_id').text();/* 
+		let postUserId = $('.likeCancelTab').data('user-id');	
+		let postId = $('.likeCancelTab').data('post-id'); */
 		 // 팔로우, 팔로잉 버튼 띄우기
 		let followedUserId = $('.user_profile_link').attr('href').split("/").pop();
+	
 		let followingUserId = $('.wrap').data('fu-id');
-		let postUserId = $('.likeTab').data('user-id'); // 글을 쓴 유저
-		let postId = $('.likeTab').data('post-id'); // 글의 아이디
-		alert(followingUserId);
-
-	/* 	// 댓글 불러오기
-		$.ajax({
-			type:"POST"
-			, url: "/comment/get-comment"
-			, data: {"postUserId": postUserId, "postId": postId, "userId":followingUserId}
-			, success : function(data) {
-				alert(data.recipeView.commentViewList[0].comment);
-			}
-			, error : function(request, status, error) {
-				alert("댓글 불러오기 실패");
-			}
-		}); 
-		<!------------------- 구분선 ------------------->
-		$.ajax({
-			type:"POST"
-			, url:"/like/is-following"
-			, data:{"followingUserId":followingUserId, "followedUserId":followedUserId}
-			, success: function(data) {
-				if(data.isFollowing) {
-					$('.followBtn').addClass('d-none');
-					$('.followingBtn').removeClass('d-none');
-				}
-			}
-			, error : function(request, status, error) {
-				alert("팔로우 여부 확인 실패");
-			}
-		}); */ 
+		let postUserId = $('.user_id').text(); // 글을 쓴 유저
+		let postId = $('.post_id').text(); // 글의 아이디
 		
+		
+
 		// 팔로잉 버튼을 눌렀을 때
 		$('.followingBtn').on('click', function(e){
 			/*e.preventDefault();*/
 			$('#modal').removeClass('d-none');/* 
 			$('#modal').addClass('d-flex');/*   */
-			$('#modal').style.display = "flex";
 		});
 		
 		// 팔로우 취소를 눌렀을 때
@@ -181,7 +171,6 @@
 		
 		// 팔로우를 클릭했을 때
 		$('.followBtn').on('click', function() {
-			alert(followingUserId);
 		 	if(followingUserId == "") {
 				alert("팔로우는 로그인해야 할 수 있습니다!");
 				return false;
@@ -190,13 +179,13 @@
 			$.ajax({
 				type:"POST"
 				,url:"/like/follow-user"
-				,data:{"followingUserId":followingUserId,"followedUserId": followedUserId , "postId": postId}
+				,data:{"followingUserId":userId,"followedUserId": postUserId}
 				,success: function(data){
 					if(data.code == 200) {
 						alert("!!!");
 					}
 				}
-				,error:function(request,status,error, data){
+				,error:function(request,status,error){
 					alert("팔로우 실패");
 				}
 			});
@@ -204,17 +193,20 @@
 		
 		// 좋아요를 눌렀을 때
 		$('.likeTab').on('click', function() {
-			let userId = $('.wrap').data('fu-id')
-			let postUserId = $('.likeTab').data('user-id');
-			let postId = $('.likeTab').data('post-id');
-			alert(postId);
+			let serverUserId = $('.server_id').text();
+			if(serverUserId == "") {
+				alert("로그인 하세요.");
+				location.href="/user/sign-in-view";
+			}
+			
 			$.ajax({
 				type:"POST"
 				, url: "/post-like/like/" + postUserId + "/" + postId
-				, data: {"userId": userId}
+				, data: {}
 				, success : function(data) {
 					if(data.code== 200) {
 						location.reload();
+						alert(data.recipeView.postLikeCount);
 					}
 				}
 				, error : function(data) {
@@ -225,7 +217,7 @@
 		
 		// 좋아요 취소를 눌렀을 때
 		$('.likeCancelTab').on('click', function() {
-				let userId = $('.followBtn').data('fu-id')
+				let userId = $('.server_id').text();
 				let postUserId = $('.likeCancelTab').data('user-id');
 				let postId = $('.likeCancelTab').data('post-id');
 			$.ajax({
@@ -250,11 +242,12 @@
 		});
 		
 		// 댓글
-		$('.input-group-btn').on('click', function(){
-			let userId = $('.followBtn').data('fu-id')
+		$('.input-group-btn').on('click', function(){/* 
+			let userId = $('.server_id').data('fu-id');
 			let postUserId = $('.likeTab').data('user-id');
 			let postId = $('.likeTab').data('post-id');
-			let comment = $('#cmt_tx_content1').val();
+			let comment = $('#cmt_tx_content1').val(); */
+			let comment = $('#cmt_tx_content1').val(); 
 			$.ajax({
 				type:"POST"
 				, url: "/comment/add-comment"
