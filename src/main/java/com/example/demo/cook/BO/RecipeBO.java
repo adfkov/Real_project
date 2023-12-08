@@ -56,15 +56,21 @@ public class RecipeBO {
 			// postLiker
 			List<PostLiker> postLiker = postLikeBO.getPostLikersByPostUserIdPostId(postUserId, post.getId());
 			recipeView.setPostLiker(postLiker);
+			List<UserEntity> postLikerUser = new ArrayList<>();
+			for(PostLiker liker : postLiker) {
+				UserEntity userLike = userBO.getUserEntityById(liker.getUserId());
+				postLikerUser.add(userLike);
+			}
+			recipeView.setPostLikerUser(postLikerUser);
 			// view
 			
 			// comment
 			List<CommentView> commentViewList = new ArrayList<>();
-			CommentView commentView = new CommentView();
 
 			List<Comment> commentList = commentBO.getCommentListByPostUserIdPostId(postUserId, post.getId());
 			
 			for(Comment comment : commentList) {
+				CommentView commentView = new CommentView();
 				UserEntity commentUser = userBO.getUserEntityById(comment.getUserId());
 				commentView.setUser(commentUser);
 				commentView.setComment(comment);

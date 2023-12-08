@@ -98,6 +98,7 @@ li {
 
 section {
 	display: block;
+	min-height: 1500px;
 }
 
 .nav-logo {

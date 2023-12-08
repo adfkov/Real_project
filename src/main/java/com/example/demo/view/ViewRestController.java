@@ -27,11 +27,9 @@ public class ViewRestController {
 			@RequestParam("postId") int postId,
 			@RequestParam("userId") int userId) {
 		Map<String ,Object> result = new HashMap<>();
-		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId); 
 		
 		viewBO.addViewByUserIdPostId(postUserId, postId, userId);
-		int viewCount = viewBO.getViewByUserIdPostId(postUserId, postId);
-		recipeView.setView(viewCount);
+
 		
 		result.put("code",200);
 		return result;
@@ -43,7 +41,7 @@ public class ViewRestController {
 			@RequestParam("postId") int postId,
 			@RequestParam("userId") int userId) {
 		Map<String ,Object> result = new HashMap<>();
-		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(postUserId, postId);
+		
 		
 		viewBO.minusViewByUserIdPostId(postUserId, postId, userId);
 		

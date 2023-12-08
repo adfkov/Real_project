@@ -36,12 +36,15 @@ public class LikeRestController {
 	@PostMapping("/follow-user")
 	public Map<String, Object> followUser(
 			@RequestParam("followingUserId") int followingUserId
-			,@RequestParam("followedUserId") int followedUserId) {
+			,@RequestParam("followedUserId") int followedUserId
+			,@RequestParam("postId") int postId) {
 												
 			Map<String, Object> result = new HashMap<>();
 		
 		// db insert
 		likeBO.followUserById(followingUserId, followedUserId);
+		viewBO.minusViewByUserIdPostId(followedUserId, postId, followingUserId);
+
 		
 		result.put("followingUserId", followingUserId);
 		result.put("code", 200);

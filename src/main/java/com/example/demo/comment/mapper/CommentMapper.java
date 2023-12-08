@@ -19,4 +19,11 @@ public interface CommentMapper {
 	public List<Comment> selectCommentListByPostUserIdPostId(
 			@Param("postUserId") int postUserId, 
 			@Param("postId") int postId);	
+	
+	public void deleteCommentByIdsAndCommentText(
+			@Param("postUserId") int postUserId, 
+			@Param("postId") int postId, 
+			@Param("userId") int userId
+			,@Param("commentText") String commentText);
+	
 }

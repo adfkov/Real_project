@@ -31,4 +31,17 @@
  		AND
  			`postId` = #{postId} 	
  	</select>
+ 	
+ 	<delete id="deleteCommentByIdsAndCommentText" parameterType="map">
+ 		DELETE FROM
+ 			`comment`
+ 		WHERE
+ 			`postUserId` = #{postUserId}
+		 		AND
+		 		`postId` = #{postId}
+		 		AND
+		 		`userId` = #{userId}
+		 		AND
+ 				`commentText` = #{commentText}
+ 	</delete>
  </mapper>

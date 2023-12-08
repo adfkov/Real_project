@@ -20,7 +20,7 @@
 <title>Easycook! 나만의 요리를, 모두와 함께</title>
 </head>
 <body>
-	<div id="wrap">
+	<div id="wrap" class="overflow-scroll">
 		<header>
 			<jsp:include page="../include/header.jsp" />
 		</header>

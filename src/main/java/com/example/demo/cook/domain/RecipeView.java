@@ -24,9 +24,8 @@ public class RecipeView {
 	private int view;
 //	private int likeCount;
 	
-	private boolean Following;
-	
 	private List<PostLiker> postLiker;
+	private List<UserEntity> postLikerUser;
 	private List<CommentView> commentViewList;
 	private FollowerList followerList;
 	public void setFollowerList(FollowerList followerList2) {

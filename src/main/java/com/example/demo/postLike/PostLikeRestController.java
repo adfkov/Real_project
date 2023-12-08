@@ -58,10 +58,41 @@ public class PostLikeRestController {
 		
 	}
 	
-//	
+	@DeleteMapping("/like/{postUserId}/{postId}")
+	public Map<String, Object> deletePostLikeByPostId(
+			@PathVariable int postUserId,
+			@PathVariable int postId,
+			HttpSession session
+		) {
+		Map<String, Object> result = new HashMap<>();
+		
+
+		Integer serverUserId = (Integer) session.getAttribute("userId");
+		if(serverUserId == null) {
+			result.put("code", 500);
+			result.put("errorMessage", "로그인 안 됐습니다.");
+			
+			return result;
+		}
+		// DB INSERT
+		
+		postLikeBO.tellLikeToggle(postUserId, postId, serverUserId);
+		
+		
+		viewBO.minusViewByUserIdPostId(postUserId, postId, serverUserId);
+		
+		result.put("code", 200);
+		
+		
+		return result;
+		
+	}
+}
+	
+	
 //	@DeleteMapping("/like-cancel")
 //	public Map<String, Object> likeCancel(
-//			@RequestParam("postUserId") int postUserId,
+//				@RequestParam("postUserId") int postUserId,
 //			@RequestParam("postId") int postId,
 //			@RequestParam("userId") int userId
 //			) {
@@ -78,5 +109,5 @@ public class PostLikeRestController {
 //		result.put("recipeView", recipeView);
 //		result.put("code", 200);
 //		return result;
-//	}
-}
+////	}
+//}

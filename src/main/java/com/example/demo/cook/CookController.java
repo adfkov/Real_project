@@ -17,6 +17,7 @@ import com.example.demo.like.BO.LikeBO;
 import com.example.demo.like.domain.FollowerList;
 import com.example.demo.post.BO.PostBO;
 import com.example.demo.postLike.BO.PostLikeBO;
+import com.example.demo.postLike.domain.PostLiker;
 import com.example.demo.user.BO.UserBO;
 import com.example.demo.user.Entity.UserEntity;
 import com.example.demo.view.BO.ViewBO;
@@ -70,6 +71,8 @@ public class CookController {
 			@PathVariable int postId, 
 			Model model,
 			HttpSession session) {
+		boolean filledLiker = false;
+		boolean Following = false;
 
 		List<RecipeView> recipeViewList = recipeBO.generateRecipeViewList(userId);
 		Integer serverUserId = (Integer) session.getAttribute("userId");
@@ -89,7 +92,14 @@ public class CookController {
 			List<UserEntity> userList = followerList.getFollowers();
 			for(UserEntity user: userList) {
 				if(user.getId() == serverUserId) {
-					postRecipeView.setFollowing(true);
+					Following = true;
+				}
+			}
+			
+			List<PostLiker> postLiker = postRecipeView.getPostLiker();
+			for(PostLiker liker : postLiker) {
+				if(liker.getUserId() == serverUserId) {
+					filledLiker = true;
 				}
 			}
 		}
@@ -97,7 +107,8 @@ public class CookController {
 		
 		model.addAttribute("recipeView", postRecipeView);
 		
-		
+		model.addAttribute("filledLiker", filledLiker);
+		model.addAttribute("Following", Following);
 		model.addAttribute("serverUserId", serverUserId);
 		model.addAttribute("viewName", "recipe/postPage");
 		return "template/easycook";
