@@ -1,6 +1,8 @@
 package com.example.demo.post.BO;
 
 import java.util.List;
+import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,6 +77,79 @@ public class PostBO {
 	public void deletePost(int postUserId, int postId) {
 		postRepository.deleteByUserIdAndId(postUserId, postId);
 	}
+	
+	
+	public PostEntity updateRecipe( int postId
+			,int userId
+			,String subject
+			,String intro
+			, String foodTypeId
+			, String ingredientId
+			,String portion
+			,String degree
+			,MultipartFile file
+			,String ingredient
+			,String cookStepText
+			,String cookTip) {
+		String mainImageUrl = null;
+//		
+		UserEntity user = userBO.getUserEntityById(userId);
+		if(file != null) {
+			mainImageUrl = fileManager.saveFile(user.getLoginId(), file);
+		}
+		
+		PostEntity post = postRepository.findAllByUserIdAndId(userId,postId);
+		post = post.toBuilder()
+				.subject(subject)
+				.intro(intro)
+				.foodTypeId(foodTypeId)
+				.ingredientId(ingredientId)
+				.portion(portion)
+				.degree(degree)
+				.mainImageUrl(mainImageUrl)
+				.ingredient(ingredient)
+				.cookStepText(cookStepText)
+				.cookTip(cookTip)
+				.build();
+		
+		return postRepository.save(post);
+	}
+	// 수정
+//	public void updateRecipe( int postId
+//			,int userId
+//			,String subject
+//			,String intro
+//			, String foodTypeId
+//			, String ingredientId
+//			,String portion
+//			,String degree
+//			,MultipartFile file
+//			,String ingredient
+//			,String cookStepText
+//			,String cookTip) {
+//		
+//		String mainImageUrl = null;
+//		
+//		UserEntity user = userBO.getUserEntityById(userId);
+//		if(file != null) {
+//			mainImageUrl = fileManager.saveFile(user.getLoginId(), file);
+//		}
+//		
+//		postRepository.updateRecipe(
+//				postId
+//				,userId
+//				, subject
+//				, intro
+//				,  foodTypeId
+//				, ingredientId
+//				, portion
+//				, degree
+//				, mainImageUrl
+//				, ingredient
+//				, cookStepText
+//				, cookTip);
+//	}
+//	
 	
 }
 	

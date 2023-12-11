@@ -154,6 +154,7 @@
 		
 		$('#submitBtn').on('click', function(e) {
 			let userId =$('.regi-title').data("user-id");
+			alert(userId);
 			let subject = $('input[name=cok-title]').val().trim();
 			let intro = $('#intro').val();
 		

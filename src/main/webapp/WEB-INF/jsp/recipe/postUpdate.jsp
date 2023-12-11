@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<form name="recipeAll" id="recipeAll" class="form-horizontal" method="post" action="/post/add-recipe"> 
+<form name="recipeAll" id="recipeAll" class="form-horizontal" method="post" action="/post/update-recipe"> 
 <div class="container recipe_regi">
-	<div class="regi-title" data-user-id="${userId}">
+	<div class="regi-title" data-user-id="${userId}" data-post-id="${postId}">
 		레시피 수정
 	</div>
 	
@@ -10,6 +10,7 @@
 		
 		<div class="cont-line d-flex align-items-center mt-3">
 			<p class="cont_tit4">레시피 제목</p>
+			<span class="d-none" id="postId" data-target="#submittBtn">${post.id}</span>
 			<input type="text" name="cok-title" id="title" class="form-control" value="${post.subject}" style="width:610px;">
 		</div>
 		
@@ -20,7 +21,7 @@
 		
 		<div class="cont-line">
 			<p class="cont_tit4">카테고리</p>
-			<select name="cok_sq_category_1" id="cok_sq_category_1" class="form-control category mt-3">
+			<select name="cok_sq_category_1" id="cok_sq_category_1" class="form-control category mt-3" value="${post.ingredientId}">
 				<option value="">종류별</option>
 				<option value="63">밑반찬</option>
 				<option value="56">메인반찬</option>
@@ -122,7 +123,7 @@
 	
 	
 	<div class="regi_btn">
-		<button type="submit" class="btn btn-info" id="submitBtn">수정 완료</button>
+		<button type="submit" class="btn btn-info" id="submittBtn">수정 완료</button>
 	</div>
 </div>
 
@@ -130,6 +131,17 @@
 
 <script>
 	$(document).ready(function() {
+		// 옵션 미리 선택
+		
+		
+		
+	/* 	if(
+		$('#cok_sq_category_1 option').text() == $('#cok_sq_category_1').attr('value')
+		) {
+			$(this).
+		} */
+		
+		
 		$('#fileUploadBtn').on('click', function(e) {
 			e.preventDefault();
 			$('#file').click();
@@ -150,15 +162,18 @@
 					$('#profile').attr('src', $('#file').files[0]); */
 				}
 			});
-		});
 	
 	
 	
-	$('#submitBtn').on('click', function(e) {
+	$('#submittBtn').on('click', function(e) {
+		e.preventDefault();
+		
+		let postId = $('.regi-title').data("post-id");
+		alert(postId);
 		let userId =$('.regi-title').data("user-id");
+		
 		let subject = $('input[name=cok-title]').val().trim();
 		let intro = $('#intro').val();
-	
 		
 		let foodTypeId = $('#cok_sq_category_1').val().trim();
 		let ingredientId = $('#cok_sq_category_2').val().trim();
@@ -176,9 +191,9 @@
 		if(subject == "") {
 			alert("제목을 입력하세요.");
 		}
-		alert(intro);
 		
 		let formData = new FormData();
+		formData.append("postId", postId);
 		formData.append("userId", userId);
 		formData.append("subject",subject);
 		formData.append("intro",intro);
@@ -191,10 +206,12 @@
 		formData.append("cookStepText",cookStepText);
 		formData.append("cookTip",cookTip);
 		
+		
+		
 	
 		
 		$.ajax({
-			type:"PUT"
+			type:"POST"
 			, url:"/post/update-recipe"
 			, data: formData
 			, enctype: "multipart/form-data"
@@ -212,5 +229,9 @@
 				alert("수정 아예 실패");	
 			}
 			
+			});
 		});
+	});
+	
+
 </script>

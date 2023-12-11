@@ -86,8 +86,9 @@ public class PostRestController {
 		return result;
 	}
 	
-	@PutMapping("/update-recipe")
+	@PostMapping("/update-recipe")
 	public Map<String, Object> updateRecipe(
+			@RequestParam("postId") int postId,
 			@RequestParam("userId") int userId
 			,@RequestParam("subject") String subject
 			,@RequestParam("intro") String intro
@@ -95,14 +96,17 @@ public class PostRestController {
 			,@RequestParam("ingredientId") String ingredientId
 			,@RequestParam("portion") String portion
 			,@RequestParam("degree") String degree
-			,@RequestParam("file") MultipartFile file
+			,@RequestParam(value="file", required= false) MultipartFile file
 			,@RequestParam("ingredient") String ingredient
 			,@RequestParam("cookStepText") String cookStepText
 			,@RequestParam("cookTip") String cookTip) {
 		
 		Map<String, Object> result = new HashMap<>();
 		
-		
+		PostEntity postpost = postBO.updateRecipe
+				(postId, userId, subject, intro, foodTypeId, ingredientId, portion, degree, file, ingredient, cookStepText, cookTip);
+		result.put("postpost", postpost);
+		result.put("code", 200);
 		return result;
 		
 	}

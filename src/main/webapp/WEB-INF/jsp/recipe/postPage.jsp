@@ -49,7 +49,7 @@
 					    <div class="nick_and_button d-flex justify-content-center">
 						    	<span class="user_nickName">${recipeView.user.nickName}</span>
 						</div>
-						
+					</a>	
 						<c:set var="recipeUserId" value="${recipeView.user.id}"/>		 
 							 <c:if test="${recipeUserId ne serverUserId}">
 							 	<c:if test="${Following eq false}">
@@ -59,7 +59,7 @@
 									<button type="button" class="followingBtn btn btn-default ml-4 mr-2">팔로잉</button>
 								</c:if>
 							</c:if>
-				</a>
+				
 			</div>
 	    <span class="post_id d-none">${recipeView.post.id}</span>
 	    </div>
@@ -211,7 +211,7 @@
 				,data:{"followingUserId":followingUserId,"followedUserId": postUserId, "postId": postId}
 				,success: function(data){
 					if(data.code == 200) {
-					/* 	alert("!!!"); */
+						/* 	alert("!!!"); */
 						location.reload();
 					}
 				}

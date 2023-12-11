@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
-@Builder
+@Builder(toBuilder = true)
 @Data
 @Entity
 @AllArgsConstructor
@@ -51,6 +51,6 @@ public class PostEntity {
 	@UpdateTimestamp
 	@Column(name="updatedAt")
 	private Date updatedAt;
-	
+
 	
 }

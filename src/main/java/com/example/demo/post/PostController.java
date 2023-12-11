@@ -31,6 +31,7 @@ public class PostController {
 		Integer userId = (Integer) session.getAttribute("userId");
 		PostEntity post = postBO.getPostpageByUserIdAndPostId(userId, postId);
 		
+		model.addAttribute("postId" , postId);
 		model.addAttribute("post", post);
 		model.addAttribute("viewName", "recipe/postUpdate");
 		return "template/easycook";
