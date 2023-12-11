@@ -10,7 +10,7 @@ public class ViewBO {
 	@Autowired
 	private ViewMapper viewMapper;
 	
-	public void addViewByUserIdPostId(int userId, int postId, int serverUserId) {
+	public void addViewByUserIdPostId(int userId, int postId, Integer serverUserId) {
 		viewMapper.insertViewByUserIdPostId(userId, postId, serverUserId);
 	}
 	

@@ -1,22 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <form name="recipeAll" id="recipeAll" class="form-horizontal" method="post" action="/post/add-recipe"> 
 <div class="container recipe_regi">
 	<div class="regi-title" data-user-id="${userId}">
-		레시피 등록
+		레시피 수정
 	</div>
 	
 	<div class="cont-box">
 		
 		<div class="cont-line d-flex align-items-center mt-3">
 			<p class="cont_tit4">레시피 제목</p>
-			<input type="text" name="cok-title" id="title" class="form-control" placeholder="예) 쫄깃쫄깃한 떡꼬치 만들기" style="width:610px;">
+			<input type="text" name="cok-title" id="title" class="form-control" value="${post.subject}" style="width:610px;">
 		</div>
 		
 		<div class="cont-line">
 			<p class="cont_tit4">요리 소개</p>
-			<textarea name="cok-intro" id="intro" class="form-control step_cont"placeholder="이 레시피를 만들게 된 배경을 적어주세요! ex) 여자친구와 소풍 갈 때 먹으려고 만들어봤어요."  style="width:610px; height:100px; resize:none;"></textarea>
+			<textarea name="cok-intro" id="intro" class="form-control step_cont" placeholder="" style="width:610px; height:100px; resize:none;">${post.intro}</textarea>
 		</div>
 		
 		<div class="cont-line">
@@ -103,7 +102,7 @@
 		<div class="cont-line">
 			<p class="cont_tit4">재료</p>
 			<textarea name="cok-ingredient" id="cok-ingredient" class="form-control step_cont" 
-			placeholder="재료를 적어주세요!"  style="width:610px; height:100px; resize:none;"></textarea>
+			 style="width:610px; height:100px; resize:none;">${post.ingredient}</textarea>
 		</div>
 	</div>
 	
@@ -111,7 +110,7 @@
 		<div class="cont-line">
 			<p class="cont_tit4">요리순서</p>
 			<textarea name="cookStepText" id="cookStepText" class="form-control step_cont" 
-			placeholder="요리 순서를 적어주세요!"  style="width:610px; height:100px; resize:none;"></textarea>
+			placeholder="요리 순서를 적어주세요!"  style="width:610px; height:100px; resize:none;">${post.cookStepText}</textarea>
 		</div>
 	</div>
 	
@@ -123,95 +122,95 @@
 	
 	
 	<div class="regi_btn">
-		<button type="submit" class="btn btn-info" id="submitBtn">저장</button>
+		<button type="submit" class="btn btn-info" id="submitBtn">수정 완료</button>
 	</div>
 </div>
- </form>
+
+</form>
+
 <script>
 	$(document).ready(function() {
-		// 파일 이미지 클릭
 		$('#fileUploadBtn').on('click', function(e) {
 			e.preventDefault();
 			$('#file').click();
 		});
 		
 		$('#file').on('change', function(e) {
-	 		// 확장자
-	 		let ext = fileName.split(".").pop().toLowerCase();
-	 		
-	 		if(ext != 'jpg' && ext != 'gif'&& ext != 'png'&& ext != 'jpeg') {
-	 			alert("이미지 파일만 올려주세요!");
-	 			$('#file').val("");
-	 			$('#fileName').text("");
-	 			return;
-	 		} else {
-	 		
-	 			/* $('#fileName').text(fileName);
-	 			$('#profile').attr('src', $('#file').files[0]); */
-	 		}
-	 	});
-	//	console.log(userId);
-		
-		$('#submitBtn').on('click', function(e) {
-			let userId =$('.regi-title').data("user-id");
-			let subject = $('input[name=cok-title]').val().trim();
-			let intro = $('#intro').val();
-		
-			
-			let foodTypeId = $('#cok_sq_category_1').val().trim();
-			let ingredientId = $('#cok_sq_category_2').val().trim();
-			
-			let portion = $('#cok_portion').val().trim();
-			let degree = $('#cok_degree').val().trim();
-			
-			let mainImageUrl = $('')
-			let fileName = $('#file').val();
-		
-			let ingredient = $('#cok-ingredient').val().trim();
-			let cookStepText = $('#cookStepText').val().trim();
-			let cookTip = $('#cok-tip').val().trim();
-			e.preventDefault();
-			if(subject == "") {
-				alert("제목을 입력하세요.");
-			}
-			alert(intro);
-			
-			let formData = new FormData();
-			formData.append("userId", userId);
-			formData.append("subject",subject );
-			formData.append("intro",intro);
-			formData.append("foodTypeId",foodTypeId);
-			formData.append("ingredientId",ingredientId);
-			formData.append("portion",portion);
-			formData.append("degree", degree);
-			formData.append("file", $('#file')[0].files[0]);
-			formData.append("ingredient", ingredient);
-			formData.append("cookStepText",cookStepText);
-			formData.append("cookTip",cookTip);
-			
-		
-			
-			$.ajax({
-				type:"POST"
-				, url:"/post/add-recipe"
-				, data: formData
-				, enctype: "multipart/form-data"
-				, processData : false
-				, contentType : false
-				, success : function(data) {
-					if(data.code == 200) {
-					alert("레시피가 저장됐습니다.");
-					location.href = "/cook/get-user-post";
-				} else {
-					alert("레시피 저장 실패");
-					}
-				}	
-				, error : function(request, status, error) {
-					alert("아예 실패");	
-				}
+				// 확장자
+				let ext = fileName.split(".").pop().toLowerCase();
 				
+				if(ext != 'jpg' && ext != 'gif'&& ext != 'png'&& ext != 'jpeg') {
+					alert("이미지 파일만 올려주세요!");
+					$('#file').val("");
+					$('#fileName').text("");
+					return;
+				} else {
+				
+					/* $('#fileName').text(fileName);
+					$('#profile').attr('src', $('#file').files[0]); */
+				}
 			});
 		});
-	});
 	
+	
+	
+	$('#submitBtn').on('click', function(e) {
+		let userId =$('.regi-title').data("user-id");
+		let subject = $('input[name=cok-title]').val().trim();
+		let intro = $('#intro').val();
+	
+		
+		let foodTypeId = $('#cok_sq_category_1').val().trim();
+		let ingredientId = $('#cok_sq_category_2').val().trim();
+		
+		let portion = $('#cok_portion').val().trim();
+		let degree = $('#cok_degree').val().trim();
+		
+		let mainImageUrl = $('')
+		let fileName = $('#file').val();
+	
+		let ingredient = $('#cok-ingredient').val().trim();
+		let cookStepText = $('#cookStepText').val().trim();
+		let cookTip = $('#cok-tip').val().trim();
+		e.preventDefault();
+		if(subject == "") {
+			alert("제목을 입력하세요.");
+		}
+		alert(intro);
+		
+		let formData = new FormData();
+		formData.append("userId", userId);
+		formData.append("subject",subject);
+		formData.append("intro",intro);
+		formData.append("foodTypeId",foodTypeId);
+		formData.append("ingredientId",ingredientId);
+		formData.append("portion",portion);
+		formData.append("degree", degree);
+		formData.append("file", $('#file')[0].files[0]);
+		formData.append("ingredient", ingredient);
+		formData.append("cookStepText",cookStepText);
+		formData.append("cookTip",cookTip);
+		
+	
+		
+		$.ajax({
+			type:"PUT"
+			, url:"/post/update-recipe"
+			, data: formData
+			, enctype: "multipart/form-data"
+			, processData : false
+			, contentType : false
+			, success : function(data) {
+				if(data.code == 200) {
+				alert("레시피가 수정됐습니다.");
+				location.href = "/cook/get-user-post";
+			} else {
+				alert("레시피 저장 실패");
+				}
+			}	
+			, error : function(request, status, error) {
+				alert("수정 아예 실패");	
+			}
+			
+		});
 </script>

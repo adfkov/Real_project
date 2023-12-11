@@ -12,7 +12,6 @@
    <div class="modal-overlay d-none" id="modal">
   	<div class="modal-window">
    		<div class="content">
-   			
    			<div class="unfollow_q">정말 팔로우 취소해요?</div>
      		<div class="buttonArea d-flex">
      		<button type="button" class="form-control btn btn-info w-50" id="cancelBtn">팔로우 유지</button>     		
@@ -22,7 +21,7 @@
   	</div>
 </div>
 
-<div class="modal-overlay d-none" id="modal-like">
+<div class="modal-overlay d-none w-100" id="modal-like">
   	<div class="modal-window">
    		<div class="content">
    			
@@ -30,38 +29,41 @@
 			   <div class="postLiker_List">
 			   	 <c:forEach items="${recipeView.postLikerUser}" var="user">
 					   <div class="liker_list">
-					   		<div class="comment_left">${user.nickName}</div>
+					   		<div class="liker_left">${user.nickName}</div>
 					   </div>
 				  </c:forEach> 
 			   </div>
      		<div class="buttonArea d-flex">
-     		<button type="button" class="form-control btn btn-info w-50" id="cancelBtn">닫기</button> 
+     		<button type="button" class="form-control btn btn-info w-50" id="cancelLikerBtn">닫기</button> 
      		</div>
      	</div>
   	</div>
 </div>
    <!-- 유저 info -->
    <div class="user-info">
-    <a class="user_profile_link" href="/cook/go-to-userView/${recipeView.user.id}">
-		<div class="d-flex justify-content-center">
-		<img id="user_profile" src="${recipeView.user.profileImageUrl}" alt="${recipeView.post.id}">
-	    <span class="user_id d-none">${recipeView.user.id}</span>
+		<div class="user-wrap d-flex justify-content-center">
+		   <div class="img-tab d-flex justify-content-center">
+			    <a class="user_profile_link" href="/cook/go-to-userView/${recipeView.user.id}">
+						<img id="user_profile" src="${recipeView.user.profileImageUrl}" alt="${recipeView.post.id}">
+				    <span class="user_id d-none">${recipeView.user.id}</span>
+					    <div class="nick_and_button d-flex justify-content-center">
+						    	<span class="user_nickName">${recipeView.user.nickName}</span>
+						</div>
+						
+						<c:set var="recipeUserId" value="${recipeView.user.id}"/>		 
+							 <c:if test="${recipeUserId ne serverUserId}">
+							 	<c:if test="${Following eq false}">
+									<button type="button" class="followBtn btn btn-info ml-4 mr-3">팔로우</button>
+								</c:if>
+								<c:if test="${Following eq true}">
+									<button type="button" class="followingBtn btn btn-default ml-4 mr-2">팔로잉</button>
+								</c:if>
+							</c:if>
+				</a>
+			</div>
 	    <span class="post_id d-none">${recipeView.post.id}</span>
 	    </div>
-	    <div class="nick_and_button d-flex justify-content-center">
-	    <span class="user_nickName">${recipeView.user.nickName}</span>
-		</div>
-	</a>
-	<c:set var="recipeUserId" value="${recipeView.user.id}"/>
-	
-	 <c:if test="${recipeUserId ne serverUserId}">
-	 	<c:if test="${Following eq false}">
-			<button type="button" class="followBtn btn btn-info ml-3">팔로우</button>
-		</c:if>
-		<c:if test="${Following eq true}">
-			<button type="button" class="followingBtn btn btn-default ml-3">팔로잉</button>
-		</c:if>
-	</c:if>
+
 	<%-- <c:if test="${recipeUserId eq serverUserId}">
 		<button type="button" class="followBtn btn btn-info ml-3 d-none" data-fu-id="${recipeUserId}">팔로우</button>
 		<button type="button" class="followingBtn btn btn-default ml-3 d-none">팔로잉</button>
@@ -107,10 +109,14 @@
 		   		<div class="comment_id">${status.index + 1}</div>
 		   		<div class="comment_left">${commentView.comment.commentText}</div>
 		   		<div class="comment_right">
-			   		<a class="delete-comment-icon btn mb-2">
-			   			<img src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/52726/cross-mark-emoji-clipart-md.png" width="10px" height="10px">
-			   		</a>
+			   		<c:if test="${commentView.comment.userId eq serverUserId}">
+				   		<a class="delete-comment-icon btn mb-2">
+				   			<img src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/52726/cross-mark-emoji-clipart-md.png" width="10px" height="10px">
+				   		</a>
+				   	</c:if>
+		   			<span class="comment_date">${commentView.comment.createdAt}</span>
 		   		</div>
+		   		
 		   </div>
 	  </c:forEach> 
    
@@ -262,11 +268,16 @@
 			});
 		}); <!-- 좋아요 취소 끝 -->
 		
+		// 추천한 사람들 띄우기
 		$('.wholikesPostTab').on('click', function(){
 			$('#modal-like').removeClass('d-none');
 			
 		});
 		
+		//
+		$('#cancelLikerBtn').on('click', function(){
+			$('#modal-like').addClass('d-none');
+		});
 		// 댓글
 		$('.input-group-btn').on('click', function(){/* 
 			let userId = $('.server_id').data('fu-id');
@@ -294,7 +305,7 @@
 			 	$.ajax({
 				type:"DELETE"
 				, url: "/comment/delete-comment"
-				, data : {"postUserId": postUserId, "postId": postId, "userId": userId, "commentId": commentId ,"commentText": commentText}
+				, data : {"postUserId": postUserId, "postId": postId, "userId": userId, "commentId": commentId}
 			}); 
 		});
 		

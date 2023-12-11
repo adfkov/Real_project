@@ -7,8 +7,9 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,7 +33,7 @@ public class PostRestController {
 			,@RequestParam("ingredientId") String ingredientId
 			,@RequestParam("portion") String portion
 			,@RequestParam("degree") String degree
-			,@RequestParam("file") MultipartFile file
+			,@RequestParam(value="file", required= false) MultipartFile file
 			,@RequestParam("ingredient") String ingredient
 			,@RequestParam("cookStepText") String cookStepText
 			,@RequestParam("cookTip") String cookTip) {
@@ -85,7 +86,39 @@ public class PostRestController {
 		return result;
 	}
 	
-
+	@PutMapping("/update-recipe")
+	public Map<String, Object> updateRecipe(
+			@RequestParam("userId") int userId
+			,@RequestParam("subject") String subject
+			,@RequestParam("intro") String intro
+			,@RequestParam("foodTypeId") String foodTypeId
+			,@RequestParam("ingredientId") String ingredientId
+			,@RequestParam("portion") String portion
+			,@RequestParam("degree") String degree
+			,@RequestParam("file") MultipartFile file
+			,@RequestParam("ingredient") String ingredient
+			,@RequestParam("cookStepText") String cookStepText
+			,@RequestParam("cookTip") String cookTip) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		
+		return result;
+		
+	}
+	
+	@DeleteMapping("/delete-post")
+	public Map<String ,Object> deletePost(
+			@RequestParam("postId") int postId
+			, HttpSession session) {
+		Map<String ,Object> result = new HashMap<>();
+		Integer userId = (Integer)session.getAttribute("userId");
+		// db 삭제
+		postBO.deletePost(userId, postId);
+		result.put("code", 200);
+		
+		return result;
+	}
 	
 	
 	}

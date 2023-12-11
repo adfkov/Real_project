@@ -22,26 +22,21 @@
 			 </c:if>
 			 
 			 <c:if test="${userId ne null}"> 
-			 <a href="/user/profile-modify" class="layer2" id="myPageViewBtn" data-toggle="tooltip" data-placement="top" data-original-title="마이페이지">
-			<img src="https://recipe1.ezmember.co.kr/img/ico_user.png" id="myPage" alt="마이페이지"> </a>
-			 
-			 <div class="mem-layer">
-			 	<p class="mem-layer-slit"></p>
-			 	<p class="mem-layer-m d-none">
- 		   			<a href="/user/go-my-home">MY홈</a>
-                    <a href="/user/go-scrap">스크랩한 레시피</a>
-                    <a href="https://www.10000recipe.com/profile/note.html">레시피 노트</a>
-                    <a href="https://www.10000recipe.com/profile/alim.html">알림</a>
-                    <a href="https://www.10000recipe.com/profile/message.html">메시지</a>
-                    <a href="https://www.10000recipe.com/profile/qna.html">문의내역</a>
-					<a href="https://shop.10000recipe.com/mypage/order_list.php" target="_blank">주문조회</a>
-					<a href="https://shop.10000recipe.com/ezhld/login_dummy.php?q_path=https%3A%2F%2Fshop.10000recipe.com%2Forder%2Fcart.php" target="_blank">장바구니</a>
-                    <a href="/user/profile-modify">회원정보수정</a>
-                    <a href="javascript:doLogout()">로그아웃</a>                           
-			 	</p>
+			 <div data-toggle="toggle" data-placement="top" data-original-title="마이페이지">
+			 <a href="#" class="layer2 dropdown" id="myPageViewBtn" data-toggle="dropdown" style="width:44px;">
+				<img src="https://recipe1.ezmember.co.kr/img/ico_user.png" id="myPage" alt="마이페이지"> 
+				</a>
+				
+				<ul class="dropdown-menu">
+ 		   			<a class="dropdown-item" href="/cook/get-user-post">MY홈</a>
+                    <a class="dropdown-item" href="/user/go-scrap">나의 레시피 노트</a>
+                    <a class="dropdown-item" href="/user/profile-modify">회원정보수정</a>
+                    <a class="dropdown-item" href="/user/sign-out">로그아웃</a>                           
+			 	</ul>
+			
 			 </div>
 			 </c:if>
-		</li>	 
+		</li>
 		<li>
 			<div class="write_layer" style="left: -230px; display:block;">
 			<!--  레시피 작성하기 -->
@@ -53,18 +48,19 @@
 		</li>
 	</ul>
 	
-	<div class="login-info d-flex align-items-center ml-5">
-		<c:if test="${userId ne null}">
-		<span class="text-danger">${userNickName}님 안녕하세요</span>
-		<a href="/user/sign-out" class="ml-2 font-weight-bold btn btn-info">로그아웃</a>
-		</c:if>
-	</div>
+			<div class="login-info d-flex align-items-center ml-5">
+				<c:if test="${userId ne null}">
+					<span class="text-danger">${userNickName}님 안녕하세요</span>
+					<a href="/user/sign-out" class="ml-2 font-weight-bold btn btn-info">로그아웃</a>
+				</c:if>
+			</div>
 </div>
 
 <script>
 	$(document).ready(function() { 
 		$('[data-toggle="tooltip"]').tooltip();
-		
+/* 		$('[data-toggle="dropdown"]').dropdown();
+ */		
 		$('#writeRecipeBtn').on('click', function() {
 				
 		});

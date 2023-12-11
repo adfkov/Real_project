@@ -25,7 +25,7 @@ public class ViewRestController {
 	public Map<String, Object> viewPost(
 			@RequestParam("postUserId") int postUserId,
 			@RequestParam("postId") int postId,
-			@RequestParam("userId") int userId) {
+			@RequestParam(required = false) int userId) {
 		Map<String ,Object> result = new HashMap<>();
 		
 		viewBO.addViewByUserIdPostId(postUserId, postId, userId);

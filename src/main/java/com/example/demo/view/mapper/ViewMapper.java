@@ -8,7 +8,7 @@ public interface ViewMapper {
 	public void insertViewByUserIdPostId(
 			@Param("userId") int userId
 			,@Param("postId") int postId
-			,@Param("serverUserId") int serverUserId);
+			,@Param("serverUserId") Integer serverUserId);
 	
 	public int selectViewByUserIdPostId(
 			@Param("userId") int userId

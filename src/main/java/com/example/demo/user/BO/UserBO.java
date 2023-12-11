@@ -1,5 +1,7 @@
 package com.example.demo.user.BO;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -63,6 +65,10 @@ public class UserBO {
 	public UserEntity getUserEntityByEmail(String beforeEmail) {
 		return userRepository.findAllByEmail(beforeEmail);
 
+	}
+	
+	public List<UserEntity> getAllUserList() {
+		return userRepository.findAll();
 	}
 	
 	public void updateUserEmail(String beforeEmail, String afterEmail) {

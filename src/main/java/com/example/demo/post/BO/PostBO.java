@@ -67,5 +67,14 @@ public class PostBO {
 	public PostEntity getPostpageByUserIdAndPostId(int userId,int postId) {
 		return postRepository.findAllByUserIdAndId(userId, postId);
 	}
+	
+	public List<PostEntity> getAllPost() {
+		return postRepository.findAll();
+	}
+	
+	public void deletePost(int postUserId, int postId) {
+		postRepository.deleteByUserIdAndId(postUserId, postId);
+	}
+	
 }
 	

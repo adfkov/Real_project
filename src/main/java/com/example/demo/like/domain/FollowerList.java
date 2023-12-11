@@ -8,11 +8,6 @@ import lombok.Data;
 
 @Data
 public class FollowerList {
-	
-	
 	private List<UserEntity> followers;
-	
 	private int followedUserId;
-	
-	
 }

@@ -27,6 +27,7 @@ public class RecipeView {
 	private List<PostLiker> postLiker;
 	private List<UserEntity> postLikerUser;
 	private List<CommentView> commentViewList;
+	// 스크랩 미정
 	private FollowerList followerList;
 	public void setFollowerList(FollowerList followerList2) {
 		this.followerList = followerList2;

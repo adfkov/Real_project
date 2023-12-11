@@ -21,8 +21,8 @@ public class CommentBO {
 		return commentMapper.selectCommentListByPostUserIdPostId(postUserId, postId);
 	}
 	
-	public void deleteCommentByIdsAndCommentText(int postUserId, int postId, int userId, String commentText) {
-		commentMapper.deleteCommentByIdsAndCommentText(postUserId, postId, userId, commentText);
+	public void deleteCommentByIdsAndCommentText(int postUserId, int postId, int userId, int commentId) {
+		commentMapper.deleteCommentByIdsAndCommentText(postUserId, postId, userId, commentId);
 	}
 
 }

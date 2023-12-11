@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.cook.BO.RankingBO;
 import com.example.demo.cook.BO.RecipeBO;
+import com.example.demo.cook.domain.RankingView;
 import com.example.demo.cook.domain.RecipeView;
-import com.example.demo.like.BO.LikeBO;
 import com.example.demo.like.domain.FollowerList;
-import com.example.demo.post.BO.PostBO;
-import com.example.demo.postLike.BO.PostLikeBO;
 import com.example.demo.postLike.domain.PostLiker;
 import com.example.demo.user.BO.UserBO;
 import com.example.demo.user.Entity.UserEntity;
@@ -26,42 +25,50 @@ import com.example.demo.view.BO.ViewBO;
 @RequestMapping("/cook")
 public class CookController {
 	@Autowired
+	private RankingBO rankingBO;
+	@Autowired
 	private RecipeBO recipeBO;
-	@Autowired
-	private PostBO postBO;
-	@Autowired
-	private PostLikeBO postLikeBO;
-	@Autowired
-	private LikeBO likeBO;
 	@Autowired
 	private ViewBO viewBO;
 	@Autowired
 	private UserBO userBO;
+	
 
 	// http://localhost:7080/cook/easycook
 	@GetMapping("/easycook")
 	public String cookLayout(Model model) {
+		List<RecipeView> recipeViewList = recipeBO.generateRecipeViewListAll(null);
+		
+		model.addAttribute("recipeViewList", recipeViewList);
 		model.addAttribute("viewName", "recipe/mainPage");
 		return "template/easycook";
 	}
 
 	@GetMapping("/writeRecipe")
-	public String writeRecipePage(Model model) {
-		model.addAttribute("viewName", "recipe/writeRecipe");
-
+	public String writeRecipePage(Model model, HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		if(userId == null) {
+			model.addAttribute("viewName", "user/signIn");
+		} else {
+			model.addAttribute("viewName", "recipe/writeRecipe");
+		}
 		return "template/easycook";
 	}
-
-	@GetMapping("/get-user-post")
+ 
+	@GetMapping("/get-user-post") // 마이 페이지
 	public String getUserPost(Model model, HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
-
+		
+		if(userId == null) {
+			model.addAttribute("viewName", "user/signIn");
+		} else {
+		
 		List<RecipeView> recipeViewList = recipeBO.generateRecipeViewList(userId);
 
 		model.addAttribute("userId", userId);
 		model.addAttribute("recipeViewList", recipeViewList);
 		model.addAttribute("viewName", "user/userRecipeView");
-
+		}
 		return "template/easycook";
 	}
 
@@ -102,6 +109,10 @@ public class CookController {
 					filledLiker = true;
 				}
 			}
+		} else {
+			viewBO.addViewByUserIdPostId(userId, postId, serverUserId);
+			int view = viewBO.getViewByUserIdPostId(userId, postId);
+			postRecipeView.setView(view);
 		}
 		
 		
@@ -121,6 +132,19 @@ public class CookController {
 		model.addAttribute("recipeViewList", recipeViewList);
 		model.addAttribute("viewName", "user/userRecipeView");
 
+		return "template/easycook";
+	}
+	
+	// 랭킹 진입
+	@GetMapping("/user-ranking")
+	public String userRankingView(Model model) {
+	
+		List<RankingView> rankingViewList = rankingBO.getRankingView();
+		if(rankingViewList.isEmpty() == false) {
+			model.addAttribute("rankingViewList", rankingViewList);
+		}
+		
+		model.addAttribute("viewName", "user/userRankingView");
 		return "template/easycook";
 	}
 
