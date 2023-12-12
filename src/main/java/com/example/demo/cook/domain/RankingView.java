@@ -2,8 +2,6 @@ package com.example.demo.cook.domain;
 
 import javax.persistence.Column;
 
-import com.example.demo.like.domain.FollowerList;
-
 import lombok.Data;
 
 @Data
@@ -22,18 +20,22 @@ public class RankingView {
 	private String userNickName;
 	private String grade;
 	private String interest;
-	//
+//	//
 	@Column(columnDefinition = "integer default 0", nullable = false)
 	private int postCount_sum;
 	@Column(columnDefinition = "integer default 0", nullable = false)
 	private int viewCount_sum;
 	@Column(columnDefinition = "integer default 0", nullable = false)
 	private int postLikeCount_sum;
-	
-	private FollowerList followerList;
-	public void setFollowerList(FollowerList followerList2) {
-		this.followerList = followerList2;
-		
-	}
-	
+	@Column(columnDefinition = "integer default 0", nullable = false)
+	private int followerCount;
 }
+//	
+///*	private FollowerList followerList;
+//	public void setFollowerList(FollowerList followerList2) {
+//		this.followerList = followerList2;*/
+//		
+//	private int follower_count;
+	
+	
+

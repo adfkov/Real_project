@@ -43,7 +43,7 @@ public class RecipeBO {
 		
 		List<RecipeView> recipeViewList = new ArrayList<>();
 		
-		List<PostEntity> postList = postBO.getUserPost(postUserId);
+ 		List<PostEntity> postList = postBO.getUserPost(postUserId);
 		
 		if(postList.isEmpty() == false) {
 			for(PostEntity post : postList) {
@@ -66,7 +66,8 @@ public class RecipeBO {
 				}
 				recipeView.setPostLikerUser(postLikerUser);
 				// view
-				
+				int view = viewBO.getViewByUserIdPostId(postUserId, post.getId());
+				recipeView.setView(view);
 				// comment
 				List<CommentView> commentViewList = new ArrayList<>();
 	
@@ -97,8 +98,10 @@ public class RecipeBO {
 				recipeView.setFollowerList(followerList);
 				recipeViewList.add(recipeView);
 					}
+				return recipeViewList;
+			} else {
+				return recipeViewList;
 			}
-		return recipeViewList;
 	}
 	
 	

@@ -164,6 +164,7 @@
 				, data: {"beforeInterest":beforeInterest, "afterInterest":afterInterest}
 				, success : function(data) {
 					alert("관심분야 변경 성공!");
+					location.reload();
 				}
 				, error : function(request, status, error) {
 					alert("형편없이 관심분야 변경 실패");

@@ -8,6 +8,7 @@
    
 	<table class="table text-center">
 		<tr>
+			<th>순위</th>
 			<th>닉네임</th>
 			<th>등급</th>
 			<th>관심 분야</th>
@@ -16,12 +17,16 @@
 			<th>총 추천수</th>
 			<th>팔로워 수</th>
 		</tr>
-		<c:forEach items="${rankingViewList}" var="rankingView">
+		<c:forEach items="${rankingViewList}" var="rankingView" varStatus="status">
 			<tr><!-- 첫번째 줄 시작 -->
+				<td>${status.count}</td>
 			    <td>${rankingView.userNickName}</td>
-			    <td>첫번째 칸</td>
-			    <td>첫번째 칸</td>
-			    <td>첫번째 칸</td>
+			    <td>${rankingView.grade}</td>
+			    <td>${rankingView.interest}</td>
+			    <td>${rankingView.postCount_sum}</td>
+			    <td>${rankingView.viewCount_sum}</td>
+			    <td>${rankingView.postLikeCount_sum}</td>
+			    <td>${rankingView.followerCount}</td>
 			</tr><!-- 첫번째 줄 끝 -->
 		</c:forEach>
     </table>

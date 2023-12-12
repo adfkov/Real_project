@@ -140,9 +140,7 @@ public class CookController {
 	public String userRankingView(Model model) {
 	
 		List<RankingView> rankingViewList = rankingBO.getRankingView();
-		if(rankingViewList.isEmpty() == false) {
-			model.addAttribute("rankingViewList", rankingViewList);
-		}
+		model.addAttribute("rankingViewList",rankingViewList);
 		
 		model.addAttribute("viewName", "user/userRankingView");
 		return "template/easycook";
