@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="wrap">
 	<c:if test="${serverUserId ne null}">
 		<span class="server_id">${serverUserId}</span>
@@ -114,9 +114,9 @@
 				   			<img src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/52726/cross-mark-emoji-clipart-md.png" width="10px" height="10px">
 				   		</a>
 				   	</c:if>
-		   			<span class="comment_date">${commentView.comment.createdAt}</span>
+		   			<span class="comment_date"><fmt:formatDate value="${commentView.comment.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/>
+		   		</span>
 		   		</div>
-		   		
 		   </div>
 	  </c:forEach> 
    

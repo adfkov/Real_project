@@ -56,10 +56,6 @@ public class RankingBO {
 					followerCount++;
 				}
 			}
-	
-			
-		
-			
 			
 			rankingView.setPostCount_sum(postCount);
 			rankingView.setViewCount_sum(viewCount);
