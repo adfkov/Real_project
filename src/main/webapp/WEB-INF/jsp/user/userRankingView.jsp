@@ -20,7 +20,12 @@
 		<c:forEach items="${rankingViewList}" var="rankingView" varStatus="status">
 			<tr><!-- 첫번째 줄 시작 -->
 				<td>${status.count}</td>
-			    <td>${rankingView.userNickName}</td>
+			    <td class="d-flex">
+			    <a class="a" href="/cook/go-to-userView/${rankingView.userId}">
+			    <img id="profileImage" src="${rankingView.profileImageUrl}" width="20px" height="20px">
+			    <span class="nickName ml-1">${rankingView.userNickName}</span>
+			    </a>
+			    </td>
 			    <td>${rankingView.grade}</td>
 			    <td>${rankingView.interest}</td>
 			    <td>${rankingView.postCount_sum}</td>

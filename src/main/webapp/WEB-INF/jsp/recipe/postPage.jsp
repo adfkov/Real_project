@@ -8,6 +8,7 @@
 	</c:if>  
    <div class="postSubject d-flex justify-content-center" id="postSubject">
    	<img src="${recipeView.post.mainImageUrl}" id="postImg" width="500px" height="500px" data-post-id="${recipeView.post.id}">
+
    </div>
    <div class="modal-overlay d-none" id="modal">
   	<div class="modal-window">
@@ -99,14 +100,21 @@
    		추천한 유저
    	</a>
    	
-   <div class="view">조회수 : ${recipeView.view}</div>
+   	<a href="javascript:void(0)" class="wholikesPostTab btn btn-dark">
+   		보관함 저장
+   	</a>
+   	
+   	
+   <div class="view">
+      	<span class="hit">${recipeView.view}</span>
+    </div>
    </div>
    
    <div class="reply_commentList">
    		댓글:
    	 <c:forEach items="${recipeView.commentViewList}" var="commentView" varStatus="status">
 		   <div class="reply_list d-flex"> <!--  테이블 형식 도전 -->
-		   		<div class="comment_id">${status.index + 1}</div>
+		   		<div class="comment_id">${commentView.comment.id}</div>
 		   		<div class="comment_left">${commentView.comment.commentText}</div>
 		   		<div class="comment_right">
 			   		<c:if test="${commentView.comment.userId eq serverUserId}">
@@ -123,7 +131,15 @@
    
 	   <div class="ingredient">
 			   <div class="ingredient_list">
-			   		<div class="comment_left">재료: ${recipeView.post.ingredient}</div>
+			   		<div class="ingredient_left">
+			   			<hr>
+			   			<div id="ingredient_in">재료</div>
+			   			
+			   			<div class="ingredient_real ml-2">
+			   				${recipeView.post.ingredient}
+			   			</div>
+			   	<!-- : ${recipeView.post.ingredient} -->	
+			   		</div>
 			   </div>
 	   
    </div>
@@ -297,16 +313,22 @@
 				}
 			});
 			
-		}); <!-- 댓글 달기 -->
+			
+		}); 
+		<!-- 댓글 달기 -->
 		$('.delete-comment-icon').on('click', function() {
-			let commentId = $(this).parent().prev().text();
-			let commentText = $(this).parent().prev().prev().text(); // 됐다!!
-			alert(commentText);
+			let commentText = $(this).parent().prev().text();
+			let commentId = $(this).parent().prev().prev().text(); // 됐다!!
+			alert(commentId);
 			 	$.ajax({
 				type:"DELETE"
 				, url: "/comment/delete-comment"
 				, data : {"postUserId": postUserId, "postId": postId, "userId": userId, "commentId": commentId}
-			}); 
+				, success : function(data) {
+					alert("댓글 지우기 성공");
+					location.reload();
+					}
+			 	}); 
 		});
 		
 	});

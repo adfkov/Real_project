@@ -24,6 +24,6 @@ public interface CommentMapper {
 			@Param("postUserId") int postUserId, 
 			@Param("postId") int postId, 
 			@Param("userId") int userId
-			,@Param("commentText") int commentId);
+			,@Param("commentId") int commentId);
 	
 }

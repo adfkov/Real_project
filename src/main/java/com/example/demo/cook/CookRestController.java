@@ -24,23 +24,23 @@ public class CookRestController {
 	@Autowired
 	private PostLikeBO postLikeBO;
 	
-	@PostMapping("/post-like/{postId}")
-	public Map<String, Object> returnPostPage(
-			@PathVariable int postId
-			,HttpSession session
-			) {
-
-		Map<String, Object> result = new HashMap<>();
-		Integer userId = (Integer) session.getAttribute("userId");
-		
-		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(userId, postId);
-		
-		result.put("recipeView", recipeView);
-		result.put("code", 200);
-				
-		return result;
-		}
-	
+//	@PostMapping("/post-like/{postId}")
+//	public Map<String, Object> returnPostPage(
+//			@PathVariable int postId
+//			,HttpSession session
+//			) {
+//
+//		Map<String, Object> result = new HashMap<>();
+//		Integer userId = (Integer) session.getAttribute("userId");
+//		
+//		RecipeView recipeView = recipeBO.getRecipeViewByUserIdAndPostId(userId, postId);
+//		
+//		result.put("recipeView", recipeView);
+//		result.put("code", 200);
+//				
+//		return result;
+//		}
+//	
 //	@PostMapping("/get-likeCount")
 //	public Map<String, Object> getLikeCount(
 //			@RequestParam("postUserId") int postUserId

@@ -32,6 +32,7 @@ public class RankingBO {
 			// 팔로우 카운트 가져오면 좋은데..
 			RankingView rankingView = new RankingView();
 			// 
+			rankingView.setUserId(user.getId());
 			rankingView.setProfileImageUrl(user.getProfileImageUrl());
 			rankingView.setUserNickName(user.getNickName());
 			rankingView.setGrade(user.getGrade());

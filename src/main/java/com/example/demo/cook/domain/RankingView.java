@@ -16,6 +16,7 @@ public class RankingView {
 		총 추천 수
 		총 팔로워
 */
+	private int userId;
 	private String profileImageUrl;
 	private String userNickName;
 	private String grade;

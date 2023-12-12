@@ -58,6 +58,9 @@ public class UserController {
 	}
 	
 	// 회원 랭킹
+	
+	// 레시피 보관함
+//	@RequestMapping("/go")
 
 }
 

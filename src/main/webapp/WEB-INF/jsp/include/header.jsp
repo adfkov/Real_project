@@ -29,7 +29,7 @@
 				
 				<ul class="dropdown-menu">
  		   			<a class="dropdown-item" href="/cook/get-user-post">MY홈</a>
-                    <a class="dropdown-item" href="/user/go-scrap">나의 레시피 노트</a>
+                    <a class="dropdown-item" href="/user/go-scrap-page">나의 레시피 노트</a>
                     <a class="dropdown-item" href="/user/profile-modify">회원정보수정</a>
                     <a class="dropdown-item" href="/user/sign-out">로그아웃</a>                           
 			 	</ul>

@@ -36,16 +36,12 @@
  	
  	<delete id="deleteCommentByIdsAndCommentText" parameterType="map">
  		DELETE FROM
- 	
- 		(SELECT * FROM (
-			SELECT * 
-			FROM `comment`
-			ORDER BY `createdAt` DESC			 		
-			LIMIT #{commentId}
- 		) TABLE_1
- 		ORDER BY `createdAt` ASC
- 		LIMIT 1
- 		)
- 			  
+ 			`comment`
+ 		WHERE
+ 			`postUserId` = #{postUserId}
+ 		AND
+ 			`postId` = #{postId}
+ 		AND
+ 			`id` = #{commentId}
  	</delete>
  </mapper>

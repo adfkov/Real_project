@@ -78,7 +78,6 @@ public class CommentRestController {
 			@RequestParam("postId") int postId,
 			@RequestParam("userId") int userId,
 			@RequestParam("commentId") int commentId) {
-			//"postUserId": postUserId, "postId": postId, "userId": userId, "commentText": commentText
 		Map<String, Object> result = new HashMap<>();
 		commentBO.deleteCommentByIdsAndCommentText(postUserId, postId, userId, commentId);
 		viewBO.minusViewByUserIdPostId(postUserId, postId, userId);

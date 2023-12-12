@@ -72,7 +72,7 @@ public class CookController {
 		return "template/easycook";
 	}
 
-	// post 눌렀을 때
+	// post 눌렀을 때 cook/go-to-userView/{userId
 	@GetMapping("/go-to-post/{userId}/{postId}")
 	public String goToPostpage(@PathVariable int userId, 
 			@PathVariable int postId, 
