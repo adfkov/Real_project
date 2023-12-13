@@ -567,3 +567,7 @@ li {
 	color: ghostwhite;
 	border: none;
 }
+
+.userViewFolloweBtn {
+	margin: 0 auto;
+}

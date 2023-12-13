@@ -1,5 +1,7 @@
 package com.example.demo.cook.domain;
 
+import java.util.Comparator;
+
 import javax.persistence.Column;
 
 import lombok.Data;
@@ -38,5 +40,7 @@ public class RankingView {
 //		
 //	private int follower_count;
 	
+
+
 	
 

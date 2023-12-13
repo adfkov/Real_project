@@ -23,7 +23,7 @@
 			<th>총 추천수</th>
 			<th>팔로워 수</th>
 		</tr>
-		<c:forEach items="${rankingViewList}" var="rankingView" varStatus="status">
+		<c:forEach items="${rankingViewList_s}" var="rankingView" varStatus="status">
 			<tr><!-- 첫번째 줄 시작 -->
 				<td>${status.count}</td>
 			    <td class="d-flex">
@@ -53,7 +53,8 @@
 				, data : {}
 				
 				, success : function(data) {
-					location.href= "/cook/user-ranking/" + alignId;
+					alert("!!!!!");
+					location.reload();
 				}
 			});
 		});

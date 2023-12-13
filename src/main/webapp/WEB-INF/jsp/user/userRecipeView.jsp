@@ -43,12 +43,12 @@
 	</div>
 	
 	<!--  글 목록 -->
-	<ul class="cont-list">
+	<ul class="cont-list" data-server-id="${serverId}">
 		<c:forEach items="${recipeViewList}" var="recipe">
 		<li class="cont-li">
 	<div class="li-group d-flex">
 		<a href="/cook/go-to-post/${recipe.user.id}/${recipe.post.id}" class="postLink" id="postLink" data-user-id="${recipe.user.id}"
-		data-post-id="${recipe.post.id}" data-server-id="${userId}">
+		data-post-id="${recipe.post.id}">
 	
 		
 			<img src="${recipe.post.mainImageUrl}" width=200px height=130px>
@@ -109,6 +109,9 @@
                         <a href="javascript:void(0);">총조회<b>${rankingView.viewCount_sum}</b></a><span>·</span>
             <a href="javascript:void(0);" onclick="viewFriendList('follower')">팔로워<b>${rankingView.followerCount}</b></a><span>·</span><a href="javascript:void(0);">팔로잉<b>1</b></a>
         </div>
+        
+        <button class="userViewFolloweBtn btn-info form-control w-50">팔로우</button>
+        
     </div>
 </div>
 </div> <!--  container -->
@@ -198,43 +201,30 @@
 			
 			
 			// cook controller
+		
+	
+		
+		$('.userViewFolloweBtn').on('click', function() {
 			let userId = $('#postLink').data('user-id');
 			let postId = $('#postLink').data('post-id');
 			let serverUserId = $('#postLink').data('server-id'); 
+			let followedUserId = $('#postLink').data('user-id');
+			let followingUserId = $('.cont-list').data('server-id'); 
+			alert(followingUserId);
 			
 			$.ajax({
 				type:"POST"
-				, url: "/view/view-post"
-				, data : {"postUserId": userId, "postId": postId, "userId": serverUserId}
-				, sucess:function(data){
+				, url:"/like/userView-follow"
+				, data: {"followingUserId":followingUserId ,"followedUserId":followedUserId}
+				, success : function(data) {
 					if(data.code == 200) {
-						alert("!!");
-						goToPage();
+					alert("!!@#@#");
+						}
 					}
-				}
 				, error : function(request, status, error) {
-					alert("보내기 실패");
+					alert("에러!!!");
 				}
 			});
-
-		
-		$.ajax({
-			type:"POST"
-			, url: "/like/get-follower-count"
-			, data : {"userId": userId}
-			, success: function(data) {
-				alert("팔로워 수 가져오기 성공");
-				$('#follwers').text(data.followerCount);
-			}
-			, error : function(request, status, error) {
-				alert("팔로워 수 가져오기 실패");
-			}
-		});
-		
-		// 삭제
-		$('.deleteTab').on('click', function(){
-			$('#deleteBtn').
-			alert(postId);
 		});
 	});
 </script>

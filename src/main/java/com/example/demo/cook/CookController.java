@@ -136,9 +136,10 @@ public class CookController {
 	}
 
 	@GetMapping("/go-to-userView/{userId}")
-	public String goToUserView(@PathVariable int userId, Model model) {
+	public String goToUserView(@PathVariable int userId, Model model, HttpSession session) {
 		List<RecipeView> recipeViewList = recipeBO.generateRecipeViewList(userId);
 		UserEntity user = userBO.getUserEntityById(userId);
+		Integer serverId = (Integer) session.getAttribute("userId");
 		
 		List<RankingView> rankingViewList = rankingBO.getRankingView();
 		for(RankingView rankingView : rankingViewList) {
@@ -150,6 +151,8 @@ public class CookController {
 		
 		model.addAttribute("user", user);
 		model.addAttribute("userId", userId);
+
+		model.addAttribute("serverId", serverId);
 		model.addAttribute("recipeViewList", recipeViewList);
 		
 		model.addAttribute("recipeViewList", recipeViewList);
@@ -167,6 +170,16 @@ public class CookController {
 		
 		model.addAttribute("viewName", "user/userRankingView");
 		return "template/easycook";
+	}
+	
+	@GetMapping("/user-ranking/{alignId}")
+	public String userRankingViewBySort(@PathVariable int alignId,Model model) {
+		List<RankingView> rankingViewList = rankingBO.getRankingViewByAlignId(alignId);
+		model.addAttribute("rankingViewList_s", rankingViewList);
+		model.addAttribute("viewName", "user/userRankingViewSort");
+		return "template/easycook";
+		
+	
 	}
 	
 	

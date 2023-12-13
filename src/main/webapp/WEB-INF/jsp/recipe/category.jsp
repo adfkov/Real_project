@@ -54,7 +54,7 @@
             </th>
             <td>
 			<div class="a_wrap">
-				<div class="foodType">
+				<div class="ingredientType">
 					<a href="">전체</a>
 					<a href="">돼지고기</a>
 					<a href="">닭고기</a>

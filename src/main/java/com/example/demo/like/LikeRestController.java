@@ -1,7 +1,6 @@
 package com.example.demo.like;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -14,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.cook.BO.RecipeBO;
-import com.example.demo.cook.domain.RecipeView;
 import com.example.demo.like.BO.LikeBO;
-import com.example.demo.like.domain.Follower;
-import com.example.demo.like.domain.FollowerList;
 import com.example.demo.user.BO.UserBO;
 import com.example.demo.view.BO.ViewBO;
 
@@ -96,5 +92,22 @@ public class LikeRestController {
 		return result;
 		
 		
+	}
+	
+	@PostMapping("/userView-follow")
+	public Map<String, Object> userViewFollow(
+			@RequestParam("followingUserId") int followingUserId
+			,@RequestParam("followedUserId") int followedUserId
+			) {
+		Map<String, Object> result = new HashMap<>();
+		if(followingUserId != followedUserId) {
+			result.put("code", 500);
+			return result;
+		}
+		
+		likeBO.followUserById(followingUserId, followedUserId);
+		
+		result.put("code", 200);
+		return result;
 	}
 }
