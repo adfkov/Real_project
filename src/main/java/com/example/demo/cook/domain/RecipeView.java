@@ -23,8 +23,8 @@ public class RecipeView {
 	@Column(columnDefinition = "integer default 0", nullable = false)
 	private int view;
 //	private int likeCount;
-	
 	private List<PostLiker> postLiker;
+	
 	private List<UserEntity> postLikerUser;
 	private List<CommentView> commentViewList;
 	// 스크랩 미정

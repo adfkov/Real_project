@@ -44,6 +44,7 @@ public class RankingBO {
 			int postLikeCount = 0;
 			int followerCount = 0;
 			for(RecipeView recipeView : recipeViewList) {
+				followerCount = 0;
 				postCount++;
 			/////////////////// 글 수 끝 /////////////////
 				viewCount += recipeView.getView(); // 총 조회수
@@ -57,6 +58,7 @@ public class RankingBO {
 					followerCount++;
 				}
 			}
+		
 			
 			rankingView.setPostCount_sum(postCount);
 			rankingView.setViewCount_sum(viewCount);

@@ -142,7 +142,8 @@ public class RecipeBO {
 				}
 				recipeView.setPostLikerUser(postLikerUser);
 				// view
-				
+				int view = viewBO.getViewByUserIdPostId(post.getUserId(), post.getId());
+				recipeView.setView(view);	
 				// comment
 				List<CommentView> commentViewList = new ArrayList<>();
 	

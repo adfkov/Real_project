@@ -192,18 +192,18 @@ p {
 	margin-left: 1px;
 }
 
-.cont-list > .cont-li {
+/*.cont-list > .cont-li {
 	display: inline-block;
 	border: 1px solid #e6e7e8;
 	width: 250px;
 	height: 200px;
 	
-}
-li {
+}*/
+li { 
 	list-style: none;
 }
 .wrap {
-	width: 700px;
+	width: 1000px;
 	margin: 0 auto;
 }
 .postSubject {
@@ -316,8 +316,48 @@ li {
 .all-post > li {
 	display: inline-block;
 	border: 1px solid #e6e7e8;
-	width: 250px;
-	height: 220px;
+	width: 300px;
+	height: 300px;
+	vertical-align: baseline;
+	line-height: 1;
+	
+}
+
+.all-post {
+		line-height: 250px;
+	
+}
+
+
+.cont-list > li {
+
+	display: inline-block;
+	border: 1px solid #e6e7e8;
+	width: 200px;
+	height: 200px;
+	vertical-align: baseline;
+	line-height: 1;
+
+}
+.li-group {
+	
+}
+.brand_cont {
+	position: relative;
+}
+.cont-list {
+	position: absolute;
+}
+
+.cont-list > li{
+
+	top: 0;	
+		line-height: 20px;
+	
+}
+
+#postLink {
+	margin: 0 auto;
 }
 
 
@@ -362,3 +402,77 @@ li {
 	
 }
 .view_cate_num span.hit {}
+
+.comment-table{
+	
+}
+.comment-table td {
+	height: 50px;
+	
+}
+
+.caption, .subject{
+	font-size: 16px;
+	
+}
+
+.subject {
+	line-height: 25px;
+}
+.caption {
+	position: absolute;
+	bottom: 8%;
+
+/*	line-height: 110px;
+	margin-left: 10px;
+*/}
+
+	
+.pod-li {
+	position: relative;
+}
+
+.view-count {
+	color:darkgray;
+}
+
+.foodType a {
+	padding:3px 8px 4px;
+	 color:#666; 
+	 vertical-align:middle; 
+	 font-size:15px;
+	  line-height:1; 
+	  font-weight: 300;
+}
+
+.foodType a:hover {
+	color:forestgreen;
+}
+
+.foodType a:active {
+	color:#fff; background:#74b243; margin:0; border-radius:16px;
+}
+.foodType a:checked {
+	color:#fff; background:#74b243; margin:0; border-radius:16px;
+}
+
+.ingredientType a:hover {
+	color:forestgreen;
+}
+
+.ingredientType a:active {
+	color:#fff; background:#74b243; margin:0; border-radius:16px;
+}
+.ingredientType a:checked {
+	color:#fff; background:#74b243; margin:0; border-radius:16px;
+}
+
+
+ .a_wrap{
+	padding: 0px 15px 8px 0px;
+    vertical-align: top;
+}
+ .c-table {
+	border-spacing: 0;
+    border-collapse: collapse; 
+ }

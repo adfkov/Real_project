@@ -145,5 +145,35 @@ public class CookController {
 		model.addAttribute("viewName", "user/userRankingView");
 		return "template/easycook";
 	}
+	
+	
+	// 추천 레시피
+	@GetMapping("/recommend-recipe")
+	public String recommendRecipe(Model model, HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		
+		if(userId != null) {
+			UserEntity user = userBO.getUserEntityById(userId);
+			List<RecipeView> recipeViewList = recipeBO.generateRecipeViewList(userId);
+			for(RecipeView rv : recipeViewList) {
+				if(rv.getPost().getFoodTypeId() == user.getInterest()) {
+					recipeViewList.add(rv); // 취향 같으면 표시
+				}
+				
+				
+			}
+			
+		}
+		
+		model.addAttribute("viewName", "");
+		return "template/easycook";
+	}
+	
+	@GetMapping("/category")
+	public String recipeCategory(Model model) {
+		
+		model.addAttribute("viewName", "recipe/category");
+		return "template/easycook";
+	}
 
 }

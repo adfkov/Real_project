@@ -159,11 +159,11 @@
 			let intro = $('#intro').val();
 		
 			
-			let foodTypeId = $('#cok_sq_category_1').val().trim();
-			let ingredientId = $('#cok_sq_category_2').val().trim();
-			
-			let portion = $('#cok_portion').val().trim();
-			let degree = $('#cok_degree').val().trim();
+			let foodTypeId = $('select[name=cok_sq_category_1] option:selected').text();
+			alert(foodTypeId);
+			let ingredientId = $('select[name=cok_sq_category_1] option:selected').text();
+			let portion = $('select[name=cok_portion] option:selected').text();
+			let degree = $('select[name=cok_degree] option:selected').text();
 			
 			let mainImageUrl = $('')
 			let fileName = $('#file').val();
