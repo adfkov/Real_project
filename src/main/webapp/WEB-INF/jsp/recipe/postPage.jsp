@@ -22,7 +22,7 @@
   	</div>
 </div>
 
-<div class="modal-overlay d-none w-100" id="modal-like">
+<div class="modal-overlay d-none w-100" id="modal" name="follow">
   	<div class="modal-window">
    		<div class="content">
    			
@@ -126,7 +126,7 @@
 		</svg>
    	</a>
    	
-   	<a href="#" class="ml-3"title="댓글 보기">
+   	<a href="#" class="viewCommentTab ml-3"title="댓글 보기">
    		<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
 		  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
 		  <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
@@ -136,52 +136,18 @@
    	
    	
    <div class="view">
-      	<span class="hit">${recipeView.view}</span>
+      	<span class="hit">조회수 ${recipeView.view}</span>
     </div>
    </div>
    
+   <div class="view2_summary_info">
+                <span class="view2_summary_info1">${recipeView.post.portion}</span>                          
+                 <span class="view2_summary_info3">${recipeView.post.degree}</span>            
+    </div>
+
+   
    <div class="reply_commentList">
-   					   			<div id="ingredient_in">댓글</div>
-		<table class="table comment-table text-center">
-		<tr>
-			<th>No.</th>
-			<th>작성자</th>
-			<th>내용</th>
-			<th>작성 일자</th>
-			<th></th>
-		</tr>
-   	 <c:forEach items="${recipeView.commentViewList}" var="commentView" varStatus="status">
-		   <div class="reply_list d-flex"> <!--  테이블 형식 도전 -->
-			   	<tr>
-			   		<td><div class="comment_id">${commentView.comment.id}</div></td>
-			   		<td><div class="comment_user">${commentView.user.nickName}</div></td>
-			   		<td><div class="comment_left">${commentView.comment.commentText}</div></td>
-			   		<td>
-				   		<div class="comment_right">
-				   			<span class="comment_date"><fmt:formatDate value="${commentView.comment.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/>
-				   		</span>
-				   		
-				   		</div>
-			   		</td>
-			   		<td class="d-flex">
-			   			<c:if test="${commentView.comment.userId eq serverUserId}">
-					   		<a class="update-comment-icon btn" data-target="div[name=comment]" data-comment-id="${commentView.comment.id}">
-					   			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eyedropper" viewBox="0 0 16 16">
-								  <path d="M13.354.646a1.207 1.207 0 0 0-1.708 0L8.5 3.793l-.646-.647a.5.5 0 1 0-.708.708L8.293 5l-7.147 7.146A.5.5 0 0 0 1 12.5v1.793l-.854.853a.5.5 0 1 0 .708.707L1.707 15H3.5a.5.5 0 0 0 .354-.146L11 7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-.647-.646 3.147-3.146a1.207 1.207 0 0 0 0-1.708l-2-2zM2 12.707l7-7L10.293 7l-7 7H2v-1.293z"/>
-								</svg>
-					   		</a>
-					   		<a class="delete-comment-icon btn" data-toggle="tooltip" data-placement="top" data-original-title="댓글 삭제">
-					   			<img src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/52726/cross-mark-emoji-clipart-md.png" width="10px" height="10px">
-					   		</a>
-					   	</c:if>
-					</td>
-			   	</tr>
-			   	</div>
-	  </c:forEach> 
-</table>
- 
-   <!-- 재료 -->
-	 <div class="ingredient">
+   <div class="ingredient">
 			   <div class="ingredient_list">
 			   		<div class="ingredient_left">
 			   			<hr>
@@ -196,6 +162,78 @@
 	   
   	 </div>
   	 
+  	 <div class="cookStepText">
+			   <div class="cookStepText_list">
+			   		<div class="cookStepText_left">
+			   			<hr>
+			   			<div id="ingredient_in">조리 순서</div>
+			   			
+			   			<div class="cookStepText_real ml-2">
+			   				${recipeView.post.cookStepText}
+			   			</div>
+			   	<!-- : ${recipeView.post.ingredient} -->	
+			   		</div>
+			   </div>
+	   
+  	 </div>
+  	 
+  	 <div class="cookTip">
+			   <div class="cookTip_list">
+			   		<div class="cookTip_left">
+			   			<hr>
+			   			<div id="ingredient_in">요리 팁</div>
+			   			
+			   			<div class="cookStepText_real ml-2">
+			   				${recipeView.post.cookTip}
+			   			</div>
+			   	<!-- : ${recipeView.post.ingredient} -->	
+			   		</div>
+			   </div>
+	   
+  	 </div>
+  	 
+   
+   					   			<div id="ingredient_in">댓글</div>
+		<table class="table comment-table text-center">
+		<tr>
+			<th>No.</th>
+			<th>작성자</th>
+			<th>내용</th>
+			<th>작성 일자</th>
+			<th></th>
+		</tr>
+   	 <c:forEach items="${recipeView.commentViewList}" var="commentView" varStatus="status">
+		   <div class="reply_list d-flex"> <!--  테이블 형식 도전 -->
+			   	<tr>
+			   		<td><div class="comment_id">${commentView.comment.id}</div></td>
+			   		<td class="col-3"><div class="comment_user">${commentView.user.nickName}</div></td>
+			   		<td class="col-6"><div class="comment_left">${commentView.comment.commentText}</div></td>
+			   		<td>
+				   		<div class="comment_right">
+				   			<span class="comment_date"><fmt:formatDate value="${commentView.comment.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				   		</span>
+				   		
+				   		</div>
+			   		</td>
+			   		<td class="d-flex">
+			   			<c:if test="${commentView.comment.userId eq serverUserId}">
+					   		<a class="update-comment-icon btn" data-target="#updateCommentBtn" data-comment-id="${commentView.comment.id}">
+					   			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eyedropper" viewBox="0 0 16 16">
+								  <path d="M13.354.646a1.207 1.207 0 0 0-1.708 0L8.5 3.793l-.646-.647a.5.5 0 1 0-.708.708L8.293 5l-7.147 7.146A.5.5 0 0 0 1 12.5v1.793l-.854.853a.5.5 0 1 0 .708.707L1.707 15H3.5a.5.5 0 0 0 .354-.146L11 7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-.647-.646 3.147-3.146a1.207 1.207 0 0 0 0-1.708l-2-2zM2 12.707l7-7L10.293 7l-7 7H2v-1.293z"/>
+								</svg>
+					   		</a>
+					   		<a class="delete-comment-icon btn" data-toggle="tooltip" data-placement="top" data-original-title="댓글 삭제">
+					   			<img src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/52726/cross-mark-emoji-clipart-md.png" width="10px" height="10px">
+					   		</a>
+					   	</c:if>
+					</td>
+			   	</tr>
+			   	</div>
+	  </c:forEach> 
+</table>
+ 
+
+  	 
   	 <!--  -->
   	 
   	 
@@ -208,7 +246,12 @@
 	         <button class="input-group-btn btn btn-secondaryf" type="button" id="commentBtn" style="height:100px; width:100px;">등록</button>
 	  		</div>
 	  </div>
+
+  
+     <!-- 재료 -->
+	  
   </div>
+ 
 </div>   
 
 <script>
@@ -345,13 +388,13 @@
 		
 		// 추천한 사람들 띄우기
 		$('.wholikesPostTab').on('click', function(){
-			$('#modal-like').removeClass('d-none');
+			$('div[name=follow]').removeClass('d-none');
 			
 		});
 		
 		//
 		$('#cancelLikerBtn').on('click', function(){
-			$('#modal-like').addClass('d-none');
+			$('div[name=follow]').addClass('d-none');
 		});
 		// 댓글
 		$('.input-group-btn').on('click', function(){/* 
@@ -374,10 +417,10 @@
 			
 			
 		}); 
-		<!-- 댓글 달기 -->
+		<!-- 댓글 지우기 -->
 		$('.delete-comment-icon').on('click', function() {
 			let commentText = $(this).parent().prev().text();
-			let commentId = $(this).parent().prev().prev().text(); // 됐다!!
+			let commentId = $('.update-comment-icon').data('comment-id'); // 됐다!!
 			alert(commentId);
 			 	$.ajax({
 				type:"DELETE"
@@ -395,26 +438,30 @@
 			$('div[name=comment]').removeClass('d-none');
 			let commentId_2 = $(this).data('comment-id');
 			alert(commentId_2);
-			$('div[name=comment]').data('comment-id', commentId_2);
+			$('#updateCommentBtn').data('comment-id', commentId_2);
 			let commentText = $(this).parent().prev().text();
-			let commentId = $(this).parent().prev().prev().text(); // 됐다!!
+			/* let commentId = $(this).parent().prev().prev().text(); // 됐다!!
+			 */
 			
-			$.ajax({
-				type:"PUT"
-				, url: "/comment/update-comment"
-				, data : {"postUserId": postUserId, "postId": postId, "userId": userId, "commentId": commentId, "commentText":commentText}
-				, success : function(data) {
-					alert("댓글 지우기 성공");
-					location.reload();
-					}
-			 	}); 
 		});
 		
 		$("#updateCommentBtn").on('click', function() {
 			let commentId = $(this).data('comment-id');
-			alert(commentId);
 			$("div[name=comment]").data("post-id", postId);
-		});
+			let commentText = $('.modify-comment-area').val();
+			alert(commentText);
+			$.ajax({
+				type:"PUT"
+				, url: "/comment/update-comment"
+				, data : {"postUserId": postUserId, "postId": postId, "commentId": commentId, "commentText":commentText}
+				, success : function(data) {
+					alert("댓글 수정 성공");
+					location.reload();
+					}
+			 	}); 
 		
+		});
+	
+	
 	});
 </script>

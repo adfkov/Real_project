@@ -73,12 +73,14 @@
 				<!--  밑. 제목과 작성자 -->
 					<div class="subject ml-2">${recipeView.post.subject}</div>
 				<div class="caption">
+						<a href="/cook/go-to-userView/${recipeView.user.id}">
 					<div class="postuser d-flex mt-2">
 						<div>
 							<img src="${recipeView.user.profileImageUrl}" width="25px" height="25px">
 						</div>
 						 <div>${recipeView.user.nickName}</div>
 					 </div>
+					 	</a>
 					<div class="view-count mt-2">조회수 ${recipeView.view}</div>
 					
 				</div>

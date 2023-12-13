@@ -15,8 +15,6 @@
 
 <div class="wrap d-flex w-100">
 
-
-
 <!--  새 모달 -->
 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">
   Launch demo modal
@@ -58,8 +56,8 @@
 		</a>
 		
 		<!--  -->
-				<c:if test="${serverUserId eq recipe.user.id}">
-						<div class=”btn-group”>
+				 <c:if test="${userId eq recipe.user.id}">
+				 		<div class="btn-group">
 							<div class="cdfdf" data-toggle="toggle">
 							<a type="button" class="handle-post-btn dropdown ml-3" data-toggle="dropdown">	
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
@@ -72,7 +70,7 @@
 								</ul>
 							</div>
 						</div>
-				</c:if>		
+				 </c:if> 		
 			</div>
 		<div class="caption_userpage">
 				<span>${recipe.post.subject}</span>
@@ -95,11 +93,24 @@
 	
 </div> <!-- brand_cont -->
 	
-<c:if test="${!empty userId}">
-	<div class="user-info-area">
-	팔로잉: <span id="follwers"></span>
-	</div>
-</c:if>
+<div class="myhome_main" style="margin-bottom:20px;">
+    <div class="myhome_main_t" style="background:url(https://m.outback.co.kr/upload/product/20230712/20230712192117981110.jpg) left top no-repeat; background-size:cover;"></div>
+    <div class="myhome_main_info">
+        <div class="info_pic">
+            <a href="javascript:void(0);" onclick="$('#vProfileImageModal').modal('show')"><img src="https://recipe1.ezmember.co.kr/cache/rpf/2021/12/20/d861aa30336766e1d23358b5d875baae1.jpg"></a>
+            <a href="javascript:void(0);" class="info_set" onclick="$('#vProfileImageModal').modal('show')"><img src="https://recipe1.ezmember.co.kr/img/mobile/icon_camera2.png" alt="사진변경"
+            data-toggle="tooltip" data-placement="right" data-original-title="프로필 사진 변경"></a>
+        </div>
+        <p class="info_name"><b>${user.nickName}</b>
+                <span class="glyphicon glyphicon-pencil"></span><a href="javascript:void(0);"></a>
+                </p>
+
+        <div class="info_follow2">
+                        <a href="javascript:void(0);">총조회<b>${rankingView.viewCount_sum}</b></a><span>·</span>
+            <a href="javascript:void(0);" onclick="viewFriendList('follower')">팔로워<b>${rankingView.followerCount}</b></a><span>·</span><a href="javascript:void(0);">팔로잉<b>1</b></a>
+        </div>
+    </div>
+</div>
 </div> <!--  container -->
 <script>
 

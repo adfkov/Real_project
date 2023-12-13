@@ -44,4 +44,15 @@
  		AND
  			`id` = #{commentId}
  	</delete>
+ 	
+ 	<update id="updateCommentByIdsAndCommentText" parameterType="map">
+ 		UPDATE
+ 			`comment`
+ 		SET
+ 			`commentText` = #{commentText}
+ 		,
+ 			`updatedAt` = NOW()
+ 		WHERE
+ 			`id` = #{commentId}
+ 	</update>
  </mapper>

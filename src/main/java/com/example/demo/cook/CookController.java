@@ -64,7 +64,17 @@ public class CookController {
 		} else {
 		
 		List<RecipeView> recipeViewList = recipeBO.generateRecipeViewList(userId);
-
+		UserEntity user = userBO.getUserEntityById(userId);
+		
+		List<RankingView> rankingViewList = rankingBO.getRankingView();
+		for(RankingView rankingView : rankingViewList) {
+			if(rankingView.getUserId() == userId) {
+				model.addAttribute("rankingView" ,rankingView);
+				break;
+			}
+		}
+		
+		model.addAttribute("user", user);
 		model.addAttribute("userId", userId);
 		model.addAttribute("recipeViewList", recipeViewList);
 		model.addAttribute("viewName", "user/userRecipeView");
@@ -128,6 +138,19 @@ public class CookController {
 	@GetMapping("/go-to-userView/{userId}")
 	public String goToUserView(@PathVariable int userId, Model model) {
 		List<RecipeView> recipeViewList = recipeBO.generateRecipeViewList(userId);
+		UserEntity user = userBO.getUserEntityById(userId);
+		
+		List<RankingView> rankingViewList = rankingBO.getRankingView();
+		for(RankingView rankingView : rankingViewList) {
+			if(rankingView.getUserId() == userId) {
+				model.addAttribute("rankingView" ,rankingView);
+				break;
+			}
+		}
+		
+		model.addAttribute("user", user);
+		model.addAttribute("userId", userId);
+		model.addAttribute("recipeViewList", recipeViewList);
 		
 		model.addAttribute("recipeViewList", recipeViewList);
 		model.addAttribute("viewName", "user/userRecipeView");

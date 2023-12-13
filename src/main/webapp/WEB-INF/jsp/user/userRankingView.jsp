@@ -5,7 +5,12 @@
 	<p class="rank-info">
 		<img src="https://image.dongascience.com/Photo/2023/04/16806753035307.jpg" class="w-100" height="100px">
 	</p>
-   
+   	
+   	<p class="align-buttons">
+   		<button type="view_align_button">조회순</button>
+   		<button type="postLike_align_button">추천순</button>
+   		<button type="follower_align_button">팔로워순</button>
+   	</p>
 	<table class="table text-center">
 		<tr>
 			<th>순위</th>

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -71,6 +72,20 @@ public class CommentRestController {
 //		result.put("recipeView", recipeView);
 //		return result;
 //	}
+	@PutMapping("/update-comment")
+	public Map<String, Object> updateComment(
+			@RequestParam("postUserId") int postUserId,
+			@RequestParam("postId") int postId,
+			@RequestParam("commentId") int commentId,
+			@RequestParam("commentText") String commentText) {
+		Map<String, Object> result = new HashMap<>();
+		
+		int updateResult = commentBO.updateCommentByIdsAndCommentText(postUserId, postId, commentId, commentText);
+		result.put("code", 200);
+		
+		return result;
+	}
+	
 	
 	@DeleteMapping("/delete-comment")
 	public Map<String, Object> deleteComment(

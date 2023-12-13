@@ -24,5 +24,10 @@ public class CommentBO {
 	public void deleteCommentByIdsAndCommentText(int postUserId, int postId, int userId, int commentId) {
 		commentMapper.deleteCommentByIdsAndCommentText(postUserId, postId, userId, commentId);
 	}
+	
+	//수정
+	public int updateCommentByIdsAndCommentText(int postUserId, int postId, int commentId, String commentText) {
+		return commentMapper.updateCommentByIdsAndCommentText(postUserId, postId, commentId, commentText);
+	}
 
 }

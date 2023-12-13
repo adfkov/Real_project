@@ -203,7 +203,7 @@ li {
 	list-style: none;
 }
 .wrap {
-	width: 1000px;
+	width: 1500px;
 	margin: 0 auto;
 }
 .postSubject {
@@ -251,6 +251,7 @@ li {
             position: absolute;
             left: 0;
             top: 0;
+            z-index: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -317,7 +318,7 @@ li {
 	display: inline-block;
 	border: 1px solid #e6e7e8;
 	width: 300px;
-	height: 300px;
+	height: 350px;
 	vertical-align: baseline;
 	line-height: 1;
 	
@@ -333,7 +334,7 @@ li {
 
 	display: inline-block;
 	border: 1px solid #e6e7e8;
-	width: 200px;
+	width: 300px;
 	height: 200px;
 	vertical-align: baseline;
 	line-height: 1;
@@ -421,7 +422,7 @@ li {
 }
 .caption {
 	position: absolute;
-	bottom: 8%;
+	bottom: 2%;
 
 /*	line-height: 110px;
 	margin-left: 10px;
@@ -430,6 +431,7 @@ li {
 	
 .pod-li {
 	position: relative;
+	height: 400px;
 }
 
 .view-count {
@@ -476,3 +478,92 @@ li {
 	border-spacing: 0;
     border-collapse: collapse; 
  }
+ /* my home*/
+ .myhome_main {
+	 width: 400px;
+ }
+ 
+ .myhome_main_info {
+    text-align: center;
+    margin-top: -70px;
+    padding-bottom: 5px;
+}
+.myhome_list {background:#fff; padding:25px 25px 0 40px;}
+.myhome_list a {display:inline-block; text-align:center; color:#000; font-size:16px; line-height:15px; padding-bottom:28px;}
+.myhome_list.three {text-align:center; padding:25px 40px 0;}
+.myhome_list.three a {width:24%;}
+.myhome_list.four a {width:24%;}
+.myhome_list.five a {width:19.5%;}
+.myhome_list.six a {width:16%;}
+.myhome_icon {background:url(//recipe1.ezmember.co.kr/img/icon_myhome.png?v.0911) no-repeat; background-size:80px auto; display:block; width:80px; height:83px; margin:0 auto 10px;}
+.myhome_icon.icon_view {background-position:left top;}
+.myhome_icon.icon_scrap {background-position:center -83px;}
+.myhome_icon.icon_write {background-position:center -166px;}
+.myhome_icon.icon_copyshot {background-position:center -249px;}
+.myhome_icon.icon_idea {background-position:center -332px;}
+.myhome_icon.icon_note {background-position:center -415px;}
+.myhome_icon.icon_menu {background-position:center -830px;}
+.myhome_icon.icon_talk {background-position:center -581px;}
+.myhome_icon.icon_diary {background-position:center -664px;}
+.myhome_icon.icon_alim {background-position:center -747px;}
+.myhome_icon.icon_recipe {background-position:center -498px;}
+.myhome_icon.icon_product {background-position:center -913px;}
+.myhome_icon.icon_event {background-position:center -996px;}
+.myhome_icon.icon_chef1 {background-position:center -1079px;}
+.myhome_icon.icon_chef2 {background-position:center -1162px;}
+.myhome_icon.icon_chef3 {background-position:center -1245px;}
+.myhome_icon.icon_qna {background-position:center -1328px;}
+.myhome_icon.icon_chef4 {background-position:center -1411px;}
+.myhome_icon.icon_chef5 {background-position:center -1494px;}
+.myhome_main_t {height:150px; margin:0 auto; padding-top:22px;  position:relative; border-bottom:1px solid #ddd;}
+.myhome_main_info {text-align:center; margin-top:-70px; padding-bottom:5px;}
+.myhome_main_info .info_pic, .myhome_main_t .info_pic {display:inline-block; vertical-align:top; position:relative; padding:4px; margin:0 auto; background:url(//recipe1.ezmember.co.kr/img/mobile/shop_bg_name.png) left top; border-radius:50%;}
+.myhome_main_info .info_pic img, .myhome_main_t .info_pic img {width:110px; height:110px; border-radius:50%;}
+.myhome_main_info .info_set, .myhome_main_t .info_set {position:absolute; right:-2px; top:-2px;}
+.myhome_main_info .info_set img, .myhome_main_t .info_set img {width:42px; height:42px;}
+.myhome_main_info .info_name {margin:0; color:#777; font-size:12px; line-height:1.5; margin-top:5px;}
+.myhome_main_info .info_name b {font-size:18px; display:block; color:#000;}
+.myhome_main_info span img {width:16px; margin:0 2px 0 0;}
+.myhome_main_info .btn-default {font-size:14px; background:none; border:1px solid #ddd; border-radius:20px; color:#999;  padding:7px 20px 8px; margin-top:15px;}
+.myhome_main_info .btn-default span {font-weight:normal; padding-right:4px; color: #aaa}
+.myhome_main_info .info_follow {border-top:1px solid #ddd; border-bottom:1px solid #ccc; float:left; width:100%; margin-top:20px; list-style:none; padding:0}
+.myhome_main_info .info_follow  li {font-size:14px; font-weight:bold; width:50%; float:left; text-align:left; padding:14px 20px;}
+.myhome_main_info .info_follow  li:first-child {border-right:1px solid #ddd;}
+.myhome_main_info .info_follow span {float:right; display:inline-block; font-family: Myriad Pro; font-size:18px; margin-top:-3px;}
+.myhome_main_info .info_follow2 {margin-top:10px; color:#333;}
+.myhome_main_info .info_follow2 b {margin-left:4px; font-family:'Poppins', 'Nanum Gothic';}
+.myhome_main_info .info_follow2 span {margin:0 3px; font-weight:bold; color:#999;}
+.myhome_main_info .myhome_intro {padding:10px 0 2px 4px; color:#ddd; line-height:1.5;}
+.myhome_main_info .myhome_intro a {color:#999; text-decoration:underline;}
+.myhome_main_info .myhome_intro img {width:14px; margin:0 4px 0 0;}
+
+.ingredient, .cookStepText, .cookTip {
+	margin-top: 10px;
+}
+#ingredient_in {
+	margin-top:20px;
+}
+
+/* 1인분 정보 등 */
+
+.view2_summary_info {height: 100px; padding:2px 15px 0; text-align:center; padding-bottom:40px;}
+.view2_summary_info span {display:inline-block; width:32%; padding-top:56px; color:#bcb7b7; font-size:16px;}
+.view2_summary_info1 {background:url(//recipe1.ezmember.co.kr/img/mobile/icon_man.png) center no-repeat; background-size:34px;}
+.view2_summary_info2 {background:url(//recipe1.ezmember.co.kr/img/mobile/icon_time2.png) center no-repeat; background-size:34px;}
+.view2_summary_info3 {background:url(//recipe1.ezmember.co.kr/img/mobile/icon_star.png) center no-repeat; background-size:34px;}
+
+.caption_userpage > span, .subject {
+	overflow: hidden;
+  text-overflow: ellipsis;
+ /* white-space: nowrap;*/
+  width: 298px;
+  height: 60px;
+  display: block;
+}
+
+.align-buttons > button {
+	float: right;
+	background-color: #74b243;
+	color: ghostwhite;
+	border: none;
+}

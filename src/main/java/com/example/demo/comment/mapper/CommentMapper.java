@@ -25,5 +25,10 @@ public interface CommentMapper {
 			@Param("postId") int postId, 
 			@Param("userId") int userId
 			,@Param("commentId") int commentId);
+	public int updateCommentByIdsAndCommentText(
+			@Param("postUserId") int postUserId, 
+			@Param("postId") int postId, 
+			@Param("commentId") int commentId
+			,@Param("commentText") String commentText);
 	
 }

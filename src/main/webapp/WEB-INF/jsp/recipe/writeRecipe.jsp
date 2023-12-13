@@ -22,7 +22,7 @@
 		<div class="cont-line">
 			<p class="cont_tit4">카테고리</p>
 			<select name="cok_sq_category_1" id="cok_sq_category_1" class="form-control category mt-3">
-				<option value="">종류별</option>
+				<option value="0">종류별</option>
 				<option value="63">밑반찬</option>
 				<option value="56">메인반찬</option>
 				<option value="54">국/탕</option>
@@ -42,7 +42,7 @@
 				<option value="62">기타</option>
 			</select>
 			<select name="cok_sq_category_2" id="cok_sq_category_2" class="form-control category mt-3 ml-2">
-				<option value="">재료별</option><option value="70">소고기</option>
+				<option value="0">재료별</option><option value="70">소고기</option>
 				<option value="71">돼지고기</option>
 				<option value="72">닭고기</option>
 				<option value="23">육류</option>
@@ -65,7 +65,8 @@
 			<p class="cont_tit4">요리정보</p>
 			<span class="s" style="margin-top:22px;">인원</span>
 			<select name="cok_portion" id="cok_portion"  class="form-control" style="width:100px; height: 40px; margin-top:15px; margin-left: 5px;">
-				<option value="">인원</option><option value="1">1인분</option>
+				<option value="0">인원</option>
+				<option value="1">1인분</option>
 				<option value="2">2인분</option>
 				<option value="3">3인분</option>
 				<option value="4">4인분</option>
@@ -75,7 +76,8 @@
 			
 			<span class="s" style="margin-top:22px; margin-left: 10px;">난이도</span>
 			<select name="cok_degree" id="cok_degree" class="form-control" style="width:100px; height: 40px; margin-top:15px; margin-left: 5px;">
-				<option value="">난이도</option><option value="1">아무나</option>
+				<option value="0">난이도</option>
+				<option value="1">아무나</option>
 				<option value="2">초급</option>
 				<option value="3">중급</option>
 				<option value="4">고급</option>
