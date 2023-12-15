@@ -62,7 +62,9 @@ public class UserController {
 	 //레시피 보관함
 	@RequestMapping("/go-scrap-page")
 	 public String goScrapPage(Model model) {
-		 model.addAttribute("viewName", "user/")
+		 model.addAttribute("viewName", "user/userBookmarkPage");
+		 
+		 return "template/easycook";
 	 }
 
 }

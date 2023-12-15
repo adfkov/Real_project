@@ -107,11 +107,11 @@
 
         <div class="info_follow2">
                         <a href="javascript:void(0);">총조회<b>${rankingView.viewCount_sum}</b></a><span>·</span>
-            <a href="javascript:void(0);" onclick="viewFriendList('follower')">팔로워<b>${rankingView.followerCount}</b></a><span>·</span><a href="javascript:void(0);">팔로잉<b>1</b></a>
+            <a href="javascript:void(0);" onclick="viewFriendList('follower')">팔로워<b>${rankingView.followerCount}</b></a><span></span><a href="javascript:void(0);"></a>
         </div>
-        
-        <button class="userViewFolloweBtn btn-info form-control w-50">팔로우</button>
-        
+        <c:if test="${userId ne user.id}">
+      	  <button class="userViewFolloweBtn btn-info form-control w-50">팔로우</button>
+        </c:if>
     </div>
 </div>
 </div> <!--  container -->

@@ -335,7 +335,7 @@ li {
 	display: inline-block;
 	border: 1px solid #e6e7e8;
 	width: 300px;
-	height: 200px;
+	height: 240px;
 	vertical-align: baseline;
 	line-height: 1;
 
@@ -570,4 +570,7 @@ li {
 
 .userViewFolloweBtn {
 	margin: 0 auto;
+}
+.caption_userpage {
+	height: 100px;
 }
