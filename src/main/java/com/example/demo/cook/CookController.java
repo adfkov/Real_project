@@ -146,7 +146,7 @@ public class CookController {
 			if(rankingView.getUserId() == userId) {
 				model.addAttribute("rankingView" ,rankingView);
 				break;
-			}
+			}	
 		}
 		
 		model.addAttribute("user", user);
