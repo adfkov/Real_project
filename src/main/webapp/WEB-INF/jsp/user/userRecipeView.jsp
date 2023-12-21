@@ -49,14 +49,11 @@
 	<div class="li-group d-flex">
 		<a href="/cook/go-to-post/${recipe.user.id}/${recipe.post.id}" class="postLink" id="postLink" data-user-id="${recipe.user.id}"
 		data-post-id="${recipe.post.id}">
-	
-		
 			<img src="${recipe.post.mainImageUrl}" width=200px height=130px>
-		
 		</a>
 		
 		<!--  -->
-				 <c:if test="${userId eq recipe.user.id}">
+				 <c:if test="${serverId eq recipe.user.id}">
 				 		<div class="btn-group">
 							<div class="cdfdf" data-toggle="toggle">
 							<a type="button" class="handle-post-btn dropdown ml-3" data-toggle="dropdown">	
@@ -107,9 +104,9 @@
 
         <div class="info_follow2">
                         <a href="javascript:void(0);">총조회<b>${rankingView.viewCount_sum}</b></a><span>·</span>
-            <a href="javascript:void(0);" onclick="viewFriendList('follower')">팔로워<b>${rankingView.followerCount}</b></a><span></span><a href="javascript:void(0);"></a>
+            <a href="javascript:void(0);">팔로워<b>${rankingView.followerCount}</b></a><span></span><a href="javascript:void(0);"></a>
         </div>
-        <c:if test="${userId ne user.id}">
+        <c:if test="${serverId ne user.id}">
       	  <button class="userViewFolloweBtn btn-info form-control w-50">팔로우</button>
         </c:if>
     </div>
@@ -119,7 +116,8 @@
 
 
 	$(document).ready(function() {
-			
+				
+		
 		
 				$('.deleteTab').on('click', function(e){
 					/*e.preventDefault();*/
